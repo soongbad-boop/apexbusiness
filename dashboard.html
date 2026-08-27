@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Apex Business Consultancy CMS &amp; Dashboard." />
+    <meta name="robots" content="noindex,nofollow,noarchive" />
+    <title>Apex Business Consultancy | CMS &amp; Dashboard</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="dashboard-cms.css" />
+    <style>
+      :root {
+        --navy: #07152f;
+        --white: #ffffff;
+        --mist: #eaf9fb;
+        --line: rgba(121,168,180,0.25);
+        --muted: #667b82;
+        --green: #58c748;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: Manrope, sans-serif;
+        background: linear-gradient(135deg, #f3fcfd 0%, #e8f9fb 100%);
+        color: var(--navy);
+      }
+      a { color: inherit; }
+      .dashboard-shell {
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: 260px 1fr;
+      }
+      .dashboard-sidebar {
+        background: var(--navy);
+        color: var(--white);
+        padding: 28px 18px;
+        max-height: 100vh;
+        overflow-y: auto;
+        position: sticky;
+        top: 0;
+      }
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--white);
+        text-decoration: none;
+        font-weight: 800;
+        letter-spacing: -0.8px;
+        padding-left: 6px;
+      }
+      .brand-mark {
+        display: inline-grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        width: 20px;
+        height: 20px;
+        transform: rotate(12deg);
+      }
+      .brand-mark i { display: block; border-radius: 8px 2px 8px 2px; }
+      .brand-mark i:nth-child(1){grid-area:1/2;background:#45c5dc}
+      .brand-mark i:nth-child(2){grid-area:2/3;background:#527ce0}
+      .brand-mark i:nth-child(3){grid-area:3/2;background:#67c746}
+      .brand-mark i:nth-child(4){grid-area:2/1;background:#f1d15d}
+      .brand-mark i:nth-child(5){grid-area:2/2;background:#fc9c54;transform:scale(.7)}
+      .dashboard-sidebar nav {
+        display: grid;
+        gap: 3px;
+        margin-top: 22px;
+      }
+      .dashboard-sidebar a {
+        color: #dfeaf1;
+        text-decoration: none;
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 700;
+        transition: all .15s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .dashboard-sidebar a.active,
+      .dashboard-sidebar a:hover {
+        background: rgba(255,255,255,0.09);
+        color: var(--white);
+      }
+      .dashboard-sidebar a.active {
+        background: var(--green);
+        color: #fff;
+      }
+      .cms-nav-heading {
+        display: block;
+        margin: 14px 10px 4px;
+        color: #85a093;
+        font-size: 9.5px;
+        font-weight: 800;
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+      }
+      .dashboard-body {
+        padding: 36px 32px;
+        min-width: 0;
+      }
+      .eyebrow {
+        margin: 0 0 8px;
+        color: #397d89;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 1.6px;
+        text-transform: uppercase;
+      }
+      @media (max-width: 860px) {
+        .dashboard-shell { grid-template-columns: 1fr; }
+        .dashboard-sidebar { position: static; max-height: none; padding-bottom: 16px; }
+        .dashboard-sidebar nav { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .dashboard-body { padding: 20px 16px 28px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="dashboard-shell">
+      <aside class="dashboard-sidebar">
+        <a class="brand" href="index.html" aria-label="Apex home">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+          <span>apex</span>
+        </a>
+        <nav aria-label="Dashboard navigation">
+          <span class="cms-nav-heading">MAIN</span>
+          <a class="active" href="#overview">📊 Overview</a>
+
+          <span class="cms-nav-heading">CONTENT &amp; CMS</span>
+          <a href="#posts">📝 Posts / Articles</a>
+          <a href="#categories">📂 Categories</a>
+          <a href="#pages">📄 Pages</a>
+          <a href="#media">🖼 Media Library</a>
+
+          <span class="cms-nav-heading">LAYOUT &amp; APPEARANCE</span>
+          <a href="#header">🔝 Header Management</a>
+          <a href="#footer">🔚 Footer Management</a>
+          <a href="#branding">🎨 Website Branding</a>
+          <a href="#navigation">🧭 Navigation / Menu</a>
+
+          <span class="cms-nav-heading">ADMINISTRATION</span>
+          <a href="#users">👥 Users</a>
+          <a href="#roles">🛡 Roles &amp; Permissions</a>
+          <a href="#profile">👤 Profile</a>
+          <a href="#activity">📋 Activity Logs</a>
+
+          <span class="cms-nav-heading">SETTINGS &amp; SEO</span>
+          <a href="#seo">🔍 SEO Settings</a>
+          <a href="#social">📱 Social Media Settings</a>
+          <a href="#contact">📞 Contact Settings</a>
+          <a href="#advanced">⚙️ Advanced Settings</a>
+          <a href="#system">💻 System Settings</a>
+
+          <span class="cms-nav-heading">SITE</span>
+          <a href="index.html" target="_blank">🌐 Back to Website ↗</a>
+        </nav>
+      </aside>
+      <main class="dashboard-body">
+        <div id="dashboard-app"></div>
+      </main>
+    </div>
+
+    <script src="dashboard-cms.js"></script>
+  </body>
+</html>

@@ -1,0 +1,67 @@
+# ==========================================
+# APEX BUSINESS CONSULTANCY — APACHE CONFIG
+# ==========================================
+
+# 1. Disable Directory Listings
+Options -Indexes
+
+# 2. Directory Index Priority
+DirectoryIndex index.html index.php
+
+# 3. URL Rewrites & Clean Routing
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Forward API requests to PHP handler
+  RewriteRule ^api/(.*)$ public/api/$1 [L,QSA]
+
+  # Forward Blog and Page routes to SSR PHP templates
+  RewriteRule ^blog/([a-z0-9-]+)/?$ public/blog.php?slug=$1 [L,QSA]
+  RewriteRule ^page/([a-z0-9-]+)/?$ public/page.php?slug=$1 [L,QSA]
+
+  # Forward dedicated SPA views to client-side hash routes
+  RewriteRule ^(conversation|visa-assistance|automation|advisory-session|advisors)/?$ index.html#/$1 [NE,R=302,L]
+</IfModule>
+
+# 4. Security & Access Restrictions for Sensitive Files & Folders
+<FilesMatch "^(\.env.*|\.git.*|\.cpanel\.yml|.*\.sql|.*\.log|.*\.md)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+# 5. Protect Core Source Directories
+<IfModule mod_rewrite.c>
+  RewriteRule ^(app|config|database|storage/logs)/ - [F,L,NC]
+</IfModule>
+
+# 6. Security Headers
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+</IfModule>
+
+# 7. MIME Types & Caching
+<IfModule mod_mime.c>
+  AddType image/svg+xml .svg .svgz
+  AddType font/woff2 .woff2
+  AddType font/woff .woff
+  AddType image/webp .webp
+  AddType application/json .json
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/svg+xml "access plus 1 month"
+  ExpiresByType image/webp "access plus 1 month"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType text/css "access plus 1 week"
+  ExpiresByType application/javascript "access plus 1 week"
+</IfModule>

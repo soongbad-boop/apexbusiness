@@ -1,0 +1,18 @@
+---
+deployment:
+  tasks:
+    # 1. Set the deployment destination path (Change 'username' or directory to match your cPanel path)
+    - export DEPLOYPATH=/home/username/public_html
+    # For a subfolder/addon domain, e.g.: export DEPLOYPATH=/home/username/public_html/apexco
+
+    # 2. Copy all files and directories into the target public path
+    - /bin/cp -R * $DEPLOYPATH
+
+    # 3. Secure file and directory permissions
+    - /bin/chmod 755 $DEPLOYPATH
+    - /bin/chmod 644 $DEPLOYPATH/.htaccess
+    - /bin/chmod -R 755 $DEPLOYPATH/storage
+    - /bin/chmod -R 755 $DEPLOYPATH/public
+
+    # 4. Optional: Run automatic database migrations / deployment runner if configured
+    # - /usr/local/bin/php $DEPLOYPATH/deploy.php

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 require dirname(__DIR__, 2) . '/app/bootstrap.php';
 $pdo = db($config);
+$user = require_permission($pdo, 'logs.view');
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $search = trim((string) ($_GET['search'] ?? ''));
@@ -75,6 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    require_csrf();
     $payload = request_json();
     $action = trim((string) ($payload['action'] ?? ''));
     if ($action === '') {
@@ -85,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $entityId = isset($payload['entity_id']) ? (int) $payload['entity_id'] : null;
     $status = in_array($payload['status'] ?? '', ['success', 'failure', 'warning'], true) ? $payload['status'] : 'success';
     $metadata = $payload['metadata'] ?? [];
-    $userId = isset($payload['user_id']) ? (int) $payload['user_id'] : 1;
+    $userId = (int) $user['id'];
     $ip = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
 
     $stmt = $pdo->prepare('INSERT INTO activity_logs (user_id, action, entity_type, entity_id, status, metadata, ip_address, created_at) VALUES (?, ?, ?, ?, ?, ?, INET6_ATON(?), NOW())');

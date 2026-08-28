@@ -13,6 +13,9 @@ DirectoryIndex index.html index.php
   RewriteEngine On
   RewriteBase /
 
+  # Keep the legacy dashboard URL behind the PHP session guard.
+  RewriteRule ^dashboard\.html$ dashboard.php [END]
+
   # Forward API requests to PHP handler
   RewriteRule ^api/(.*)$ public/api/$1 [L,QSA]
 

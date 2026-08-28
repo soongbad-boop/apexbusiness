@@ -29,8 +29,8 @@ if (!in_array($_SERVER['REQUEST_METHOD'], ['POST', 'PATCH', 'DELETE'], true)) {
     json_response(['error' => 'Method not allowed.'], 405);
 }
 
-// User context (session user or default admin)
-$user = current_user() ?? ['id' => 1, 'role_id' => 1, 'display_name' => 'Admin'];
+require_csrf();
+$user = require_permission($pdo, 'posts.manage');
 
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     $id = filter_var($_GET['id'] ?? null, FILTER_VALIDATE_INT);

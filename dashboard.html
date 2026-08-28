@@ -71,6 +71,20 @@
         gap: 3px;
         margin-top: 22px;
       }
+      .logout-button {
+        width: 100%;
+        margin-top: 18px;
+        padding: 9px 12px;
+        border: 1px solid rgba(255,255,255,0.2);
+        border-radius: 6px;
+        background: transparent;
+        color: #dfeaf1;
+        cursor: pointer;
+        font: 700 12px Manrope, sans-serif;
+        text-align: left;
+      }
+      .logout-button:hover { background: rgba(255,255,255,0.09); color: var(--white); }
+      .logout-button:disabled { cursor: wait; opacity: .65; }
       .dashboard-sidebar a {
         color: #dfeaf1;
         text-decoration: none;
@@ -160,6 +174,7 @@
           <span class="cms-nav-heading">SITE</span>
           <a href="index.html" target="_blank">🌐 Back to Website ↗</a>
         </nav>
+        <button class="logout-button" id="logout-button" type="button">Sign out</button>
       </aside>
       <main class="dashboard-body">
         <div id="dashboard-app"></div>
@@ -167,5 +182,25 @@
     </div>
 
     <script src="dashboard-cms.js"></script>
+    <script>
+      document.getElementById('logout-button').addEventListener('click', async event => {
+        const button = event.currentTarget;
+        button.disabled = true;
+        try {
+          const csrfResponse = await fetch('public/api/auth/csrf.php', { credentials: 'same-origin' });
+          const csrf = await csrfResponse.json();
+          const response = await fetch('public/api/auth/logout.php', {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: { 'X-CSRF-Token': csrf.csrf_token }
+          });
+          if (!response.ok) throw new Error('Unable to sign out.');
+          location.assign('login.php');
+        } catch (error) {
+          button.disabled = false;
+          alert(error.message || 'Unable to sign out. Please try again.');
+        }
+      });
+    </script>
   </body>
 </html>

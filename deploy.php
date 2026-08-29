@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 declare(strict_types=1);
 
 /**
@@ -16,11 +16,19 @@ $isCli = (php_sapi_name() === 'cli');
 // Basic token authentication if triggered via HTTP
 if (!$isCli) {
     $secret = $_GET['secret'] ?? '';
-    $expectedSecret = getenv('DEPLOY_SECRET') ?: 'ApexDeploy2026!';
-    if ($secret !== $expectedSecret) {
+    // SECURITY: DEPLOY_SECRET MUST be set as a real environment variable.
+    // If it is not set, refuse all HTTP access — there is no safe fallback.
+    $expectedSecret = getenv('DEPLOY_SECRET');
+    if ($expectedSecret === false || $expectedSecret === '') {
+        http_response_code(500);
+        header('Content-Type: application/json');
+        echo json_encode(['status' => 'error', 'message' => 'Deploy webhook is not configured. Set the DEPLOY_SECRET environment variable.']);
+        exit;
+    }
+    if (!hash_equals($expectedSecret, $secret)) {
         http_response_code(403);
         header('Content-Type: application/json');
-        echo json_encode(['status' => 'error', 'message' => 'Unauthorized: Invalid deploy secret token.']);
+        echo json_encode(['status' => 'error', 'message' => 'Unauthorized.']);
         exit;
     }
     header('Content-Type: text/plain; charset=utf-8');
@@ -49,12 +57,13 @@ $logsDir = $storageDir . '/logs';
 
 foreach ([$storageDir, $mediaDir, $logsDir] as $dir) {
     if (!is_dir($dir)) {
-        mkdir($dir, 0755, true);
+        mkdir($dir, 0750, true);
         echo "  ✓ Created directory: " . basename($dir) . "\n";
     } else {
         echo "  ✓ Directory exists: " . basename($dir) . "\n";
     }
-    @chmod($dir, 0755);
+    // 0750: owner rwx, group r-x, others --- (not world-readable)
+    @chmod($dir, 0750);
 }
 
 // 3. Database Connection & Schema Migration

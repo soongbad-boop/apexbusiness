@@ -1,7 +1,7 @@
 ---
 deployment:
   tasks:
-    # 1. Set the deployment destination path (Change 'username' or directory to match your cPanel path)
+    # 1. Set the deployment destination path (Change 'username' to your cPanel username)
     - export DEPLOYPATH=/home/username/public_html
     # For a subfolder/addon domain, e.g.: export DEPLOYPATH=/home/username/public_html/apexco
 
@@ -9,10 +9,21 @@ deployment:
     - /bin/cp -R * $DEPLOYPATH
 
     # 3. Secure file and directory permissions
-    - /bin/chmod 755 $DEPLOYPATH
+    #    Directories: 755 (owner rwx, group r-x, others r-x)
+    #    PHP/HTML/CSS/JS files: 644 (owner rw, group r, others r)
+    #    Storage directories: 750 (owner rwx, group r-x, others none)
+    - find $DEPLOYPATH -type d -exec /bin/chmod 755 {} \;
+    - find $DEPLOYPATH -type f -exec /bin/chmod 644 {} \;
     - /bin/chmod 644 $DEPLOYPATH/.htaccess
-    - /bin/chmod -R 755 $DEPLOYPATH/storage
-    - /bin/chmod -R 755 $DEPLOYPATH/public
+    - /bin/chmod -R 750 $DEPLOYPATH/storage
+    - /bin/chmod -R 750 $DEPLOYPATH/app
+    - /bin/chmod -R 750 $DEPLOYPATH/config
 
-    # 4. Optional: Run automatic database migrations / deployment runner if configured
+    # 4. SECURITY: Remove seeding and admin-creation scripts from production after first deployment.
+    #    These scripts MUST NOT remain accessible on production.
+    #    Uncomment after first successful deployment:
+    # - /bin/rm -f $DEPLOYPATH/database/seed.php
+    # - /bin/rm -f $DEPLOYPATH/database/create-admin.php
+
+    # 5. Optional: Run automatic database migrations via CLI only
     # - /usr/local/bin/php $DEPLOYPATH/deploy.php

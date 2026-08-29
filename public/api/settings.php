@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 require dirname(__DIR__, 2) . '/app/bootstrap.php';
 $pdo = db($config);
+// All settings operations (read and write) require authentication.
+$user = require_permission($pdo, 'settings.manage');
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $rows = $pdo->query('SELECT setting_key, setting_value, value_type FROM settings ORDER BY setting_key')->fetchAll();

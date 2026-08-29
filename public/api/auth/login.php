@@ -7,8 +7,29 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     json_response(['error' => 'Method not allowed.'], 405);
 }
 require_csrf();
-$payload = request_json();
-$email = filter_var($payload['email'] ?? '', FILTER_VALIDATE_EMAIL);
+
+// --- Rate Limiting: max 5 login attempts per IP per 15-minute window ---
+$ipKey = 'login_attempts_' . preg_replace('/[^a-zA-Z0-9:]/', '_', (string) ($_SERVER['REMOTE_ADDR'] ?? 'unknown'));
+$windowSeconds = 900; // 15 minutes
+$maxAttempts   = 5;
+$now = time();
+// Purge expired entry
+if (isset($_SESSION[$ipKey]['expires']) && $now > $_SESSION[$ipKey]['expires']) {
+    unset($_SESSION[$ipKey]);
+}
+if (!isset($_SESSION[$ipKey])) {
+    $_SESSION[$ipKey] = ['count' => 0, 'expires' => $now + $windowSeconds];
+}
+if ($_SESSION[$ipKey]['count'] >= $maxAttempts) {
+    $retryAfter = max(1, $_SESSION[$ipKey]['expires'] - $now);
+    header('Retry-After: ' . $retryAfter);
+    json_response(['error' => 'Too many login attempts. Please wait 15 minutes before trying again.'], 429);
+}
+$_SESSION[$ipKey]['count']++;
+// --- End Rate Limiting ---
+
+$payload  = request_json();
+$email    = filter_var($payload['email'] ?? '', FILTER_VALIDATE_EMAIL);
 $password = is_string($payload['password'] ?? null) ? $payload['password'] : '';
 
 if (!$email || strlen($password) < 8) {
@@ -27,6 +48,8 @@ if (!$user || $user['status'] !== 'active' || !password_verify($password, $user[
 }
 
 session_regenerate_id(true);
+// Clear the rate-limit counter on successful authentication
+unset($_SESSION[$ipKey]);
 $_SESSION['user'] = ['id' => (int) $user['id'], 'role_id' => (int) $user['role_id'], 'email' => $user['email'], 'display_name' => $user['display_name']];
 $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 $update = db($config)->prepare('UPDATE users SET last_login_at = NOW() WHERE id = ?');

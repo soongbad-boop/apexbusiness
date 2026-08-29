@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 declare(strict_types=1);
 
 $config = require dirname(__DIR__) . '/config/config.php';
@@ -48,15 +48,28 @@ try {
     ");
 
     // 2. Initial Admin User
+    // SECURITY: No hardcoded password. A cryptographically random password is generated
+    // at seed-time and printed ONCE. Copy it immediately — it is never stored in plaintext.
     $adminEmail = 'admin@apexbusinessksa.com';
     $checkUser = $pdo->prepare("SELECT id FROM users WHERE email = ?");
     $checkUser->execute([$adminEmail]);
     $userId = $checkUser->fetchColumn();
     if (!$userId) {
+        $randomPassword = bin2hex(random_bytes(10)); // 20 hex chars, ~160-bit entropy
         $userStmt = $pdo->prepare("INSERT INTO users (role_id, email, password_hash, display_name, status) VALUES (1, ?, ?, ?, 'active')");
-        $userStmt->execute([$adminEmail, password_hash('Admin@Apex2026', PASSWORD_DEFAULT), 'Apex Administrator']);
+        $userStmt->execute([$adminEmail, password_hash($randomPassword, PASSWORD_BCRYPT, ['cost' => 12]), 'Apex Administrator']);
         $userId = (int) $pdo->lastInsertId();
-        echo "Created initial admin user: {$adminEmail}\n";
+        echo "\n================================================================\n";
+        echo "  INITIAL ADMIN ACCOUNT CREATED — COPY CREDENTIALS IMMEDIATELY  \n";
+        echo "================================================================\n";
+        echo "  Email   : {$adminEmail}\n";
+        echo "  Password: {$randomPassword}\n";
+        echo "================================================================\n";
+        echo "  This password is shown ONCE and is NOT stored anywhere.        \n";
+        echo "  Change it immediately after first login via the CMS.           \n";
+        echo "================================================================\n\n";
+    } else {
+        echo "Admin user already exists, skipping creation: {$adminEmail}\n";
     }
 
     // 3. Categories

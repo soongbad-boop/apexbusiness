@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 declare(strict_types=1);
 
 /**
@@ -8,7 +8,7 @@ declare(strict_types=1);
  *   php deploy.php
  *
  * Usage via Webhook / Browser (Requires secret token in query string):
- *   https://apexbusiness.sa/deploy.php?secret=YOUR_DEPLOY_SECRET
+ *   https://apexbusinessksa.com/deploy.php?secret=YOUR_DEPLOY_SECRET
  */
 
 $isCli = (php_sapi_name() === 'cli');

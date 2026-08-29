@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 declare(strict_types=1);
 
 $config = require dirname(__DIR__) . '/config/config.php';
@@ -48,7 +48,7 @@ try {
     ");
 
     // 2. Initial Admin User
-    $adminEmail = 'admin@apexbusiness.sa';
+    $adminEmail = 'admin@apexbusinessksa.com';
     $checkUser = $pdo->prepare("SELECT id FROM users WHERE email = ?");
     $checkUser->execute([$adminEmail]);
     $userId = $checkUser->fetchColumn();
@@ -92,7 +92,7 @@ try {
             'seo_title' => 'Guide to Entering the Saudi Market | Apex Business Consultancy',
             'seo_description' => 'Practical guide to establishing your business in Saudi Arabia with MISA licensing, legal structures, and local operating context.',
             'focus_keyword' => 'Saudi market entry',
-            'canonical_url' => 'https://apexbusiness.sa/insights/a-practical-guide-to-entering-the-saudi-market',
+            'canonical_url' => 'https://apexbusinessksa.com/insights/a-practical-guide-to-entering-the-saudi-market',
             'og_title' => 'A Practical Guide to Entering the Saudi Market',
             'og_description' => 'Key insights for founders and investors expanding into Saudi Arabia.',
             'category_slug' => 'market-entry'
@@ -114,7 +114,7 @@ try {
             'seo_title' => 'Operating Discipline for Durable Growth | Apex Business Consultancy',
             'seo_description' => 'How executive leadership teams implement operational discipline for sustainable business growth.',
             'focus_keyword' => 'operating discipline',
-            'canonical_url' => 'https://apexbusiness.sa/insights/the-operating-discipline-behind-durable-growth',
+            'canonical_url' => 'https://apexbusinessksa.com/insights/the-operating-discipline-behind-durable-growth',
             'og_title' => 'The Operating Discipline Behind Durable Growth',
             'og_description' => 'Building long-term operational resilience in fast-growing economies.',
             'category_slug' => 'advisory'
@@ -136,7 +136,7 @@ try {
             'seo_title' => 'Unified GCC Grand Tours Visa Guide 2026 | Apex Business Consultancy',
             'seo_description' => 'Learn how the GCC Grand Tours Unified Visa enables seamless travel across Saudi Arabia, UAE, Bahrain, Qatar, Oman, and Kuwait.',
             'focus_keyword' => 'GCC Grand Tours Visa',
-            'canonical_url' => 'https://apexbusiness.sa/insights/gcc-grand-tours-visa-unified-gulf-mobility-guide',
+            'canonical_url' => 'https://apexbusinessksa.com/insights/gcc-grand-tours-visa-unified-gulf-mobility-guide',
             'og_title' => 'GCC Grand Tours Visa: How the Unified Gulf Visa Reshapes Regional Business',
             'og_description' => 'Comprehensive guide to the unified GCC visa across Saudi Arabia, UAE, Bahrain, Qatar, Oman, and Kuwait.',
             'category_slug' => 'market-entry'
@@ -158,7 +158,7 @@ try {
             'seo_title' => 'GCC Unified Visa for Residents Requirements | Apex Advisory',
             'seo_description' => 'Complete eligibility, required documents, and step-by-step application checklist for GCC expatriate residents.',
             'focus_keyword' => 'GCC visa for residents',
-            'canonical_url' => 'https://apexbusiness.sa/insights/gcc-unified-visa-for-residents-requirements-guide',
+            'canonical_url' => 'https://apexbusinessksa.com/insights/gcc-unified-visa-for-residents-requirements-guide',
             'og_title' => 'GCC Unified Visa for Residents: Step-by-Step Requirements & Checklist',
             'og_description' => 'Complete compliance and document requirements for GCC expatriate residents.',
             'category_slug' => 'tax-compliance'
@@ -180,7 +180,7 @@ try {
             'seo_title' => 'One-Stop Border Entry & Aviation Integration in GCC | Apex Advisory',
             'seo_description' => 'Discover how the UAE-Bahrain one-stop border pilot and GCC Aviation Authority streamline regional corporate travel.',
             'focus_keyword' => 'one stop border entry gcc',
-            'canonical_url' => 'https://apexbusiness.sa/insights/one-stop-border-entry-and-aviation-integration-gcc',
+            'canonical_url' => 'https://apexbusinessksa.com/insights/one-stop-border-entry-and-aviation-integration-gcc',
             'og_title' => 'One-Stop Border Entry & Aviation Integration Across the GCC',
             'og_description' => 'Strategic operational advantages of unified border clearance and regional aviation integration.',
             'category_slug' => 'advisory'
@@ -202,7 +202,7 @@ try {
             'seo_title' => 'GCC Hospitality & Cross-Border Investment Surge | Apex Advisory',
             'seo_description' => 'Explore how unified regional visas drive hospitality, private equity, and real estate investments across Saudi Arabia, Oman, and the UAE.',
             'focus_keyword' => 'GCC hospitality investment',
-            'canonical_url' => 'https://apexbusiness.sa/insights/gcc-tourism-and-hospitality-investment-surge-2026',
+            'canonical_url' => 'https://apexbusinessksa.com/insights/gcc-tourism-and-hospitality-investment-surge-2026',
             'og_title' => 'Hospitality & Cross-Border Investment Surge Across Saudi Arabia, Oman, and the UAE',
             'og_description' => 'Macroeconomic and real estate implications of GCC unified travel policies.',
             'category_slug' => 'advisory'
@@ -279,7 +279,7 @@ try {
             'status' => 'published',
             'seo_title' => 'Start a Conversation | Apex Business Consultancy',
             'seo_description' => 'Initiate an exploratory consultation with Apex Business Consultancy in Riyadh. Discuss your market entry, licensing, operational growth, or AI automation goals.',
-            'canonical_url' => 'https://apexbusiness.sa/conversation'
+            'canonical_url' => 'https://apexbusinessksa.com/conversation'
         ],
         [
             'title' => 'Visa Assistance Services',
@@ -288,7 +288,7 @@ try {
             'status' => 'published',
             'seo_title' => 'Visa Assistance Services | Business, Work & Travel | Apex Business Consultancy',
             'seo_description' => 'Dedicated visa and immigration assistance for investors, professionals, executives, and families moving to Saudi Arabia, GCC, and key international destinations.',
-            'canonical_url' => 'https://apexbusiness.sa/visa-assistance'
+            'canonical_url' => 'https://apexbusinessksa.com/visa-assistance'
         ],
         [
             'title' => 'AI Workflow Automation',
@@ -297,7 +297,7 @@ try {
             'status' => 'published',
             'seo_title' => 'AI Workflow Automation | Enterprise Solutions | Apex Business Consultancy',
             'seo_description' => 'Transform repetitive business tasks into automated workflows. AI-driven customer communications, CRM integrations, and operational pipelines tailored for GCC businesses.',
-            'canonical_url' => 'https://apexbusiness.sa/automation'
+            'canonical_url' => 'https://apexbusinessksa.com/automation'
         ],
         [
             'title' => 'Schedule an Advisory Session',
@@ -306,7 +306,7 @@ try {
             'status' => 'published',
             'seo_title' => 'Schedule an Advisory Session | Executive Guidance | Apex Business Consultancy',
             'seo_description' => 'Book a dedicated one-on-one strategic advisory session with our senior consultants in Riyadh. Get immediate clarity on market entry, corporate structuring, and regulatory milestones.',
-            'canonical_url' => 'https://apexbusiness.sa/advisory-session'
+            'canonical_url' => 'https://apexbusinessksa.com/advisory-session'
         ],
         [
             'title' => 'Meet Our Advisors',
@@ -315,7 +315,7 @@ try {
             'status' => 'published',
             'seo_title' => 'Meet Our Advisors | Senior Leadership & Consultants | Apex Business Consultancy',
             'seo_description' => 'Meet the senior business consultants, regulatory specialists, and operations advisors at Apex Business Consultancy in King Abdullah Financial District, Riyadh.',
-            'canonical_url' => 'https://apexbusiness.sa/advisors'
+            'canonical_url' => 'https://apexbusinessksa.com/advisors'
         ],
         [
             'title' => 'About Apex Business Consultancy',
@@ -324,7 +324,7 @@ try {
             'status' => 'published',
             'seo_title' => 'About Apex Business Consultancy | Local Context & Strategic Execution in Riyadh',
             'seo_description' => 'Learn how Apex Business Consultancy supports founders, corporate investors, and leadership teams navigating market entry and operational growth in Saudi Arabia.',
-            'canonical_url' => 'https://apexbusiness.sa/about'
+            'canonical_url' => 'https://apexbusinessksa.com/about'
         ],
         [
             'title' => 'Services',
@@ -333,7 +333,7 @@ try {
             'status' => 'published',
             'seo_title' => 'Services | Market Entry, PRO, Visas, Tax & AI Automation | Apex Business Consultancy',
             'seo_description' => 'Explore Apex Business Consultancy services: MISA licensing, investment advisory, PRO/GRO support, visa assistance, tax return guidance, audit review, trading education, and AI workflow automation.',
-            'canonical_url' => 'https://apexbusiness.sa/services'
+            'canonical_url' => 'https://apexbusinessksa.com/services'
         ],
         [
             'title' => 'Contact Apex Business Consultancy',
@@ -342,7 +342,7 @@ try {
             'status' => 'published',
             'seo_title' => 'Contact Apex Business Consultancy | Riyadh, Saudi Arabia',
             'seo_description' => 'Get in touch with Apex Business Consultancy in King Abdullah Financial District, Riyadh. Start a conversation regarding market entry, licensing, tax, or AI automation.',
-            'canonical_url' => 'https://apexbusiness.sa/contact'
+            'canonical_url' => 'https://apexbusinessksa.com/contact'
         ]
     ];
 
@@ -379,7 +379,7 @@ try {
         ['setting_key' => 'favicon', 'setting_value' => 'favicon.svg', 'value_type' => 'string'],
         ['setting_key' => 'primary_color', 'setting_value' => '#07152f', 'value_type' => 'string'],
         ['setting_key' => 'accent_color', 'setting_value' => '#58c748', 'value_type' => 'string'],
-        ['setting_key' => 'support_email', 'setting_value' => 'hello@apexbusiness.sa', 'value_type' => 'string'],
+        ['setting_key' => 'support_email', 'setting_value' => 'hello@apexbusinessksa.com', 'value_type' => 'string'],
         ['setting_key' => 'support_phone', 'setting_value' => '+966 11 555 0142', 'value_type' => 'string'],
         ['setting_key' => 'footer_copy', 'setting_value' => 'Clarity for ambitious businesses entering and growing in Saudi Arabia.', 'value_type' => 'string']
     ];

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 declare(strict_types=1);
 
 if (!function_exists('env_value')) {
@@ -64,7 +64,7 @@ return [
         'username' => env_value('MAIL_USERNAME', ''),
         'password' => env_value('MAIL_PASSWORD', ''),
         'encryption' => env_value('MAIL_ENCRYPTION', 'tls'),
-        'from_address' => env_value('MAIL_FROM_ADDRESS', 'hello@apexbusiness.sa'),
+        'from_address' => env_value('MAIL_FROM_ADDRESS', 'hello@apexbusinessksa.com'),
         'from_name' => env_value('MAIL_FROM_NAME', 'Apex Business Consultancy'),
     ],
 ];

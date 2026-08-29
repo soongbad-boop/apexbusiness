@@ -1,4 +1,4 @@
-(() => {
+﻿(() => {
   const STORE_KEY = 'apex-content-v1';
   const MOUNT_ID = 'dashboard-app';
 
@@ -178,14 +178,14 @@
       description: 'Clarity for ambitious businesses entering and growing in Saudi Arabia.',
       address: 'King Abdullah Financial District, Riyadh',
       phone: '+966 11 555 0142',
-      email: 'hello@apexbusiness.sa',
+      email: 'hello@apexbusinessksa.com',
       copyright: '© 2026 Apex Business Consultancy. All rights reserved.',
       showNewsletter: true
     },
     seo: {
       title: 'Apex Business Consultancy | Build with confidence',
       description: 'Apex Business Consultancy helps founders enter, operate, and grow in Saudi Arabia.',
-      canonical: 'https://apexbusiness.sa',
+      canonical: 'https://apexbusinessksa.com',
       ogImage: 'https://images.unsplash.com/photo-1580674684081-7617fbf3d745?auto=format&fit=crop&w=1200&q=80',
       twitterHandle: '@apexbusiness',
       robotsIndex: 'index',
@@ -200,16 +200,16 @@
       instagram: 'https://instagram.com/apexbusiness'
     },
     contact: {
-      email: 'hello@apexbusiness.sa',
+      email: 'hello@apexbusinessksa.com',
       phone: '+966 11 555 0142',
       whatsapp: '966115550142',
       address: 'King Abdullah Financial District, Riyadh',
       hours: 'Sunday – Thursday: 9:00 AM – 6:00 PM (AST)'
     },
     users: [
-      { name: 'Apex Administrator', email: 'admin@apexbusiness.sa', role: 'Super Admin', status: 'Active' },
-      { name: 'Maya Nasser', email: 'maya@apexbusiness.sa', role: 'Content Editor', status: 'Active' },
-      { name: 'Support Team', email: 'support@apexbusiness.sa', role: 'Viewer', status: 'Active' }
+      { name: 'Apex Administrator', email: 'admin@apexbusinessksa.com', role: 'Super Admin', status: 'Active' },
+      { name: 'Maya Nasser', email: 'maya@apexbusinessksa.com', role: 'Content Editor', status: 'Active' },
+      { name: 'Support Team', email: 'support@apexbusinessksa.com', role: 'Viewer', status: 'Active' }
     ],
     roles: [
       { name: 'Super Admin', permissions: 'Full access to all settings, users, CMS, and database', count: 1 },
@@ -219,7 +219,7 @@
     ],
     profile: {
       name: 'Apex Administrator',
-      email: 'admin@apexbusiness.sa',
+      email: 'admin@apexbusinessksa.com',
       role: 'Super Admin',
       title: 'Principal Advisor'
     },
@@ -251,7 +251,7 @@
       name: 'Apex Business Consultancy',
       tagline: 'Strategic Clarity for Business Growth in Saudi Arabia',
       favicon: 'favicon.svg',
-      email: 'hello@apexbusiness.sa',
+      email: 'hello@apexbusinessksa.com',
       whatsapp: '966115550142',
       footer: 'Clarity for ambitious businesses entering and growing in Saudi Arabia.',
       icons: { entry: 'MISA', advisory: 'ADVISORY', learning: 'LEARNING', support: 'PRO/GRO' }
@@ -610,7 +610,7 @@
 
           <!-- URL Slug preview & edit -->
           <div class="slug-bar">
-            <span style="font-weight:700; color:var(--muted);">https://apexbusiness.sa/insights/</span>
+            <span style="font-weight:700; color:var(--muted);">https://apexbusinessksa.com/insights/</span>
             <input type="text" id="article-slug" value="${esc(post.slug || slugify(post.title))}" placeholder="article-url-slug" />
             <button type="button" class="cms-button cms-button-soft cms-button-sm" id="btn-sync-slug" style="min-height:26px; padding:0 8px; font-size:10px;">Sync Title</button>
           </div>
@@ -673,7 +673,7 @@
             <!-- Google SERP Card -->
             <div class="serp-card">
               <div class="serp-url">
-                <span>https://apexbusiness.sa</span>
+                <span>https://apexbusinessksa.com</span>
                 <span>› insights › <span id="serp-slug">${esc(post.slug || 'my-article')}</span></span>
               </div>
               <a href="#" class="serp-title" id="serp-title">${esc(post.seo_title || post.title || 'Article Headline - Apex Business Consultancy')}</a>
@@ -975,7 +975,7 @@
     });
 
     root.querySelector('#btn-insert-link')?.addEventListener('click', () => {
-      const url = prompt('Enter link URL (e.g. https://apexbusiness.sa):');
+      const url = prompt('Enter link URL (e.g. https://apexbusinessksa.com):');
       if (url) {
         wysiwygEditor.focus();
         document.execCommand('createLink', false, url);
@@ -1430,7 +1430,7 @@
     const p = data.cms.profile || {};
     return shell('My Profile', 'Manage personal administrator credentials and profile settings.', form('save-profile', [
       input('Display Name', 'name', p.name || 'Apex Administrator'),
-      input('Email Address', 'email', p.email || 'admin@apexbusiness.sa', 'email'),
+      input('Email Address', 'email', p.email || 'admin@apexbusinessksa.com', 'email'),
       input('Professional Title', 'title', p.title || 'Principal Advisor'),
       input('Change Password', 'password', '', 'password', 'Leave blank to keep existing password')
     ], 'Update Profile'));
@@ -1441,7 +1441,7 @@
     return shell('SEO Settings', 'Global search engine optimization defaults, meta tags, and indexing rules.', form('save-seo', [
       input('Global SEO Title', 'title', s.title || 'Apex Business Consultancy | Build with confidence'),
       textarea('Meta Description', 'description', s.description || 'Apex Business Consultancy helps founders enter, operate, and grow in Saudi Arabia.'),
-      input('Canonical URL Base', 'canonical', s.canonical || 'https://apexbusiness.sa'),
+      input('Canonical URL Base', 'canonical', s.canonical || 'https://apexbusinessksa.com'),
       input('Social Share (OG) Image URL', 'ogImage', s.ogImage || ''),
       input('Twitter / X Handle', 'twitterHandle', s.twitterHandle || '@apexbusiness'),
       select('Robots Indexing', 'robotsIndex', s.robotsIndex || 'index', [{ val: 'index', label: 'Index (Allow indexing)' }, { val: 'noindex', label: 'No Index' }]),
@@ -1464,7 +1464,7 @@
   function contactView(data) {
     const c = data.cms.contact || {};
     return shell('Contact Settings', 'Official communication channels, office headquarters, and business hours.', form('save-contact', [
-      input('Public Enquiries Email', 'email', c.email || data.settings?.email || 'hello@apexbusiness.sa', 'email'),
+      input('Public Enquiries Email', 'email', c.email || data.settings?.email || 'hello@apexbusinessksa.com', 'email'),
       input('Office Phone Number', 'phone', c.phone || '+966 11 555 0142'),
       input('WhatsApp Direct Number', 'whatsapp', c.whatsapp || data.settings?.whatsapp || '966115550142'),
       input('Office Location / Address', 'address', c.address || 'King Abdullah Financial District, Riyadh'),

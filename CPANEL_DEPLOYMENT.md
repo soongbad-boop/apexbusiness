@@ -1,4 +1,4 @@
-# Production Deployment Guide: cPanel & GitHub Auto-Deploy
+﻿# Production Deployment Guide: cPanel & GitHub Auto-Deploy
 
 This guide outlines how to deploy **Apex Business Consultancy** to cPanel hosting using either **Option A: GitHub Auto-Deploy (Git Version Control)** or **Option B: Direct cPanel Upload (File Manager)**.
 
@@ -13,7 +13,7 @@ Create a `.env` file in your production root directory (e.g. `/home/username/pub
 APP_NAME="Apex Business Consultancy"
 APP_ENV=production
 APP_DEBUG=false
-APP_URL=https://apexbusiness.sa
+APP_URL=https://apexbusinessksa.com
 
 # Database Connection (from cPanel MySQL Database Wizard)
 DB_HOST=127.0.0.1
@@ -34,12 +34,12 @@ UPLOAD_MAX_BYTES=10485760
 
 # Mail / SMTP Configuration
 MAIL_MAILER=smtp
-MAIL_HOST=mail.apexbusiness.sa
+MAIL_HOST=mail.apexbusinessksa.com
 MAIL_PORT=465
-MAIL_USERNAME=hello@apexbusiness.sa
+MAIL_USERNAME=hello@apexbusinessksa.com
 MAIL_PASSWORD=YourEmailPasswordHere
 MAIL_ENCRYPTION=ssl
-MAIL_FROM_ADDRESS=hello@apexbusiness.sa
+MAIL_FROM_ADDRESS=hello@apexbusinessksa.com
 MAIL_FROM_NAME="Apex Business Consultancy"
 ```
 
@@ -146,15 +146,15 @@ php deploy.php
 
 ## 6. Post-Deployment Verification & Testing Checklist
 
-- [ ] **Homepage Loads**: Visit `https://apexbusiness.sa` — verify styles, fonts, and assets load via HTTPS (`200 OK`).
+- [ ] **Homepage Loads**: Visit `https://apexbusinessksa.com` — verify styles, fonts, and assets load via HTTPS (`200 OK`).
 - [ ] **Favicon**: Verify `favicon.svg` appears on all browser tabs.
 - [ ] **Dedicated Routing**:
-  - `https://apexbusiness.sa/conversation`
-  - `https://apexbusiness.sa/visa-assistance`
-  - `https://apexbusiness.sa/automation`
-  - `https://apexbusiness.sa/advisory-session`
-  - `https://apexbusiness.sa/advisors`
-- [ ] **CMS Dashboard**: Access `https://apexbusiness.sa/dashboard.html` — test branding controls, article editor, and settings synchronization.
+  - `https://apexbusinessksa.com/conversation`
+  - `https://apexbusinessksa.com/visa-assistance`
+  - `https://apexbusinessksa.com/automation`
+  - `https://apexbusinessksa.com/advisory-session`
+  - `https://apexbusinessksa.com/advisors`
+- [ ] **CMS Dashboard**: Access `https://apexbusinessksa.com/dashboard.html` — test branding controls, article editor, and settings synchronization.
 - [ ] **PHP API Endpoints**:
   - `GET /api/settings.php` → Returns production JSON settings.
   - `POST /api/auth/login.php` → Authenticates authorized users.

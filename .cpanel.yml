@@ -1,20 +1,15 @@
 ---
 deployment:
   tasks:
-    # 1. Set the deployment destination path (Change 'username' to your cPanel username)
+    # 1. Set the deployment destination path
     - export DEPLOYPATH=/home/apexbus1/public_html
-    # For a subfolder/addon domain, e.g.: export DEPLOYPATH=/home/username/public_html/apexco
 
     # 2. Copy all files and directories into the target public path
     - /bin/cp -R * $DEPLOYPATH
 
-    # 3. Secure file and directory permissions
-    #    Directories: 755 (owner rwx, group r-x, others r-x)
-    #    PHP/HTML/CSS/JS files: 644 (owner rw, group r, others r)
-    #    Storage directories: 750 (owner rwx, group r-x, others none)
-    - find $DEPLOYPATH -type d -exec /bin/chmod 755 {} \;
-    - find $DEPLOYPATH -type f -exec /bin/chmod 644 {} \;
-    - /bin/chmod 644 $DEPLOYPATH/.htaccess
+    # 3. Secure permissions (fast chmod -R instead of slow find -exec)
+    - /bin/chmod -R 755 $DEPLOYPATH
+    - /bin/chmod -R 644 $DEPLOYPATH/.htaccess
     - /bin/chmod -R 750 $DEPLOYPATH/storage
     - /bin/chmod -R 750 $DEPLOYPATH/app
     - /bin/chmod -R 750 $DEPLOYPATH/config

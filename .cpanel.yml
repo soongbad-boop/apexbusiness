@@ -1,24 +1,12 @@
 ---
 deployment:
   tasks:
-    # 1. Set the deployment destination path
+    # 1. Deployment destination
     - export DEPLOYPATH=/home/apexbus1/public_html
 
-    # 2. Copy all files and directories into the target public path
+    # 2. Copy all files to public_html
     - /bin/cp -R * $DEPLOYPATH
 
-    # 3. Secure permissions (fast chmod -R instead of slow find -exec)
-    - /bin/chmod -R 755 $DEPLOYPATH
-    - /bin/chmod -R 644 $DEPLOYPATH/.htaccess
-    - /bin/chmod -R 750 $DEPLOYPATH/storage
-    - /bin/chmod -R 750 $DEPLOYPATH/app
-    - /bin/chmod -R 750 $DEPLOYPATH/config
-
-    # 4. SECURITY: Remove seeding and admin-creation scripts from production after first deployment.
-    #    These scripts MUST NOT remain accessible on production.
-    #    Uncomment after first successful deployment:
+    # 3. SECURITY: Remove seeding scripts after first deployment (uncomment after first deploy)
     # - /bin/rm -f $DEPLOYPATH/database/seed.php
     # - /bin/rm -f $DEPLOYPATH/database/create-admin.php
-
-    # 5. Optional: Run automatic database migrations via CLI only
-    # - /usr/local/bin/php $DEPLOYPATH/deploy.php

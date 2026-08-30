@@ -2,7 +2,7 @@
 deployment:
   tasks:
     # 1. Set the deployment destination path (Change 'username' to your cPanel username)
-    - export DEPLOYPATH=/home/username/public_html
+    - export DEPLOYPATH=/home/apexbus1/public_html
     # For a subfolder/addon domain, e.g.: export DEPLOYPATH=/home/username/public_html/apexco
 
     # 2. Copy all files and directories into the target public path

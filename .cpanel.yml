@@ -4,8 +4,9 @@ deployment:
     # 1. Deployment destination
     - export DEPLOYPATH=/home/apexbus1/public_html
 
-    # 2. Copy all files to public_html
-    - /bin/cp -R * $DEPLOYPATH
+    # 2. Extract only the committed application files into public_html.
+    #    This preserves untracked production files such as .env and uploaded media.
+    - /usr/bin/git archive --format=tar HEAD | /bin/tar -x -C $DEPLOYPATH
 
     # 3. SECURITY: Remove seeding scripts after first deployment (uncomment after first deploy)
     # - /bin/rm -f $DEPLOYPATH/database/seed.php

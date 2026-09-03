@@ -75,7 +75,7 @@ $readTime = max(1, (int) ceil(str_word_count(strip_tags((string) $post['content'
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/Apexco/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title><?= e($pageTitle) ?></title>
     <meta name="description" content="<?= e($description) ?>" />
     <?php if (!empty($post['canonical_url'])): ?>
@@ -215,7 +215,7 @@ $readTime = max(1, (int) ceil(str_word_count(strip_tags((string) $post['content'
           <h2>Related Insights</h2>
           <div class="related-grid">
             <?php foreach ($relatedPosts as $rel): ?>
-              <a class="related-card" href="blog.php?slug=<?= urlencode($rel['slug']) ?>">
+              <a class="related-card" href="/insights/<?= urlencode($rel['slug']) ?>">
                 <?php if (!empty($rel['featured_image'])): ?>
                   <img src="<?= e($rel['featured_image']) ?>" alt="<?= e($rel['title']) ?>" />
                 <?php endif; ?>

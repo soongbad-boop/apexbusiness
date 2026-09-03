@@ -13,23 +13,33 @@ DirectoryIndex index.html index.php
   RewriteEngine On
   RewriteBase /
 
-  # Keep the legacy dashboard URL behind the PHP session guard.
+  # 3a. Legacy 301 Redirects to Clean Canonical URLs
+  RewriteCond %{THE_REQUEST} \s/index\.(html|php)\s [NC]
+  RewriteRule ^index\.(html|php)$ / [R=301,L]
+
+  RewriteCond %{THE_REQUEST} \s/home/?\s [NC]
+  RewriteRule ^home/?$ / [R=301,L]
+
+  RewriteCond %{THE_REQUEST} \s/([a-z0-9-]+)\.(html|php)\s [NC]
+  RewriteRule ^([a-z0-9-]+)\.(html|php)$ /$1 [R=301,L]
+
+  # 3b. Dashboard Session Protection
   RewriteRule ^dashboard\.html$ dashboard.php [L]
 
-  # Forward API requests to PHP handler
+  # 3c. API Endpoints
   RewriteRule ^api/(.*)$ public/api/$1 [L,QSA]
 
-  # Forward Blog and Page routes to SSR PHP templates
+  # 3d. Blog SSR Article Routing
   RewriteRule ^blog/([a-z0-9-]+)/?$ public/blog.php?slug=$1 [L,QSA]
   RewriteRule ^page/([a-z0-9-]+)/?$ public/page.php?slug=$1 [L,QSA]
 
-  # Serve the SPA shell for clean client-side routes (History API routing in app.js)
+  # 3e. Serve SPA Shell for all Clean Routes (/about, /services, /contact, /insights, /blog, etc.)
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule ^(home|about|services|insights(/[a-z0-9-]+)?|contact|privacy-policy|terms-and-conditions|conversation|visa-assistance|automation|advisory-session|advisors)/?$ index.html [L]
+  RewriteRule ^ index.html [L]
 </IfModule>
 
-# 4. Security & Access Restrictions for Sensitive Files & Folders
+# 4. Security Restrictions for Sensitive System Files & Folders
 <FilesMatch "^(\.env.*|\.git.*|\.cpanel\.yml|.*\.sql|.*\.log|.*\.md)$">
   <IfModule mod_authz_core.c>
     Require all denied
@@ -40,35 +50,18 @@ DirectoryIndex index.html index.php
   </IfModule>
 </FilesMatch>
 
-# 5. Protect Core Source Directories & Sensitive Scripts
+# 5. Core Source Directories Protection
 <IfModule mod_rewrite.c>
   RewriteRule ^(app|config|database|storage/logs)/ - [F,L,NC]
 </IfModule>
 
-# 5b. Block direct web access to deploy.php
-#     It must be run via CLI: php deploy.php
-#     HTTP access is only allowed if DEPLOY_SECRET env-var is configured on the server.
-#     Uncomment the lines below to fully block web-triggered deploys:
-# <Files "deploy.php">
-#   Require all denied
-# </Files>
-
 # 6. Security Headers
 <IfModule mod_headers.c>
-  # Remove PHP/server version fingerprinting
   Header always unset X-Powered-By
   Header always set X-Content-Type-Options "nosniff"
   Header always set X-Frame-Options "SAMEORIGIN"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
-
-  # HSTS: Enforce HTTPS for 1 year once SSL is active on cPanel
-  # IMPORTANT: Only uncomment this AFTER SSL is working and tested
-  # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
-
-  # Content Security Policy
-  # Allows self-hosted assets + Google Fonts + Unsplash images (used in blog/CMS)
-  # Update trusted sources to match your actual external dependencies.
   Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self';"
 </IfModule>
 

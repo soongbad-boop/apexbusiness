@@ -38,7 +38,7 @@ if (current_user()) {
   </head>
   <body>
     <main>
-      <a class="brand" href="index.html"><span class="mark" aria-hidden="true"></span>apex</a>
+      <a class="brand" href="/"><span class="mark" aria-hidden="true"></span>apex</a>
       <h1>Sign in to the CMS</h1>
       <p>Use the authorized email address and password for your Apex account.</p>
       <form id="login-form">

@@ -1,4 +1,4 @@
-﻿(() => {
+(() => {
   const STORE_KEY = 'apex-content-v1';
   const MOUNT_ID = 'dashboard-app';
 
@@ -387,7 +387,7 @@
           <p>Welcome to your centralized website and content management platform.</p>
         </div>
         <div style="display:flex; gap:10px; flex-wrap:wrap;">
-          <a class="cms-button" href="index.html" target="_blank">View Live Website ↗</a>
+          <a class="cms-button" href="/" target="_blank">View Live Website ↗</a>
           <a class="cms-button cms-button-soft" href="#posts/new">+ Create New Post</a>
         </div>
       </header>

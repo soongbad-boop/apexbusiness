@@ -1,0 +1,26 @@
+# ==========================================
+# APEX BUSINESS CONSULTANCY — ROBOTS.TXT
+# ==========================================
+
+User-agent: *
+Allow: /
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.svg$
+Allow: /*.webp$
+
+# Admin & Private System Endpoints
+Disallow: /dashboard.html
+Disallow: /dashboard.php
+Disallow: /login.php
+Disallow: /api/admin/
+Disallow: /app/
+Disallow: /config/
+Disallow: /database/
+Disallow: /storage/
+
+# XML Sitemap Location
+Sitemap: https://apexbusinessksa.com/sitemap.xml

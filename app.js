@@ -183,11 +183,12 @@ function toHref(page) {
 }
 
 function routeInfo() {
+  const recognizedPages = ['home', 'about', 'services', 'insights', 'blog', 'contact', 'privacy-policy', 'terms-and-conditions', 'conversation', 'visa-assistance', 'automation', 'advisory-session', 'advisors'];
+
   if (location.hash) {
     const rawHash = location.hash.replace(/^#\/?/, '').trim();
-    const recognizedPages = ['home', 'about', 'services', 'insights', 'contact', 'privacy-policy', 'terms-and-conditions', 'conversation', 'visa-assistance', 'automation', 'advisory-session', 'advisors'];
-    
     let targetPath = location.pathname;
+
     if (recognizedPages.includes(rawHash)) {
       targetPath = rawHash === 'home' ? '/' : `/${rawHash}`;
     }
@@ -204,13 +205,16 @@ function routeInfo() {
 
   const segment = location.pathname.replace(/^\/+/, '').replace(/\/+$/, '').replace(/\.html$/, '').trim();
   if (!segment || segment === 'home') return { view: 'home', slug: '' };
+  if (segment === 'insights' || segment === 'blog') return { view: 'insights', slug: '' };
   if (segment.startsWith('insights/')) {
     return { view: 'article', slug: segment.slice('insights/'.length) };
+  }
+  if (segment.startsWith('blog/')) {
+    return { view: 'article', slug: segment.slice('blog/'.length) };
   }
   if (segment.startsWith('article/')) {
     return { view: 'article', slug: segment.slice('article/'.length) };
   }
-  if (segment === 'insights') return { view: 'insights', slug: '' };
   if (['about', 'services', 'contact', 'privacy-policy', 'terms-and-conditions', 'conversation', 'visa-assistance', 'automation', 'advisory-session', 'advisors'].includes(segment)) {
     return { view: segment, slug: '' };
   }
@@ -276,7 +280,7 @@ function updatePageMetadata() {
     home: { title: `${brandName} | ${tagline}`, description: 'Apex Business Consultancy helps founders, investors, and operators establish, license, and scale businesses in Saudi Arabia with local market context and operating support.', path: '/' },
     about: { title: `About ${brandName} | Local Context & Strategic Execution in Riyadh`, description: 'Learn how Apex Business Consultancy supports founders, corporate investors, and leadership teams navigating market entry and operational growth in Saudi Arabia.', path: '/about' },
     services: { title: `Services | Market Entry, PRO, Visas, Tax & AI Automation | ${brandName}`, description: 'Explore Apex Business Consultancy services: MISA licensing, investment advisory, PRO/GRO support, visa assistance, tax return guidance, audit review, trading education, and AI workflow automation.', path: '/services' },
-    insights: { title: `Insights & Strategic Perspectives | ${brandName} Riyadh`, description: 'In-depth analysis, regulatory guides, and practical intelligence on building, investing, and scaling in Saudi Arabia and the GCC.', path: '/insights' },
+    insights: { title: `Insights & Strategic Perspectives | ${brandName} Riyadh`, description: 'In-depth analysis, regulatory guides, and practical intelligence on building, investing, and scaling in Saudi Arabia and the GCC.', path: location.pathname.startsWith('/blog') ? '/blog' : '/insights' },
     contact: { title: `Contact ${brandName} | Riyadh, Saudi Arabia`, description: 'Get in touch with Apex Business Consultancy in King Abdullah Financial District, Riyadh. Start a conversation regarding market entry, licensing, tax, or AI automation.', path: '/contact' },
     conversation: { title: `Start a Conversation | ${brandName}`, description: 'Initiate an exploratory consultation with Apex Business Consultancy in Riyadh. Discuss your market entry, licensing, operational growth, or AI automation goals.', path: '/conversation' },
     'visa-assistance': { title: `Visa Assistance Services | Business, Work & Travel | ${brandName}`, description: 'Dedicated visa and immigration assistance for investors, professionals, executives, and families moving to Saudi Arabia, GCC, and key international destinations.', path: '/visa-assistance' },
@@ -285,7 +289,7 @@ function updatePageMetadata() {
     advisors: { title: `Meet Our Advisors | Senior Leadership & Consultants | ${brandName}`, description: 'Meet the senior business consultants, regulatory specialists, and operations advisors at Apex Business Consultancy in King Abdullah Financial District, Riyadh.', path: '/advisors' },
     'privacy-policy': { title: `Privacy Policy | ${brandName}`, description: 'Read the Apex Business Consultancy privacy policy outlining our data governance and client confidentiality commitments in Saudi Arabia.', path: '/privacy-policy' },
     'terms-and-conditions': { title: `Terms & Conditions | ${brandName}`, description: 'Read the terms and conditions governing the use of Apex Business Consultancy web services and publications.', path: '/terms-and-conditions' }
-  }[page] || { title: `${brandName} | ${tagline}`, description: 'Apex Business Consultancy helps ambitious businesses move forward in Saudi Arabia.', path: '/' };
+  }[page] || { title: `${brandName} | ${tagline}`, description: 'Apex Business Consultancy helps ambitious businesses move forward in Saudi Arabia.', path: location.pathname.replace(/\/+$/, '') || '/' };
   const canonical = `https://apexbusinessksa.com${metadata.path}`;
   document.title = metadata.title;
   const setMeta = (selector, attribute, value) => {

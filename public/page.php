@@ -14,4 +14,4 @@ $title = $page['seo_title'] ?: $page['title'];
 $pageTitle = stripos($title, 'Apex Business Consultancy') !== false ? $title : $title . ' | Apex Business Consultancy';
 $description = $page['seo_description'] ?: '';
 ?><!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" type="image/svg+xml" href="/Apexco/favicon.svg"><title><?= e($pageTitle) ?></title><meta name="description" content="<?= e($description) ?>"></head><body><main><article><h1><?= e($page['title']) ?></h1><div><?= nl2br(e($page['content'])) ?></div></article></main></body></html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><title><?= e($pageTitle) ?></title><meta name="description" content="<?= e($description) ?>"></head><body><main><article><h1><?= e($page['title']) ?></h1><div><?= nl2br(e($page['content'])) ?></div></article></main></body></html>

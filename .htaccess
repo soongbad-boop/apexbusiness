@@ -14,7 +14,7 @@ DirectoryIndex index.html index.php
   RewriteBase /
 
   # Keep the legacy dashboard URL behind the PHP session guard.
-  RewriteRule ^dashboard\.html$ dashboard.php [END]
+  RewriteRule ^dashboard\.html$ dashboard.php [L]
 
   # Forward API requests to PHP handler
   RewriteRule ^api/(.*)$ public/api/$1 [L,QSA]
@@ -23,8 +23,10 @@ DirectoryIndex index.html index.php
   RewriteRule ^blog/([a-z0-9-]+)/?$ public/blog.php?slug=$1 [L,QSA]
   RewriteRule ^page/([a-z0-9-]+)/?$ public/page.php?slug=$1 [L,QSA]
 
-  # Forward dedicated SPA views to client-side hash routes
-  RewriteRule ^(conversation|visa-assistance|automation|advisory-session|advisors)/?$ index.html#/$1 [NE,R=302,L]
+  # Serve the SPA shell for clean client-side routes (History API routing in app.js)
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(home|about|services|insights(/[a-z0-9-]+)?|contact|privacy-policy|terms-and-conditions|conversation|visa-assistance|automation|advisory-session|advisors)/?$ index.html [L]
 </IfModule>
 
 # 4. Security & Access Restrictions for Sensitive Files & Folders

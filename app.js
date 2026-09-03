@@ -1,4 +1,4 @@
-﻿const initialContent = {
+const initialContent = {
   settings: {
     name: 'Apex Business Consultancy',
     tagline: 'Strategic Clarity for Business Growth in Saudi Arabia',
@@ -157,7 +157,7 @@ const app = document.querySelector('.site-shell');
 const legacyHome = app.innerHTML;
 const consultingStyles = document.querySelector('link[href="consulting.css"]');
 const headerItems = [['home', 'Home'], ['about', 'About'], ['services', 'Services'], ['insights', 'Insights'], ['contact', 'Contact']];
-const footerItems = [['home', 'Home'], ['privacy-policy', 'Privacy'], ['terms-and-conditions', 'Terms']];
+const footerItems = [['home', 'Home'], ['privacy-policy', 'Privacy'], ['terms-and-conditions', 'Terms'], ['login.php', 'CMS Sign In']];
 
 function slugify(text) {
   return String(text || '')
@@ -168,25 +168,28 @@ function slugify(text) {
     .replace(/^-+|-+$/g, '');
 }
 
+function toHref(page) {
+  if (/\.[a-z0-9]+$/i.test(page)) return page;
+  return page === 'home' ? '/' : `/${page}`;
+}
+
 function routeInfo() {
-  const hash = location.hash.replace('#/', '').replace('#', '').trim();
-  if (hash) {
-    if (hash === 'home') return { view: 'home', slug: '' };
-    if (hash.startsWith('insights/')) {
-      return { view: 'article', slug: hash.replace('insights/', '') };
-    }
-    if (hash.startsWith('article/')) {
-      return { view: 'article', slug: hash.replace('article/', '') };
-    }
-    if (hash === 'insights') return { view: 'insights', slug: '' };
-    if (['about', 'services', 'contact', 'privacy-policy', 'terms-and-conditions', 'conversation', 'visa-assistance', 'automation', 'advisory-session', 'advisors'].includes(hash)) {
-      return { view: hash, slug: '' };
-    }
+  // Support legacy hash-based links (bookmarks, shares) by rewriting them to the clean path equivalent.
+  if (location.hash.startsWith('#/')) {
+    history.replaceState(null, '', `/${location.hash.slice(2)}${location.search}`);
   }
 
-  const cleanPath = location.pathname.split('/').pop().replace('.html', '').trim();
-  if (['about', 'services', 'contact', 'privacy-policy', 'terms-and-conditions', 'conversation', 'visa-assistance', 'automation', 'advisory-session', 'advisors'].includes(cleanPath)) {
-    return { view: cleanPath, slug: '' };
+  const segment = location.pathname.replace(/^\/+/, '').replace(/\/+$/, '').replace(/\.html$/, '').trim();
+  if (!segment || segment === 'home') return { view: 'home', slug: '' };
+  if (segment.startsWith('insights/')) {
+    return { view: 'article', slug: segment.slice('insights/'.length) };
+  }
+  if (segment.startsWith('article/')) {
+    return { view: 'article', slug: segment.slice('article/'.length) };
+  }
+  if (segment === 'insights') return { view: 'insights', slug: '' };
+  if (['about', 'services', 'contact', 'privacy-policy', 'terms-and-conditions', 'conversation', 'visa-assistance', 'automation', 'advisory-session', 'advisors'].includes(segment)) {
+    return { view: segment, slug: '' };
   }
 
   return { view: 'home', slug: '' };
@@ -197,13 +200,19 @@ function route() {
 }
 
 function link(page, label) {
-  return `<a href="#/${page}">${label}</a>`;
+  return `<a href="${toHref(page)}">${label}</a>`;
+}
+
+function navigate(path) {
+  if (location.pathname === path) return;
+  history.pushState(null, '', path);
+  renderSite();
 }
 
 function header() {
-  const items = content.cms.navigation?.header?.filter((item) => item.visible !== false) || headerItems.map(([page, label]) => ({ label, href: `#/${page}` }));
+  const items = content.cms.navigation?.header?.filter((item) => item.visible !== false) || headerItems.map(([page, label]) => ({ label, href: toHref(page) }));
   const links = items.map((item) => `<a href="${item.href}">${item.label}</a>`).join('');
-  return `<header class="site-header container"><a class="brand" href="#/home" aria-label="Apex Business Consultancy home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span>apex</span></a><nav class="desktop-nav" aria-label="Main navigation">${links}</nav><button class="menu-button menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span></button></header>`;
+  return `<header class="site-header container"><a class="brand" href="/" aria-label="Apex Business Consultancy home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span>apex</span></a><nav class="desktop-nav" aria-label="Main navigation">${links}</nav><button class="menu-button menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span></button></header>`;
 }
 
 const socialLinks = [
@@ -218,9 +227,9 @@ function footerSocial() {
 }
 
 function footer() {
-  const items = content.cms.navigation?.footer?.filter((item) => item.visible !== false) || footerItems.map(([page, label]) => ({ label, href: `#/${page}` }));
+  const items = content.cms.navigation?.footer?.filter((item) => item.visible !== false) || footerItems.map(([page, label]) => ({ label, href: toHref(page) }));
   const links = items.map((item) => `<a href="${item.href}">${item.label}</a>`).join('');
-  return `<footer class="site-footer"><div class="container footer-top"><a class="brand" href="#/home" aria-label="Apex Business Consultancy home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span>apex</span></a><nav aria-label="Footer navigation">${links}</nav>${footerSocial()}</div><div class="container footer-bottom"><span>${content.settings.footer}</span><span>&copy; 2026 ${content.settings.name}. All rights reserved.</span></div></footer>`;
+  return `<footer class="site-footer"><div class="container footer-top"><a class="brand" href="/" aria-label="Apex Business Consultancy home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span>apex</span></a><nav aria-label="Footer navigation">${links}</nav>${footerSocial()}</div><div class="container footer-bottom"><span>${content.settings.footer}</span><span>&copy; 2026 ${content.settings.name}. All rights reserved.</span></div></footer>`;
 }
 
 function updatePageMetadata() {
@@ -343,7 +352,7 @@ function aboutPage() {
         <p class="eyebrow">ABOUT APEX</p>
         <h1>Better context for<br /><em>meaningful moves.</em></h1>
         <p>Apex Business Consultancy helps founders, investors, and enterprise leadership teams turn Saudi market complexity into a practical, highly compliant path forward.</p>
-        <a class="button" href="#/advisory-session" aria-label="Schedule an Advisory Session with Apex Advisory">Schedule an Advisory Session <span aria-hidden="true">&rarr;</span></a>
+        <a class="button" href="/advisory-session" aria-label="Schedule an Advisory Session with Apex Advisory">Schedule an Advisory Session <span aria-hidden="true">&rarr;</span></a>
       </div>
       <div class="about-portrait">
         <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1400&q=85" alt="Modern corporate towers in Riyadh Financial District" />
@@ -369,21 +378,21 @@ function aboutPage() {
         <p class="eyebrow">LOCAL MARKET CONTEXT</p>
         <h3>Deep Market Proximity</h3>
         <p>Authoritative, on-the-ground knowledge for legal structuring, timing, and entity choices that define your expansion.</p>
-        <a href="#/services">Explore services <b aria-hidden="true">&rarr;</b></a>
+        <a href="/services">Explore services <b aria-hidden="true">&rarr;</b></a>
       </article>
       <article class="principle-card principle-card-mint">
         <span class="principle-icon principle-icon-direction" aria-hidden="true"><i></i><i></i><i></i></span>
         <p class="eyebrow">CLEAR STRATEGIC DIRECTION</p>
         <h3>High Signal, Zero Noise</h3>
         <p>We connect commercial perspective with the essential regulatory and administrative milestones required to succeed.</p>
-        <a href="#/services">How we help <b aria-hidden="true">&rarr;</b></a>
+        <a href="/services">How we help <b aria-hidden="true">&rarr;</b></a>
       </article>
       <article class="principle-card principle-card-dark">
         <span class="principle-icon principle-icon-partnership" aria-hidden="true"><i></i><i></i></span>
         <p class="eyebrow">DEDICATED PARTNERSHIP</p>
         <h3>Close to the Decision</h3>
         <p>We remain practical, direct, and fully attentive to the commercial challenges your executive team is actively solving.</p>
-        <a href="#/contact">Talk to Apex <b aria-hidden="true">&rarr;</b></a>
+        <a href="/contact">Talk to Apex <b aria-hidden="true">&rarr;</b></a>
       </article>
     </section>
 
@@ -407,14 +416,14 @@ function aboutPage() {
         <h2>Exceptional work begins with understanding what is at stake.</h2>
         <p>Entering a new market, structuring an investment, or scaling a regional workforce can quickly become overwhelmed by administrative friction. Apex exists to make those critical junctures calm, structured, and decisive.</p>
         <p>We bring rigorous strategic thinking, local regulatory mastery, and an operator's discipline to the table. Our objective is not to make the decision for you—it is to equip you with the clarity and execution support to make it with total confidence.</p>
-        <a class="primary-button" href="#/advisors" aria-label="Meet with Our Advisors at Apex Advisory">Meet with Our Advisors</a>
+        <a class="primary-button" href="/advisors" aria-label="Meet with Our Advisors at Apex Advisory">Meet with Our Advisors</a>
       </div>
     </section>
 
     <section class="about-closing">
       <p class="eyebrow">THE APEX STANDARD</p>
       <h2>Practical support for leaders building something consequential.</h2>
-      <a class="button" href="#/advisory-session" aria-label="Schedule an Advisory Session with Apex Advisory">Schedule an Advisory Session <span aria-hidden="true">&rarr;</span></a>
+      <a class="button" href="/advisory-session" aria-label="Schedule an Advisory Session with Apex Advisory">Schedule an Advisory Session <span aria-hidden="true">&rarr;</span></a>
     </section>
   </article>`;
 }
@@ -812,7 +821,7 @@ function advisorsPage() {
           <p class="eyebrow" style="margin:0 0 6px; color:#5c9e91;">MARKET ENTRY &amp; GOV RELATIONS</p>
           <h3 style="margin:0 0 8px; color:#07152f; font-size:22px; letter-spacing:-0.8px;">Tariq Al-Mansoor</h3>
           <p style="color:#747d89; font-size:12px; font-weight:600; line-height:1.65; margin-bottom:16px;">Over 14 years advising multinational enterprises on MISA licensing, Regional Headquarters (RHQ) setup, and Ministry of Commerce compliance in Riyadh.</p>
-          <a class="text-cta" href="#/advisory-session">Book Consultation with Tariq <span aria-hidden="true">&rarr;</span></a>
+          <a class="text-cta" href="/advisory-session">Book Consultation with Tariq <span aria-hidden="true">&rarr;</span></a>
         </article>
 
         <article style="background:#fff; border:1px solid #dbeef0; border-radius:18px; padding:28px; box-shadow:0 12px 32px rgba(24,88,104,0.06);">
@@ -820,7 +829,7 @@ function advisorsPage() {
           <p class="eyebrow" style="margin:0 0 6px; color:#5c9e91;">STRATEGY &amp; VENTURES</p>
           <h3 style="margin:0 0 8px; color:#07152f; font-size:22px; letter-spacing:-0.8px;">Maya Nasser</h3>
           <p style="color:#747d89; font-size:12px; font-weight:600; line-height:1.65; margin-bottom:16px;">Specializes in cross-border tech venture expansion, commercial structuring, capital allocation, and go-to-market scaling in the GCC region.</p>
-          <a class="text-cta" href="#/advisory-session">Book Consultation with Maya <span aria-hidden="true">&rarr;</span></a>
+          <a class="text-cta" href="/advisory-session">Book Consultation with Maya <span aria-hidden="true">&rarr;</span></a>
         </article>
 
         <article style="background:#fff; border:1px solid #dbeef0; border-radius:18px; padding:28px; box-shadow:0 12px 32px rgba(24,88,104,0.06);">
@@ -828,7 +837,7 @@ function advisorsPage() {
           <p class="eyebrow" style="margin:0 0 6px; color:#5c9e91;">TAX &amp; ZATCA COMPLIANCE</p>
           <h3 style="margin:0 0 8px; color:#07152f; font-size:22px; letter-spacing:-0.8px;">Faisal Al-Otaibi</h3>
           <p style="color:#747d89; font-size:12px; font-weight:600; line-height:1.65; margin-bottom:16px;">Expert in corporate taxation, Zakat filings, VAT compliance, and Phase 2 E-Invoicing integration for international entities operating in Saudi Arabia.</p>
-          <a class="text-cta" href="#/advisory-session">Book Consultation with Faisal <span aria-hidden="true">&rarr;</span></a>
+          <a class="text-cta" href="/advisory-session">Book Consultation with Faisal <span aria-hidden="true">&rarr;</span></a>
         </article>
 
         <article style="background:#fff; border:1px solid #dbeef0; border-radius:18px; padding:28px; box-shadow:0 12px 32px rgba(24,88,104,0.06);">
@@ -836,7 +845,7 @@ function advisorsPage() {
           <p class="eyebrow" style="margin:0 0 6px; color:#5c9e91;">AI &amp; WORKFLOW AUTOMATION</p>
           <h3 style="margin:0 0 8px; color:#07152f; font-size:22px; letter-spacing:-0.8px;">Zaid Al-Ghamdi</h3>
           <p style="color:#747d89; font-size:12px; font-weight:600; line-height:1.65; margin-bottom:16px;">Leads enterprise automation architectures, conversational AI integrations, and automated CRM pipeline workflows for high-growth firms.</p>
-          <a class="text-cta" href="#/automation">Explore Automation with Zaid <span aria-hidden="true">&rarr;</span></a>
+          <a class="text-cta" href="/automation">Explore Automation with Zaid <span aria-hidden="true">&rarr;</span></a>
         </article>
       </div>
     </section>
@@ -844,33 +853,33 @@ function advisorsPage() {
     <section class="about-closing" style="background:#e1f7fa; padding:80px 24px; text-align:center;">
       <p class="eyebrow">DIRECT PARTNERSHIP</p>
       <h2>Work directly with advisors who understand what is at stake.</h2>
-      <a class="button" href="#/advisory-session" aria-label="Schedule an Advisory Session with Apex Advisory">Schedule an Advisory Session <span aria-hidden="true">&rarr;</span></a>
+      <a class="button" href="/advisory-session" aria-label="Schedule an Advisory Session with Apex Advisory">Schedule an Advisory Session <span aria-hidden="true">&rarr;</span></a>
     </section>
   </article>`;
 }
 
 function servicesPageRedesign() {
   const services = [
-    { id: 'market-entry', number: '01', group: 'Market entry', title: 'Entrepreneur License (MISA)', summary: 'Shape the right entity and licensing path for a confident start in Saudi Arabia.', body: 'We help businesses understand the requirements, structure, documentation, and practical steps involved in establishing their presence.', bullets: ['Market-entry guidance', 'Entity and licensing considerations', 'Documentation and process clarity'], ctaTarget: '#/conversation' },
-    { id: 'business-advisory', number: '02', group: 'Business advisory', title: 'Investment Advisory', summary: 'Turn market context, commercial questions, and priorities into decisions you can use.', body: 'We help entrepreneurs and businesses evaluate opportunities, understand the local business environment, and make informed decisions based on practical market considerations.', bullets: ['Opportunity evaluation', 'Local business context', 'Commercial priorities and next steps'], ctaTarget: '#/advisory-session' },
-    { id: 'government-support', number: '03', group: 'Government & business support', title: 'PRO / GRO Services', summary: 'Keep essential government relations work moving with reliable, informed support.', body: 'Our PRO/GRO services help businesses manage essential government-related processes and administrative requirements, allowing owners and management teams to focus on operations.', bullets: ['Government-related processes', 'Administrative requirements', 'Ongoing operational support'], ctaTarget: '#/conversation' },
-    { id: 'visa-assistance', number: '04', group: 'Visa assistance', title: 'Visa Assistance Services', summary: 'Make international travel and relocation simpler with professional visa assistance.', body: 'We assist individuals, families, professionals, students, and businesses with requirements, documentation, applications, and the wider application process.', bullets: ['Tourist, visit, business, student, family, and work visas', 'Document preparation and review', 'Application and appointment guidance'], note: 'Applications remain subject to the requirements and decisions of the relevant authority. Assistance does not guarantee approval.', ctaTarget: '#/visa-assistance' },
-    { id: 'accounting-tax', number: '05', group: 'Accounting & tax', title: 'Tax Return Services', summary: 'Stay organized and confident with professional tax return support.', body: 'We help businesses and eligible clients prepare and manage tax return requirements while keeping the process clear, structured, and aligned with applicable requirements.', bullets: ['Tax return preparation', 'Documentation review and filing assistance', 'VAT-related and compliance guidance'], ctaTarget: '#/conversation' },
-    { id: 'auditing', number: '06', group: 'Auditing', title: 'Audit & Assurance Services', summary: 'Build greater confidence in your financial information with structured auditing and review support.', body: 'Our audit services help businesses understand the quality, accuracy, and reliability of financial information while identifying areas that may require attention.', bullets: ['Financial statement audit support', 'Internal controls and process review', 'Management reporting and recommendations'], ctaTarget: '#/conversation' },
-    { id: 'trading-education', number: '07', group: 'Trading education', title: 'Trading Lessons', summary: 'Build disciplined, risk-aware habits through structured learning and practical review.', body: 'Our trading education focuses on markets, risk management, analysis, and disciplined decision-making. The goal is education and structured learning, not promises of guaranteed returns.', bullets: ['Market understanding', 'Risk management', 'Structured analysis and review'], ctaTarget: '#/conversation' },
-    { id: 'ai-automation', number: '08', group: 'AI automation', title: 'Work Smarter With AI Automation', summary: 'Turn repetitive customer interactions and business tasks into intelligent automated workflows.', body: 'Apex helps businesses use AI to respond to customers, manage conversations, automate content, organize bookings, qualify leads, and streamline everyday operations.', bullets: ['WhatsApp, social, and voice conversations', 'Bookings, lead qualification, and follow-up', 'CRM, reporting, and connected workflows'], ctaTarget: '#/automation' }
+    { id: 'market-entry', number: '01', group: 'Market entry', title: 'Entrepreneur License (MISA)', summary: 'Shape the right entity and licensing path for a confident start in Saudi Arabia.', body: 'We help businesses understand the requirements, structure, documentation, and practical steps involved in establishing their presence.', bullets: ['Market-entry guidance', 'Entity and licensing considerations', 'Documentation and process clarity'], ctaTarget: '/conversation' },
+    { id: 'business-advisory', number: '02', group: 'Business advisory', title: 'Investment Advisory', summary: 'Turn market context, commercial questions, and priorities into decisions you can use.', body: 'We help entrepreneurs and businesses evaluate opportunities, understand the local business environment, and make informed decisions based on practical market considerations.', bullets: ['Opportunity evaluation', 'Local business context', 'Commercial priorities and next steps'], ctaTarget: '/advisory-session' },
+    { id: 'government-support', number: '03', group: 'Government & business support', title: 'PRO / GRO Services', summary: 'Keep essential government relations work moving with reliable, informed support.', body: 'Our PRO/GRO services help businesses manage essential government-related processes and administrative requirements, allowing owners and management teams to focus on operations.', bullets: ['Government-related processes', 'Administrative requirements', 'Ongoing operational support'], ctaTarget: '/conversation' },
+    { id: 'visa-assistance', number: '04', group: 'Visa assistance', title: 'Visa Assistance Services', summary: 'Make international travel and relocation simpler with professional visa assistance.', body: 'We assist individuals, families, professionals, students, and businesses with requirements, documentation, applications, and the wider application process.', bullets: ['Tourist, visit, business, student, family, and work visas', 'Document preparation and review', 'Application and appointment guidance'], note: 'Applications remain subject to the requirements and decisions of the relevant authority. Assistance does not guarantee approval.', ctaTarget: '/visa-assistance' },
+    { id: 'accounting-tax', number: '05', group: 'Accounting & tax', title: 'Tax Return Services', summary: 'Stay organized and confident with professional tax return support.', body: 'We help businesses and eligible clients prepare and manage tax return requirements while keeping the process clear, structured, and aligned with applicable requirements.', bullets: ['Tax return preparation', 'Documentation review and filing assistance', 'VAT-related and compliance guidance'], ctaTarget: '/conversation' },
+    { id: 'auditing', number: '06', group: 'Auditing', title: 'Audit & Assurance Services', summary: 'Build greater confidence in your financial information with structured auditing and review support.', body: 'Our audit services help businesses understand the quality, accuracy, and reliability of financial information while identifying areas that may require attention.', bullets: ['Financial statement audit support', 'Internal controls and process review', 'Management reporting and recommendations'], ctaTarget: '/conversation' },
+    { id: 'trading-education', number: '07', group: 'Trading education', title: 'Trading Lessons', summary: 'Build disciplined, risk-aware habits through structured learning and practical review.', body: 'Our trading education focuses on markets, risk management, analysis, and disciplined decision-making. The goal is education and structured learning, not promises of guaranteed returns.', bullets: ['Market understanding', 'Risk management', 'Structured analysis and review'], ctaTarget: '/conversation' },
+    { id: 'ai-automation', number: '08', group: 'AI automation', title: 'Work Smarter With AI Automation', summary: 'Turn repetitive customer interactions and business tasks into intelligent automated workflows.', body: 'Apex helps businesses use AI to respond to customers, manage conversations, automate content, organize bookings, qualify leads, and streamline everyday operations.', bullets: ['WhatsApp, social, and voice conversations', 'Bookings, lead qualification, and follow-up', 'CRM, reporting, and connected workflows'], ctaTarget: '/automation' }
   ];
   const visaCoverage = content.countries.map((country) => country.name).join(' · ');
   const icon = (service) => `<span class="service-redesign-icon icon-${service.id}" aria-hidden="true"><i></i><i></i><i></i></span>`;
   const panel = (service) => `<article class="service-redesign-panel" id="service-${service.id}"><div class="service-redesign-panel-intro"><span class="service-redesign-number">${service.number}</span><div>${icon(service)}<p class="eyebrow">${service.group}</p><h3>${service.title}</h3><p>${service.summary}</p></div></div><div class="service-redesign-panel-body"><p>${service.body}</p><ul>${service.bullets.map((bullet) => `<li>${bullet}</li>`).join('')}</ul>${service.id === 'visa-assistance' ? `<p class="service-redesign-coverage"><strong>Current coverage</strong>${visaCoverage || 'Coverage details available during consultation.'}</p>` : ''}${service.note ? `<p class="service-redesign-note">${service.note}</p>` : ''}<a class="text-cta" href="${service.ctaTarget}">Discuss this service <span aria-hidden="true">&rarr;</span></a></div></article>`;
   return `<article class="content-page service-redesign-page">
-    <section class="service-redesign-hero"><div class="service-redesign-hero-copy"><p class="eyebrow">SERVICES FOR AMBITIOUS BUSINESSES</p><h1>Make the next move <em>clearer.</em></h1><p>From entering Saudi Arabia to improving the way your business operates, Apex brings local context, professional support, and practical technology into one working relationship.</p><div class="service-redesign-actions"><a class="button" href="#/conversation">Start a conversation <span aria-hidden="true">&rarr;</span></a><a class="service-redesign-text-link" href="#service-directory">Explore services <span aria-hidden="true">&#8595;</span></a></div></div><div class="service-redesign-hero-art" aria-label="Apex connects market entry, operations, finance, and technology"><div class="service-redesign-art-ring ring-one"></div><div class="service-redesign-art-ring ring-two"></div><div class="service-redesign-art-core"><span class="brand-mark large" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><strong>APEX</strong><small>BUSINESS ADVISORY</small></div><span class="service-redesign-art-label label-one">MARKET ENTRY</span><span class="service-redesign-art-label label-two">OPERATIONS</span><span class="service-redesign-art-label label-three">AI + AUTOMATION</span></div></section>
+    <section class="service-redesign-hero"><div class="service-redesign-hero-copy"><p class="eyebrow">SERVICES FOR AMBITIOUS BUSINESSES</p><h1>Make the next move <em>clearer.</em></h1><p>From entering Saudi Arabia to improving the way your business operates, Apex brings local context, professional support, and practical technology into one working relationship.</p><div class="service-redesign-actions"><a class="button" href="/conversation">Start a conversation <span aria-hidden="true">&rarr;</span></a><a class="service-redesign-text-link" href="#service-directory">Explore services <span aria-hidden="true">&#8595;</span></a></div></div><div class="service-redesign-hero-art" aria-label="Apex connects market entry, operations, finance, and technology"><div class="service-redesign-art-ring ring-one"></div><div class="service-redesign-art-ring ring-two"></div><div class="service-redesign-art-core"><span class="brand-mark large" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><strong>APEX</strong><small>BUSINESS ADVISORY</small></div><span class="service-redesign-art-label label-one">MARKET ENTRY</span><span class="service-redesign-art-label label-two">OPERATIONS</span><span class="service-redesign-art-label label-three">AI + AUTOMATION</span></div></section>
     <section class="service-redesign-intro" id="service-directory"><div><p class="eyebrow">ONE CLEAR VIEW</p><h2>Support for the decision in front of you.</h2></div><p>Our work covers the practical requirements that shape a business: market entry, commercial decisions, government processes, financial clarity, international movement, learning, and smarter operations.</p></section>
-    <section class="service-redesign-directory" aria-label="Service directory"><div class="service-redesign-directory-list">${services.map((service) => `<a href="#service-${service.id}"><span>${service.number}</span><strong>${service.title}</strong><b aria-hidden="true">&rarr;</b></a>`).join('')}</div><aside class="service-redesign-directory-aside"><p class="eyebrow">START WHERE IT MATTERS</p><h2>Not sure which service fits?</h2><p>Bring the business context and the question you are trying to answer. We will help point the conversation in the right direction.</p><a class="button" href="#/conversation">Talk to Apex <span aria-hidden="true">&rarr;</span></a></aside></section>
+    <section class="service-redesign-directory" aria-label="Service directory"><div class="service-redesign-directory-list">${services.map((service) => `<a href="#service-${service.id}"><span>${service.number}</span><strong>${service.title}</strong><b aria-hidden="true">&rarr;</b></a>`).join('')}</div><aside class="service-redesign-directory-aside"><p class="eyebrow">START WHERE IT MATTERS</p><h2>Not sure which service fits?</h2><p>Bring the business context and the question you are trying to answer. We will help point the conversation in the right direction.</p><a class="button" href="/conversation">Talk to Apex <span aria-hidden="true">&rarr;</span></a></aside></section>
     <section class="service-redesign-details" aria-labelledby="details-title"><div class="service-redesign-section-heading"><p class="eyebrow">THE WORK, IN PLAIN VIEW</p><h2 id="details-title">Choose the support that makes the next step easier.</h2></div>${services.map(panel).join('')}</section>
     <section class="service-redesign-process"><div><p class="eyebrow">HOW WE WORK</p><h2>Close to the decision from the first conversation.</h2><p>Good advisory work should remain useful when the real work begins. We start with the business reality, make the important dependencies visible, and stay focused on the next practical move.</p></div><ol><li><span>01</span><div><h3>Understand the question</h3><p>We begin with where the business is now, what you need, and what needs to become clear.</p></div></li><li><span>02</span><div><h3>Build the useful path</h3><p>Local knowledge and professional expertise turn the challenge into a focused plan.</p></div></li><li><span>03</span><div><h3>Move the work forward</h3><p>We stay close to the practical work so momentum does not get lost in complexity.</p></div></li></ol></section>
     <section class="service-redesign-faq" aria-labelledby="faq-title"><div class="service-redesign-section-heading"><p class="eyebrow">COMMON QUESTIONS</p><h2 id="faq-title">A clearer starting point.</h2></div><div class="service-redesign-faq-list"><details><summary>Can Apex help if I am not sure what I need?</summary><p>Yes. Start with the business context and decision ahead. The first conversation can help identify the relevant service or combination of support.</p></details><details><summary>Do you support businesses already operating in Saudi Arabia?</summary><p>Yes. The service range includes government and business support, advisory, tax, auditing, and automation for existing operations as well as market entry.</p></details><details><summary>Can visa assistance guarantee an approval?</summary><p>No. Applications are subject to the requirements and decisions of the relevant embassy, immigration authority, or government department.</p></details><details><summary>Is trading education financial advice or a promise of returns?</summary><p>No. The trading lessons are focused on education, risk management, analysis, and disciplined decision-making. They do not promise guaranteed returns.</p></details></div></section>
-    <section class="service-redesign-cta"><div><p class="eyebrow">BRING US THE REAL QUESTION</p><h2>Ready to make the next step clearer?</h2><p>Tell us what you are building, considering, or trying to solve. We will point you toward a useful next step.</p></div><a class="button" href="#/conversation">Start a conversation <span aria-hidden="true">&rarr;</span></a></section>
+    <section class="service-redesign-cta"><div><p class="eyebrow">BRING US THE REAL QUESTION</p><h2>Ready to make the next step clearer?</h2><p>Tell us what you are building, considering, or trying to solve. We will point you toward a useful next step.</p></div><a class="button" href="/conversation">Start a conversation <span aria-hidden="true">&rarr;</span></a></section>
   </article>`;
 }
 
@@ -889,13 +898,13 @@ function servicesPage() {
   const taxChecklist = ['Tax return preparation', 'Tax documentation review', 'Tax filing assistance', 'VAT-related support', 'Tax record organization', 'Tax compliance guidance', 'Review of supporting financial information', 'Assistance with tax-related queries'];
   const auditChecklist = ['Financial statement audit support', 'Internal audit', 'Financial record review', 'Compliance-focused reviews', 'Internal control assessment', 'Process and risk review', 'Audit preparation assistance', 'Identification of potential control gaps', 'Management reporting and recommendations'];
   const aiSubfeatures = [
-    { title: 'WhatsApp Chat Automation', lead: 'Automate customer conversations through WhatsApp.', intro: 'AI can help businesses:', list: ['Answer frequently asked questions', 'Respond to customer inquiries', 'Collect customer information', 'Qualify leads', 'Provide service information', 'Handle follow-up messages', 'Assist with appointment requests', 'Transfer complex conversations to a human team member'], cta: 'Automate WhatsApp', target: '#/automation' },
-    { title: 'Social Media Post Automation', lead: 'Maintain a consistent social media presence with AI-assisted content and publishing workflows.', intro: 'Possible capabilities include:', list: ['AI-assisted content creation', 'Caption generation', 'Content planning', 'Post scheduling', 'Promotional content', 'Educational content', 'Multi-platform publishing', 'Content calendar automation'], cta: 'Automate Your Content', target: '#/automation' },
-    { title: 'AI Comment & Message Replies', lead: 'Never leave customers waiting because a message or comment was missed.', intro: 'AI can assist with:', list: ['Social media comment replies', 'Direct message responses', 'Customer questions', 'Frequently asked questions', 'Product and service information', 'Lead qualification', 'Follow-up communication'], note: 'When a conversation requires human attention, the system can route it to the appropriate team member.', cta: 'Automate Customer Replies', target: '#/automation' },
-    { title: 'AI Voice Assistant', lead: 'Give customers another way to interact with your business through an AI-powered voice assistant.', intro: 'Depending on the business workflow, the assistant can:', list: ['Answer common questions', 'Provide business information', 'Handle basic customer inquiries', 'Collect customer details', 'Qualify leads', 'Assist with booking requests', 'Direct customers to the appropriate team'], cta: 'Explore AI Voice Solutions', target: '#/automation' },
-    { title: 'AI Booking & Appointment Scheduling', lead: 'Let customers book appointments through an automated conversation.', flow: ['Understand', 'Ask', 'Check Availability', 'Offer Times', 'Confirm', 'Remind'], chat: [['Customer', '"I want to book a consultation."'], ['AI', '"Of course. What day would you prefer?"']], note: 'The system can then provide available times, confirm the appointment, and send relevant reminders based on the connected booking workflow.', cta: 'Automate Your Booking', target: '#/automation' },
-    { title: 'AI Lead Generation & Qualification', lead: 'Turn conversations into qualified business opportunities.', note: 'AI can engage potential customers, ask relevant questions, collect contact details, understand their requirements, and pass qualified leads to your sales team.', cta: 'Generate Better Leads', target: '#/automation' },
-    { title: 'AI Business Workflow Automation', lead: 'Connect repetitive business tasks into intelligent workflows.', intro: 'Examples:', flows: [['Customer Inquiry', 'AI Response', 'Lead Qualification', 'CRM', 'Follow-Up'], ['Booking Request', 'AI Conversation', 'Calendar', 'Confirmation', 'Reminder'], ['New Lead', 'AI Qualification', 'Sales Notification', 'Follow-Up']], note: 'We identify repetitive tasks in your business and design automation around the workflows that create the greatest practical value.', cta: 'Automate Your Business', target: '#/automation' }
+    { title: 'WhatsApp Chat Automation', lead: 'Automate customer conversations through WhatsApp.', intro: 'AI can help businesses:', list: ['Answer frequently asked questions', 'Respond to customer inquiries', 'Collect customer information', 'Qualify leads', 'Provide service information', 'Handle follow-up messages', 'Assist with appointment requests', 'Transfer complex conversations to a human team member'], cta: 'Automate WhatsApp', target: '/automation' },
+    { title: 'Social Media Post Automation', lead: 'Maintain a consistent social media presence with AI-assisted content and publishing workflows.', intro: 'Possible capabilities include:', list: ['AI-assisted content creation', 'Caption generation', 'Content planning', 'Post scheduling', 'Promotional content', 'Educational content', 'Multi-platform publishing', 'Content calendar automation'], cta: 'Automate Your Content', target: '/automation' },
+    { title: 'AI Comment & Message Replies', lead: 'Never leave customers waiting because a message or comment was missed.', intro: 'AI can assist with:', list: ['Social media comment replies', 'Direct message responses', 'Customer questions', 'Frequently asked questions', 'Product and service information', 'Lead qualification', 'Follow-up communication'], note: 'When a conversation requires human attention, the system can route it to the appropriate team member.', cta: 'Automate Customer Replies', target: '/automation' },
+    { title: 'AI Voice Assistant', lead: 'Give customers another way to interact with your business through an AI-powered voice assistant.', intro: 'Depending on the business workflow, the assistant can:', list: ['Answer common questions', 'Provide business information', 'Handle basic customer inquiries', 'Collect customer details', 'Qualify leads', 'Assist with booking requests', 'Direct customers to the appropriate team'], cta: 'Explore AI Voice Solutions', target: '/automation' },
+    { title: 'AI Booking & Appointment Scheduling', lead: 'Let customers book appointments through an automated conversation.', flow: ['Understand', 'Ask', 'Check Availability', 'Offer Times', 'Confirm', 'Remind'], chat: [['Customer', '"I want to book a consultation."'], ['AI', '"Of course. What day would you prefer?"']], note: 'The system can then provide available times, confirm the appointment, and send relevant reminders based on the connected booking workflow.', cta: 'Automate Your Booking', target: '/automation' },
+    { title: 'AI Lead Generation & Qualification', lead: 'Turn conversations into qualified business opportunities.', note: 'AI can engage potential customers, ask relevant questions, collect contact details, understand their requirements, and pass qualified leads to your sales team.', cta: 'Generate Better Leads', target: '/automation' },
+    { title: 'AI Business Workflow Automation', lead: 'Connect repetitive business tasks into intelligent workflows.', intro: 'Examples:', flows: [['Customer Inquiry', 'AI Response', 'Lead Qualification', 'CRM', 'Follow-Up'], ['Booking Request', 'AI Conversation', 'Calendar', 'Confirmation', 'Reminder'], ['New Lead', 'AI Qualification', 'Sales Notification', 'Follow-Up']], note: 'We identify repetitive tasks in your business and design automation around the workflows that create the greatest practical value.', cta: 'Automate Your Business', target: '/automation' }
   ];
   const checklist = (items) => `<ul class="detail-checklist">${items.map((item) => `<li>${item}</li>`).join('')}</ul>`;
   const flowRow = (steps) => `<div class="flow-example">${steps.map((step, index) => `${index ? '<b aria-hidden="true">&rarr;</b>' : ''}<span>${step}</span>`).join('')}</div>`;
@@ -909,7 +918,7 @@ function servicesPage() {
 
   return `<article class="content-page services-page">
     <section class="services-hero">
-      <div class="services-hero-copy"><p class="eyebrow">WHAT WE DO</p><h1>Practical support for<br /><em>the moves that matter.</em></h1><p>From entering Saudi Arabia and managing essential business requirements to making better commercial decisions and adopting smarter technology, Apex brings local context, practical expertise, and reliable execution into one clear working relationship.</p><p>Whether you are starting a business, managing an existing operation, expanding internationally, or looking for ways to work more efficiently, we help turn complex requirements into clear next steps.</p><a class="button" href="#/conversation">Start a conversation <span aria-hidden="true">&rarr;</span></a></div>
+      <div class="services-hero-copy"><p class="eyebrow">WHAT WE DO</p><h1>Practical support for<br /><em>the moves that matter.</em></h1><p>From entering Saudi Arabia and managing essential business requirements to making better commercial decisions and adopting smarter technology, Apex brings local context, practical expertise, and reliable execution into one clear working relationship.</p><p>Whether you are starting a business, managing an existing operation, expanding internationally, or looking for ways to work more efficiently, we help turn complex requirements into clear next steps.</p><a class="button" href="/conversation">Start a conversation <span aria-hidden="true">&rarr;</span></a></div>
       <div class="services-hero-visual" aria-label="Apex advisory services working together"><div class="service-halo"></div><article class="hero-service-card hero-service-card-top"><span>MARKET ENTRY</span><strong>MISA licensing</strong><i></i></article><article class="hero-service-card hero-service-card-bottom"><span>OPERATIONS</span><strong>PRO/GRO support</strong><i></i></article><div class="service-core"><span class="brand-mark large" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><small>APEX<br />ADVISORY</small></div><span class="hero-link hero-link-one"></span><span class="hero-link hero-link-two"></span></div>
     </section>
 
@@ -917,50 +926,50 @@ function servicesPage() {
       ${overview.map((item, index) => `<article class="service-offer"><span>0${index + 1}</span><div class="service-icon ${item.icon}" aria-hidden="true">${dotIcons.includes(item.icon) ? '<i></i><i></i><i></i>' : svgIcons[item.icon]}</div><h3>${item.title}</h3><p>${item.lead}</p><a href="#${item.anchor}" aria-label="Learn more about ${item.title}">Learn more <b aria-hidden="true">&rarr;</b></a></article>`).join('')}
     </div></section>
 
-    <section class="service-detail" id="service-market-entry"><div class="service-detail-inner"><span class="detail-num">01</span><div class="service-icon icon-entry" aria-hidden="true"><i></i><i></i><i></i></div><div class="detail-copy"><p class="eyebrow">MARKET ENTRY</p><h2>Entrepreneur License (MISA)</h2><p class="detail-lead">Shape the right entity and licensing path for a confident start in Saudi Arabia.</p><p>We provide guidance around the Saudi market-entry process, helping businesses understand the requirements, structure, documentation, and practical steps involved in establishing their presence.</p><a class="text-cta" href="#/conversation">Let's talk <span aria-hidden="true">&rarr;</span></a></div></div></section>
+    <section class="service-detail" id="service-market-entry"><div class="service-detail-inner"><span class="detail-num">01</span><div class="service-icon icon-entry" aria-hidden="true"><i></i><i></i><i></i></div><div class="detail-copy"><p class="eyebrow">MARKET ENTRY</p><h2>Entrepreneur License (MISA)</h2><p class="detail-lead">Shape the right entity and licensing path for a confident start in Saudi Arabia.</p><p>We provide guidance around the Saudi market-entry process, helping businesses understand the requirements, structure, documentation, and practical steps involved in establishing their presence.</p><a class="text-cta" href="/conversation">Let's talk <span aria-hidden="true">&rarr;</span></a></div></div></section>
 
-    <section class="service-detail" id="service-business-advisory"><div class="service-detail-inner"><span class="detail-num">02</span><div class="service-icon icon-advisory" aria-hidden="true"><i></i><i></i><i></i></div><div class="detail-copy"><p class="eyebrow">BUSINESS ADVISORY</p><h2>Investment Advisory</h2><p class="detail-lead">Turn market context, commercial questions, and priorities into decisions you can use.</p><p>We help entrepreneurs and businesses evaluate opportunities, understand the local business environment, and make informed decisions based on practical market considerations.</p><a class="text-cta" href="#/advisory-session">Schedule Advisory <span aria-hidden="true">&rarr;</span></a></div></div></section>
+    <section class="service-detail" id="service-business-advisory"><div class="service-detail-inner"><span class="detail-num">02</span><div class="service-icon icon-advisory" aria-hidden="true"><i></i><i></i><i></i></div><div class="detail-copy"><p class="eyebrow">BUSINESS ADVISORY</p><h2>Investment Advisory</h2><p class="detail-lead">Turn market context, commercial questions, and priorities into decisions you can use.</p><p>We help entrepreneurs and businesses evaluate opportunities, understand the local business environment, and make informed decisions based on practical market considerations.</p><a class="text-cta" href="/advisory-session">Schedule Advisory <span aria-hidden="true">&rarr;</span></a></div></div></section>
 
-    <section class="service-detail" id="service-government-support"><div class="service-detail-inner"><span class="detail-num">03</span><div class="service-icon icon-support" aria-hidden="true"><i></i><i></i><i></i></div><div class="detail-copy"><p class="eyebrow">GOVERNMENT & BUSINESS SUPPORT</p><h2>PRO / GRO Services</h2><p class="detail-lead">Keep essential government relations work moving with reliable, informed support.</p><p>Our PRO/GRO services help businesses manage essential government-related processes and administrative requirements, allowing business owners and management teams to focus on their operations.</p><a class="text-cta" href="#/conversation">Let's talk <span aria-hidden="true">&rarr;</span></a></div></div></section>
+    <section class="service-detail" id="service-government-support"><div class="service-detail-inner"><span class="detail-num">03</span><div class="service-icon icon-support" aria-hidden="true"><i></i><i></i><i></i></div><div class="detail-copy"><p class="eyebrow">GOVERNMENT & BUSINESS SUPPORT</p><h2>PRO / GRO Services</h2><p class="detail-lead">Keep essential government relations work moving with reliable, informed support.</p><p>Our PRO/GRO services help businesses manage essential government-related processes and administrative requirements, allowing business owners and management teams to focus on their operations.</p><a class="text-cta" href="/conversation">Let's talk <span aria-hidden="true">&rarr;</span></a></div></div></section>
 
     <section class="service-detail" id="service-visa-assistance"><div class="service-detail-inner"><span class="detail-num">04</span><div class="service-icon icon-visa" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M2 16 22 8 20 12 22 16 13.5 13.5 9 20 7.5 19 9.5 13 2 16Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div><div class="detail-copy"><p class="eyebrow">VISA ASSISTANCE</p><h2>Visa Assistance Services</h2><p class="detail-lead">Make international travel and relocation simpler with professional visa assistance.</p><p>We assist individuals, families, professionals, students, and businesses with understanding visa requirements, preparing documentation, completing applications, and navigating the application process.</p>
       <h3 class="detail-subheading">Our Visa Support Includes</h3>
       ${checklist(visaChecklist)}
       <h3 class="detail-subheading">Countries We Process</h3>
-      <div class="country-grid">${content.countries.map((country) => `<article class="country-card"><span class="country-flag" aria-hidden="true">${country.flag}</span><h4>${country.name}</h4><p class="country-categories">${country.categories}</p><p>${country.description}</p><a class="text-cta" href="#/visa-assistance">Get Visa Assistance <span aria-hidden="true">&rarr;</span></a></article>`).join('')}</div>
+      <div class="country-grid">${content.countries.map((country) => `<article class="country-card"><span class="country-flag" aria-hidden="true">${country.flag}</span><h4>${country.name}</h4><p class="country-categories">${country.categories}</p><p>${country.description}</p><a class="text-cta" href="/visa-assistance">Get Visa Assistance <span aria-hidden="true">&rarr;</span></a></article>`).join('')}</div>
       <p class="visa-disclaimer">Visa applications are subject to the requirements and decisions of the relevant embassy, immigration authority, or government department. Visa assistance does not guarantee approval.</p>
-      <a class="button" href="#/visa-assistance">Get Visa Assistance <span aria-hidden="true">&rarr;</span></a>
+      <a class="button" href="/visa-assistance">Get Visa Assistance <span aria-hidden="true">&rarr;</span></a>
     </div></div></section>
 
     <section class="service-detail" id="service-accounting-tax"><div class="service-detail-inner"><span class="detail-num">05</span><div class="service-icon icon-tax" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 4h11l5 5v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M15 4v5h5" stroke="currentColor" stroke-width="1.6"/></svg></div><div class="detail-copy"><p class="eyebrow">ACCOUNTING & TAX</p><h2>Tax Return Services</h2><p class="detail-lead">Stay organized and confident with professional tax return support.</p><p>We help businesses and eligible clients prepare and manage their tax return requirements while keeping the process clear, structured, and aligned with applicable requirements.</p>
       <h3 class="detail-subheading">Our Tax Support Includes</h3>
       ${checklist(taxChecklist)}
       <p>Our team helps make tax-related processes easier to understand and manage, allowing business owners to focus on running their businesses.</p>
-      <a class="text-cta" href="#/conversation">Discuss Your Tax Requirements <span aria-hidden="true">&rarr;</span></a>
+      <a class="text-cta" href="/conversation">Discuss Your Tax Requirements <span aria-hidden="true">&rarr;</span></a>
     </div></div></section>
 
     <section class="service-detail" id="service-auditing"><div class="service-detail-inner"><span class="detail-num">06</span><div class="service-icon icon-audit" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M9 11.5 11.5 14 17 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg></div><div class="detail-copy"><p class="eyebrow">AUDITING</p><h2>Audit &amp; Assurance Services</h2><p class="detail-lead">Build greater confidence in your financial information with structured auditing and review support.</p><p>Our audit services help businesses understand the quality, accuracy, and reliability of their financial information while identifying areas that may require attention.</p>
       <h3 class="detail-subheading">Our Audit Support Includes</h3>
       ${checklist(auditChecklist)}
       <p>We approach each engagement with a practical mindset &mdash; focusing not only on the numbers, but also on what the findings mean for the business.</p>
-      <a class="text-cta" href="#/conversation">Discuss Your Audit Requirements <span aria-hidden="true">&rarr;</span></a>
+      <a class="text-cta" href="/conversation">Discuss Your Audit Requirements <span aria-hidden="true">&rarr;</span></a>
     </div></div></section>
 
-    <section class="service-detail" id="service-trading-education"><div class="service-detail-inner"><span class="detail-num">07</span><div class="service-icon icon-learning" aria-hidden="true"><i></i><i></i><i></i></div><div class="detail-copy"><p class="eyebrow">TRADING EDUCATION</p><h2>Trading Lessons</h2><p class="detail-lead">Build disciplined, risk-aware habits through structured learning and practical review.</p><p>Our trading education focuses on developing a better understanding of markets, risk management, analysis, and disciplined decision-making.</p><p>The goal is education and structured learning &mdash; not promises of guaranteed returns.</p><a class="text-cta" href="#/conversation">Let's talk <span aria-hidden="true">&rarr;</span></a></div></div></section>
+    <section class="service-detail" id="service-trading-education"><div class="service-detail-inner"><span class="detail-num">07</span><div class="service-icon icon-learning" aria-hidden="true"><i></i><i></i><i></i></div><div class="detail-copy"><p class="eyebrow">TRADING EDUCATION</p><h2>Trading Lessons</h2><p class="detail-lead">Build disciplined, risk-aware habits through structured learning and practical review.</p><p>Our trading education focuses on developing a better understanding of markets, risk management, analysis, and disciplined decision-making.</p><p>The goal is education and structured learning &mdash; not promises of guaranteed returns.</p><a class="text-cta" href="/conversation">Let's talk <span aria-hidden="true">&rarr;</span></a></div></div></section>
 
     <section class="service-detail" id="service-ai-automation"><div class="service-detail-inner"><span class="detail-num">08</span><div class="service-icon icon-ai" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2 14 9 21 9 15.5 13 17.5 20 12 16 6.5 20 8.5 13 3 9 10 9Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></div><div class="detail-copy"><p class="eyebrow">AI AUTOMATION</p><h2>Work Smarter With AI Automation</h2><p class="detail-lead">Turn repetitive customer interactions and business tasks into intelligent automated workflows.</p><p>Apex helps businesses use AI to respond to customers, manage conversations, automate content, organize bookings, qualify leads, and streamline everyday operations.</p>
-      <div class="ai-subfeatures">${aiSubfeatures.map((feature) => `<article class="ai-subfeature"><h3>${feature.title}</h3><p class="detail-lead">${feature.lead}</p>${feature.intro ? `<p class="subfeature-intro">${feature.intro}</p>` : ''}${feature.list ? checklist(feature.list) : ''}${feature.flow ? flowRow(feature.flow) : ''}${feature.chat ? `<div class="chat-sample">${feature.chat.map(([who, line]) => `<p><strong>${who}:</strong> ${line}</p>`).join('')}</div>` : ''}${feature.flows ? feature.flows.map((flow) => flowRow(flow)).join('') : ''}${feature.note ? `<p>${feature.note}</p>` : ''}<a class="text-cta" href="${feature.target || '#/automation'}">${feature.cta} <span aria-hidden="true">&rarr;</span></a></article>`).join('')}</div>
+      <div class="ai-subfeatures">${aiSubfeatures.map((feature) => `<article class="ai-subfeature"><h3>${feature.title}</h3><p class="detail-lead">${feature.lead}</p>${feature.intro ? `<p class="subfeature-intro">${feature.intro}</p>` : ''}${feature.list ? checklist(feature.list) : ''}${feature.flow ? flowRow(feature.flow) : ''}${feature.chat ? `<div class="chat-sample">${feature.chat.map(([who, line]) => `<p><strong>${who}:</strong> ${line}</p>`).join('')}</div>` : ''}${feature.flows ? feature.flows.map((flow) => flowRow(flow)).join('') : ''}${feature.note ? `<p>${feature.note}</p>` : ''}<a class="text-cta" href="${feature.target || '/automation'}">${feature.cta} <span aria-hidden="true">&rarr;</span></a></article>`).join('')}</div>
     </div></div></section>
 
-    <section class="services-focus"><div class="services-focus-copy"><p class="eyebrow">WHERE WE ADD CLARITY</p><h2>The questions behind every practical next step.</h2><p>Each engagement begins with the business reality in front of you. We help make the important dependencies, choices, requirements, and actions easier to see.</p><a class="primary-button" href="#/conversation">Discuss your priorities</a></div><div class="focus-card-grid"><article><span class="focus-number">01</span><strong>Market readiness</strong><p>Understand the structure, timing, licensing, and approvals needed to enter Saudi Arabia with confidence.</p></article><article><span class="focus-number">02</span><strong>Financial clarity</strong><p>Keep accounting, tax, auditing, and financial information organized so important business decisions are supported by reliable information.</p></article><article><span class="focus-number">03</span><strong>Operational momentum</strong><p>Move government relations, administrative requirements, and essential business processes forward with a clear owner and useful next step.</p></article><article><span class="focus-number">04</span><strong>Digital efficiency</strong><p>Identify repetitive work and use AI automation to reduce manual effort, improve response times, and create more efficient workflows.</p></article></div></section>
+    <section class="services-focus"><div class="services-focus-copy"><p class="eyebrow">WHERE WE ADD CLARITY</p><h2>The questions behind every practical next step.</h2><p>Each engagement begins with the business reality in front of you. We help make the important dependencies, choices, requirements, and actions easier to see.</p><a class="primary-button" href="/conversation">Discuss your priorities</a></div><div class="focus-card-grid"><article><span class="focus-number">01</span><strong>Market readiness</strong><p>Understand the structure, timing, licensing, and approvals needed to enter Saudi Arabia with confidence.</p></article><article><span class="focus-number">02</span><strong>Financial clarity</strong><p>Keep accounting, tax, auditing, and financial information organized so important business decisions are supported by reliable information.</p></article><article><span class="focus-number">03</span><strong>Operational momentum</strong><p>Move government relations, administrative requirements, and essential business processes forward with a clear owner and useful next step.</p></article><article><span class="focus-number">04</span><strong>Digital efficiency</strong><p>Identify repetitive work and use AI automation to reduce manual effort, improve response times, and create more efficient workflows.</p></article></div></section>
 
     <section class="services-process"><div class="services-process-heading"><p class="eyebrow">HOW WE WORK</p><h2>Close to the decision from the first conversation.</h2></div><ol class="service-steps"><li><span>01</span><div><h3>Get clear on the real question</h3><p>We begin with where the business is now, what you need, and what needs to become clear next.</p></div></li><li><span>02</span><div><h3>Build the useful path</h3><p>Local knowledge, professional expertise, and technology turn the challenge into a focused plan with the right work in the right order.</p></div></li><li><span>03</span><div><h3>Move with confidence</h3><p>We stay close to the practical work so momentum does not get lost in complexity or process.</p></div></li></ol></section>
 
     <section class="approach-section"><div class="approach-copy"><p class="eyebrow">THE APEX APPROACH</p><h2>Local context. Clear action. Practical results.</h2><p>We believe good advisory work should remain useful when the real work begins.</p><p>That means understanding the business behind the request, explaining the important considerations clearly, and helping move the next step forward.</p><p>Whether you are:</p><ul class="approach-tags"><li>Entering Saudi Arabia</li><li>Managing tax and financial requirements</li><li>Preparing for an audit</li><li>Managing government processes</li><li>Applying for a visa</li><li>Making an investment decision</li><li>Or automating your business</li></ul><p>Apex provides practical support built around your actual needs.</p></div></section>
 
-    <section class="services-outcome"><div class="outcome-visual"><img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&q=85" alt="Business team discussing a plan" /><article><small>PRACTICAL SUPPORT</small><strong>Local context.<br />Clear action.</strong><span>For the work in front of you.</span></article></div><div class="outcome-copy"><p class="eyebrow">PRACTICAL, NOT PERFORMATIVE</p><h2>Advice that stays useful when the work begins.</h2><p>Whether you are entering Saudi Arabia, managing an existing operation, making an investment decision, handling financial requirements, arranging international travel, or looking for smarter ways to operate, Apex gives you a grounded view of what matters now.</p><p>We combine <strong>local understanding, professional services, and practical technology</strong> to help ambitious businesses move forward with greater clarity.</p><a class="button" href="#/advisory-session">Bring Us Your Decision <span aria-hidden="true">&rarr;</span></a></div></section>
+    <section class="services-outcome"><div class="outcome-visual"><img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&q=85" alt="Business team discussing a plan" /><article><small>PRACTICAL SUPPORT</small><strong>Local context.<br />Clear action.</strong><span>For the work in front of you.</span></article></div><div class="outcome-copy"><p class="eyebrow">PRACTICAL, NOT PERFORMATIVE</p><h2>Advice that stays useful when the work begins.</h2><p>Whether you are entering Saudi Arabia, managing an existing operation, making an investment decision, handling financial requirements, arranging international travel, or looking for smarter ways to operate, Apex gives you a grounded view of what matters now.</p><p>We combine <strong>local understanding, professional services, and practical technology</strong> to help ambitious businesses move forward with greater clarity.</p><a class="button" href="/advisory-session">Bring Us Your Decision <span aria-hidden="true">&rarr;</span></a></div></section>
 
-    <section class="services-closing"><div><p class="eyebrow">FINAL CTA</p><h2>Have a business<br />challenge to solve?</h2><p>Tell us what you are working on. We'll help you understand the next practical step.</p><a class="button" href="#/conversation">Start a Conversation <span aria-hidden="true">&rarr;</span></a></div><div class="services-orbit" aria-hidden="true"><span></span><i></i><b></b><div class="ai-core"><span class="brand-mark large"><i></i><i></i><i></i><i></i><i></i></span></div></div></section>
+    <section class="services-closing"><div><p class="eyebrow">FINAL CTA</p><h2>Have a business<br />challenge to solve?</h2><p>Tell us what you are working on. We'll help you understand the next practical step.</p><a class="button" href="/conversation">Start a Conversation <span aria-hidden="true">&rarr;</span></a></div><div class="services-orbit" aria-hidden="true"><span></span><i></i><b></b><div class="ai-core"><span class="brand-mark large"><i></i><i></i><i></i><i></i><i></i></span></div></div></section>
   </article>`;
 }
 
@@ -978,7 +987,7 @@ function singleArticlePage(slug) {
         <p class="eyebrow">APEX INSIGHTS</p>
         <h1>Article Not Found</h1>
         <p>The article you are looking for does not exist or has been relocated.</p>
-        <a class="button" href="#/insights">← Browse all Insights</a>
+        <a class="button" href="/insights">← Browse all Insights</a>
       </section>
     </article>`;
   }
@@ -994,10 +1003,10 @@ function singleArticlePage(slug) {
   const related = articles.filter(item => item.slug !== article.slug && (item.status === 'published' || !item.status)).sort((first, second) => Number((second.category || '') === category) - Number((first.category || '') === category)).slice(0, 3);
 
   return `<article class="article-detail">
-    <header class="article-detail-header"><nav class="article-detail-breadcrumb" aria-label="Breadcrumb"><a href="#/home">Home</a><span>/</span><a href="#/insights">Insights</a><span>/</span><span>${category}</span></nav><span class="article-detail-category">${category}</span><h1>${article.title}</h1><div class="article-detail-meta"><span>By <strong>${author}</strong></span><time datetime="${article.publishedAt || ''}">${dateFormatted}</time><span>${readTime} min read</span>${article.views ? `<span>${Number(article.views).toLocaleString()} views</span>` : ''}</div></header>
+    <header class="article-detail-header"><nav class="article-detail-breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/insights">Insights</a><span>/</span><span>${category}</span></nav><span class="article-detail-category">${category}</span><h1>${article.title}</h1><div class="article-detail-meta"><span>By <strong>${author}</strong></span><time datetime="${article.publishedAt || ''}">${dateFormatted}</time><span>${readTime} min read</span>${article.views ? `<span>${Number(article.views).toLocaleString()} views</span>` : ''}</div></header>
     ${article.image ? `<figure class="article-detail-figure"><img src="${article.image}" alt="${article.image_alt || article.title}" fetchpriority="high" />${article.image_caption ? `<figcaption>${article.image_caption}</figcaption>` : ''}</figure>` : ''}
     <div class="article-detail-layout"><main class="article-detail-content"><p class="article-detail-lead">${article.excerpt || article.description || ''}</p><div class="article-detail-body">${article.content || '<p>No content available.</p>'}</div><footer class="article-detail-footer"><div class="article-detail-tags"><strong>Tags</strong>${tags.map(tag => `<span>${tag}</span>`).join('')}</div><div class="article-detail-share" aria-label="Share this article"><strong>Share</strong><button type="button" data-share="facebook">Facebook</button><button type="button" data-share="twitter">X</button><button type="button" data-share="linkedin">LinkedIn</button></div></footer><aside class="article-detail-author" aria-label="Article author"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=96&q=80" alt="${author}" /><div><small>Written by</small><strong>${author}</strong><span>Strategic Advisory &amp; Market Insights</span></div></aside></main>
-      <aside class="article-detail-sidebar" aria-label="Article navigation"><section><p class="fresh-insights-label">Related reading</p><h2>More insights</h2><ol>${related.map(item => `<li><a href="#/insights/${item.slug || slugify(item.title)}"><span>${item.category || 'Insights'}</span>${item.title}</a></li>`).join('') || '<li>No related articles yet.</li>'}</ol></section><section><p class="fresh-insights-label">Browse category</p><h2>Topics</h2><ul>${categories.map(item => `<li><a href="#/insights">${item}</a></li>`).join('')}</ul></section><section><p class="fresh-insights-label">Article tags</p><div class="article-sidebar-tags">${tags.map(tag => `<span>${tag}</span>`).join('')}</div></section></aside>
+      <aside class="article-detail-sidebar" aria-label="Article navigation"><section><p class="fresh-insights-label">Related reading</p><h2>More insights</h2><ol>${related.map(item => `<li><a href="/insights/${item.slug || slugify(item.title)}"><span>${item.category || 'Insights'}</span>${item.title}</a></li>`).join('') || '<li>No related articles yet.</li>'}</ol></section><section><p class="fresh-insights-label">Browse category</p><h2>Topics</h2><ul>${categories.map(item => `<li><a href="/insights">${item}</a></li>`).join('')}</ul></section><section><p class="fresh-insights-label">Article tags</p><div class="article-sidebar-tags">${tags.map(tag => `<span>${tag}</span>`).join('')}</div></section></aside>
     </div>
   </article>`;
 }
@@ -1012,15 +1021,15 @@ function freshInsightsPage() {
     const slug = article.slug || slugify(article.title);
     const articleTags = String(article.tags || '').split(',').map(tag => tag.trim()).filter(Boolean).slice(0, 3);
     return `<article class="insights-listing-card" data-category="${article.category || 'Insights'}" data-tags="${articleTags.join('|')}"${index >= 6 ? ' hidden' : ''}>
-      <a class="insights-card-image" href="#/insights/${slug}" aria-label="Read ${article.title}"><img src="${article.image || 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=900&q=85'}" alt="${article.image_alt || article.title}" loading="lazy" /></a>
-      <div class="insights-card-content"><div class="insights-card-meta"><span>${article.category || 'Insights'}</span><time>${date(article)}</time></div><h2><a href="#/insights/${slug}">${article.title}</a></h2><p>${article.excerpt || article.description || 'Practical guidance for leaders building and operating in Saudi Arabia.'}</p><div class="insights-card-footer"><div class="insights-tag-list">${articleTags.map(tag => `<span>${tag}</span>`).join('')}</div><a href="#/insights/${slug}" class="insights-read-more">Read more <span aria-hidden="true">&rarr;</span></a></div></div>
+      <a class="insights-card-image" href="/insights/${slug}" aria-label="Read ${article.title}"><img src="${article.image || 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=900&q=85'}" alt="${article.image_alt || article.title}" loading="lazy" /></a>
+      <div class="insights-card-content"><div class="insights-card-meta"><span>${article.category || 'Insights'}</span><time>${date(article)}</time></div><h2><a href="/insights/${slug}">${article.title}</a></h2><p>${article.excerpt || article.description || 'Practical guidance for leaders building and operating in Saudi Arabia.'}</p><div class="insights-card-footer"><div class="insights-tag-list">${articleTags.map(tag => `<span>${tag}</span>`).join('')}</div><a href="/insights/${slug}" class="insights-read-more">Read more <span aria-hidden="true">&rarr;</span></a></div></div>
     </article>`;
   };
 
   return `<article class="insights-listing">
     <header class="insights-listing-hero"><div><p class="fresh-insights-kicker">APEX INSIGHTS</p><h1>Perspectives for the<br /><em>work ahead.</em></h1><p>Focused analysis, operating context, and decision support for leaders building in Saudi Arabia.</p></div><p class="insights-listing-count"><strong>${published.length}</strong> published perspectives</p></header>
     <div class="insights-listing-layout"><section class="insights-listing-main" aria-labelledby="insights-list-title"><div class="insights-listing-heading"><div><p class="fresh-insights-label">Latest publication</p><h2 id="insights-list-title">Insights and analysis</h2></div><p>Clear thinking for market entry, growth, and compliance.</p></div><div class="insights-card-grid">${published.map(card).join('') || '<p class="insights-empty">New perspectives are being prepared.</p>'}</div>${published.length > 6 ? '<button class="insights-load-more" type="button">Load more insights</button>' : ''}</section>
-      <aside class="insights-listing-sidebar" aria-label="Insights filters and recent posts"><section><p class="fresh-insights-label">Browse topics</p><h2>Categories</h2><div class="insights-filter-list"><button type="button" class="is-active" data-insights-filter="all">All insights <span>${published.length}</span></button>${categories.map(category => `<button type="button" data-insights-filter="${category}">${category} <span>${published.filter(article => (article.category || 'Insights') === category).length}</span></button>`).join('')}</div></section><section><p class="fresh-insights-label">Explore by tag</p><div class="insights-tag-filter">${tags.map(tag => `<button type="button" data-insights-tag="${tag}">${tag}</button>`).join('')}</div></section><section><p class="fresh-insights-label">Recent posts</p><h2>Recently published</h2><ol class="insights-recent-list">${recent.map(article => `<li><a href="#/insights/${article.slug || slugify(article.title)}"><span>${article.category || 'Insights'}</span>${article.title}</a></li>`).join('')}</ol></section></aside>
+      <aside class="insights-listing-sidebar" aria-label="Insights filters and recent posts"><section><p class="fresh-insights-label">Browse topics</p><h2>Categories</h2><div class="insights-filter-list"><button type="button" class="is-active" data-insights-filter="all">All insights <span>${published.length}</span></button>${categories.map(category => `<button type="button" data-insights-filter="${category}">${category} <span>${published.filter(article => (article.category || 'Insights') === category).length}</span></button>`).join('')}</div></section><section><p class="fresh-insights-label">Explore by tag</p><div class="insights-tag-filter">${tags.map(tag => `<button type="button" data-insights-tag="${tag}">${tag}</button>`).join('')}</div></section><section><p class="fresh-insights-label">Recent posts</p><h2>Recently published</h2><ol class="insights-recent-list">${recent.map(article => `<li><a href="/insights/${article.slug || slugify(article.title)}"><span>${article.category || 'Insights'}</span>${article.title}</a></li>`).join('')}</ol></section></aside>
     </div>
   </article>`;
 }
@@ -1185,7 +1194,7 @@ function applySharedContentToPage() {
 }
 
 function renderSite() {
-  if (location.hash.startsWith('#/dashboard')) {
+  if (location.hash.startsWith('#/dashboard') || location.pathname.replace(/\/+$/, '') === '/dashboard') {
     location.replace('dashboard.html');
     return;
   }
@@ -1223,5 +1232,16 @@ window.addEventListener('storage', (event) => {
 
 window.setInterval(syncFromStorage, 1000);
 
+document.addEventListener('click', (event) => {
+  if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+  const anchor = event.target.closest('a');
+  if (!anchor || anchor.target === '_blank' || anchor.hasAttribute('download')) return;
+  const href = anchor.getAttribute('href') || '';
+  if (!href || href.startsWith('#') || href.startsWith('http:') || href.startsWith('https:') || href.startsWith('mailto:') || href.startsWith('tel:') || /\.[a-z0-9]+$/i.test(href.split(/[?#]/)[0])) return;
+  event.preventDefault();
+  navigate(href);
+});
+
+window.addEventListener('popstate', renderSite);
 window.addEventListener('hashchange', renderSite);
 renderSite();

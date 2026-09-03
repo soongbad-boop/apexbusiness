@@ -147,16 +147,16 @@
     ],
     navigation: {
       header: [
-        { label: 'Home', href: '#/home', visible: true },
-        { label: 'About', href: '#/about', visible: true },
-        { label: 'Services', href: '#/services', visible: true },
-        { label: 'Insights', href: '#/insights', visible: true },
-        { label: 'Contact', href: '#/contact', visible: true }
+        { label: 'Home', href: '/', visible: true },
+        { label: 'About', href: '/about', visible: true },
+        { label: 'Services', href: '/services', visible: true },
+        { label: 'Insights', href: '/insights', visible: true },
+        { label: 'Contact', href: '/contact', visible: true }
       ],
       footer: [
-        { label: 'Home', href: '#/home', visible: true },
-        { label: 'Privacy', href: '#/privacy-policy', visible: true },
-        { label: 'Terms', href: '#/terms-and-conditions', visible: true }
+        { label: 'Home', href: '/', visible: true },
+        { label: 'Privacy', href: '/privacy-policy', visible: true },
+        { label: 'Terms', href: '/terms-and-conditions', visible: true }
       ]
     },
     branding: {
@@ -171,7 +171,7 @@
       topBannerText: 'Welcome to Apex Business Consultancy · Riyadh',
       showBanner: true,
       buttonLabel: 'Start a conversation',
-      buttonUrl: '#/contact',
+      buttonUrl: '/contact',
       sticky: true
     },
     footer: {
@@ -525,7 +525,7 @@
                     <div style="display:inline-flex; gap:6px;">
                       <button class="cms-button cms-button-soft cms-button-sm" type="button" data-preview-post="${idx}">Preview</button>
                       <a href="#posts/edit/${idx}" class="cms-button cms-button-secondary cms-button-sm" style="text-decoration:none;">Edit</a>
-                      <a href="index.html#/insights/${esc(art.slug || slugify(art.title))}" target="_blank" class="cms-button cms-button-soft cms-button-sm" style="text-decoration:none;">View ↗</a>
+                      <a href="/insights/${esc(art.slug || slugify(art.title))}" target="_blank" class="cms-button cms-button-soft cms-button-sm" style="text-decoration:none;">View ↗</a>
                       <button class="cms-button cms-button-danger cms-button-sm" type="button" data-action="delete-post:${idx}">Delete</button>
                     </div>
                   </td>
@@ -1272,7 +1272,7 @@
                   <strong style="display:block; color:var(--navy); font-size:13px;">${esc(p.title)}</strong>
                   <span style="font-size:11px; color:var(--muted);">/${esc(p.slug)} · <strong style="color:var(--green);">${esc(p.status)}</strong></span>
                 </div>
-                <a href="index.html#/${esc(p.slug)}" target="_blank" class="cms-button cms-button-soft cms-button-sm" style="text-decoration:none;">Preview ↗</a>
+                <a href="/${esc(p.slug)}" target="_blank" class="cms-button cms-button-soft cms-button-sm" style="text-decoration:none;">Preview ↗</a>
               </article>
             `).join('')}
           </div>
@@ -1310,7 +1310,7 @@
       input('Top Notification Banner Text', 'topBannerText', h.topBannerText || ''),
       select('Show Top Banner', 'showBanner', h.showBanner ? 'true' : 'false', [{ val: 'true', label: 'Enabled' }, { val: 'false', label: 'Disabled' }]),
       input('CTA Button Text', 'buttonLabel', h.buttonLabel || 'Start a conversation'),
-      input('CTA Button Destination URL', 'buttonUrl', h.buttonUrl || '#/contact'),
+      input('CTA Button Destination URL', 'buttonUrl', h.buttonUrl || '/contact'),
       select('Sticky Navigation Header', 'sticky', h.sticky ? 'true' : 'false', [{ val: 'true', label: 'Sticky on Scroll' }, { val: 'false', label: 'Static Top' }])
     ], 'Save Header Configuration'));
   }
@@ -1355,12 +1355,12 @@
         <section>
           <h2 style="font-size:16px; margin:0 0 14px; color:var(--navy);">Header Menu Items</h2>
           <div class="cms-list">${renderMenu('header')}</div>
-          ${form('add-nav-header', [input('Menu Label', 'label', ''), input('URL (e.g. #/services)', 'href', ''), select('Visible', 'visible', 'true', ['true', 'false'])], 'Add Header Link')}
+          ${form('add-nav-header', [input('Menu Label', 'label', ''), input('URL (e.g. /services)', 'href', ''), select('Visible', 'visible', 'true', ['true', 'false'])], 'Add Header Link')}
         </section>
         <section>
           <h2 style="font-size:16px; margin:0 0 14px; color:var(--navy);">Footer Menu Items</h2>
           <div class="cms-list">${renderMenu('footer')}</div>
-          ${form('add-nav-footer', [input('Menu Label', 'label', ''), input('URL (e.g. #/about)', 'href', ''), select('Visible', 'visible', 'true', ['true', 'false'])], 'Add Footer Link')}
+          ${form('add-nav-footer', [input('Menu Label', 'label', ''), input('URL (e.g. /about)', 'href', ''), select('Visible', 'visible', 'true', ['true', 'false'])], 'Add Footer Link')}
         </section>
       </div>
     `);
@@ -1697,7 +1697,7 @@
               <div style="font-size:15px; line-height:1.8; color:#1a2830;">${post.content || ''}</div>
             </div>
             <div class="modal-footer">
-              <a href="index.html#/insights/${esc(post.slug || slugify(post.title))}" target="_blank" class="cms-button cms-button-soft" style="text-decoration:none;">View on Live Site ↗</a>
+              <a href="/insights/${esc(post.slug || slugify(post.title))}" target="_blank" class="cms-button cms-button-soft" style="text-decoration:none;">View on Live Site ↗</a>
               <button type="button" class="cms-button" id="btn-close-quick-action">Close Preview</button>
             </div>
           </div>

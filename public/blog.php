@@ -130,7 +130,7 @@ $readTime = max(1, (int) ceil(str_word_count(strip_tags((string) $post['content'
   </head>
   <body style="margin:0; background:linear-gradient(135deg, #f3fcfd 0%, #e8f9fb 100%); font-family:Manrope, sans-serif; color:#07152f;">
     <header class="site-header container" style="display:flex; justify-content:space-between; align-items:center; padding:24px 32px; max-width:1200px; margin:0 auto;">
-      <a class="brand" href="../index.html#/home" aria-label="Apex Business home" style="display:flex; align-items:center; gap:10px; text-decoration:none; font-weight:800; color:#07152f; font-size:20px;">
+      <a class="brand" href="/" aria-label="Apex Business home" style="display:flex; align-items:center; gap:10px; text-decoration:none; font-weight:800; color:#07152f; font-size:20px;">
         <span class="brand-mark" aria-hidden="true" style="display:inline-grid; grid-template-columns:repeat(3, 1fr); width:20px; height:20px;">
           <i style="grid-area:1/2;background:#45c5dc;border-radius:6px 2px 6px 2px;"></i>
           <i style="grid-area:2/3;background:#527ce0;border-radius:6px 2px 6px 2px;"></i>
@@ -141,19 +141,19 @@ $readTime = max(1, (int) ceil(str_word_count(strip_tags((string) $post['content'
         <span>apex</span>
       </a>
       <nav class="desktop-nav" style="display:flex; gap:24px; font-size:13px; font-weight:700;">
-        <a href="../index.html#/home" style="color:inherit; text-decoration:none;">Home</a>
-        <a href="../index.html#/about" style="color:inherit; text-decoration:none;">About</a>
-        <a href="../index.html#/services" style="color:inherit; text-decoration:none;">Services</a>
-        <a href="../index.html#/insights" style="color:#58c748; text-decoration:none;">Insights</a>
-        <a href="../index.html#/contact" style="color:inherit; text-decoration:none;">Contact</a>
+        <a href="/" style="color:inherit; text-decoration:none;">Home</a>
+        <a href="/about" style="color:inherit; text-decoration:none;">About</a>
+        <a href="/services" style="color:inherit; text-decoration:none;">Services</a>
+        <a href="/insights" style="color:#58c748; text-decoration:none;">Insights</a>
+        <a href="/contact" style="color:inherit; text-decoration:none;">Contact</a>
       </nav>
     </header>
 
     <main class="article-page-container">
       <nav class="article-breadcrumb" aria-label="Breadcrumb">
-        <a href="../index.html#/home">Home</a>
+        <a href="/">Home</a>
         <span>›</span>
-        <a href="../index.html#/insights">Insights</a>
+        <a href="/insights">Insights</a>
         <span>›</span>
         <span><?= e($category) ?></span>
       </nav>
@@ -231,7 +231,7 @@ $readTime = max(1, (int) ceil(str_word_count(strip_tags((string) $post['content'
       <?php endif; ?>
 
       <div style="margin-top:40px; text-align:center;">
-        <a href="../index.html#/insights" class="button" style="display:inline-flex; align-items:center; gap:8px; padding:14px 28px; border-radius:999px; background:#58c748; color:#fff; text-decoration:none; font-weight:800; font-size:13px;">
+        <a href="/insights" class="button" style="display:inline-flex; align-items:center; gap:8px; padding:14px 28px; border-radius:999px; background:#58c748; color:#fff; text-decoration:none; font-weight:800; font-size:13px;">
           ← Back to all Insights
         </a>
       </div>

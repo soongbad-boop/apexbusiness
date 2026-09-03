@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 require __DIR__ . '/app/bootstrap.php';
+start_secure_session($config);
 
 if (current_user()) {
     header('Location: dashboard.php', true, 302);

@@ -168,15 +168,38 @@ function slugify(text) {
     .replace(/^-+|-+$/g, '');
 }
 
+function cleanPath(href) {
+  if (!href) return '/';
+  let path = href.replace(/#.*$/, '').trim();
+  if (!path || path === 'home' || path === '/home') return '/';
+  if (/\.[a-z0-9]+$/i.test(path) || path.startsWith('http:') || path.startsWith('https:') || path.startsWith('mailto:') || path.startsWith('tel:')) return path;
+  if (!path.startsWith('/')) path = '/' + path;
+  return path;
+}
+
 function toHref(page) {
   if (/\.[a-z0-9]+$/i.test(page)) return page;
   return page === 'home' ? '/' : `/${page}`;
 }
 
 function routeInfo() {
-  // Support legacy hash-based links (bookmarks, shares) by rewriting them to the clean path equivalent.
-  if (location.hash.startsWith('#/')) {
-    history.replaceState(null, '', `/${location.hash.slice(2)}${location.search}`);
+  if (location.hash) {
+    const rawHash = location.hash.replace(/^#\/?/, '').trim();
+    const recognizedPages = ['home', 'about', 'services', 'insights', 'contact', 'privacy-policy', 'terms-and-conditions', 'conversation', 'visa-assistance', 'automation', 'advisory-session', 'advisors'];
+    
+    let targetPath = location.pathname;
+    if (recognizedPages.includes(rawHash)) {
+      targetPath = rawHash === 'home' ? '/' : `/${rawHash}`;
+    }
+
+    history.replaceState(null, '', `${targetPath}${location.search}`);
+
+    if (rawHash && !recognizedPages.includes(rawHash)) {
+      setTimeout(() => {
+        const targetEl = document.getElementById(rawHash) || document.getElementById(`service-${rawHash}`);
+        if (targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
   }
 
   const segment = location.pathname.replace(/^\/+/, '').replace(/\/+$/, '').replace(/\.html$/, '').trim();
@@ -211,7 +234,7 @@ function navigate(path) {
 
 function header() {
   const items = content.cms.navigation?.header?.filter((item) => item.visible !== false) || headerItems.map(([page, label]) => ({ label, href: toHref(page) }));
-  const links = items.map((item) => `<a href="${item.href}">${item.label}</a>`).join('');
+  const links = items.map((item) => `<a href="${cleanPath(item.href)}">${item.label}</a>`).join('');
   return `<header class="site-header container"><a class="brand" href="/" aria-label="Apex Business Consultancy home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span>apex</span></a><nav class="desktop-nav" aria-label="Main navigation">${links}</nav><button class="menu-button menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span></button></header>`;
 }
 
@@ -228,7 +251,7 @@ function footerSocial() {
 
 function footer() {
   const items = content.cms.navigation?.footer?.filter((item) => item.visible !== false) || footerItems.map(([page, label]) => ({ label, href: toHref(page) }));
-  const links = items.map((item) => `<a href="${item.href}">${item.label}</a>`).join('');
+  const links = items.map((item) => `<a href="${cleanPath(item.href)}">${item.label}</a>`).join('');
   return `<footer class="site-footer"><div class="container footer-top"><a class="brand" href="/" aria-label="Apex Business Consultancy home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span>apex</span></a><nav aria-label="Footer navigation">${links}</nav>${footerSocial()}</div><div class="container footer-bottom"><span>${content.settings.footer}</span><span>&copy; 2026 ${content.settings.name}. All rights reserved.</span></div></footer>`;
 }
 
@@ -1237,9 +1260,20 @@ document.addEventListener('click', (event) => {
   const anchor = event.target.closest('a');
   if (!anchor || anchor.target === '_blank' || anchor.hasAttribute('download')) return;
   const href = anchor.getAttribute('href') || '';
-  if (!href || href.startsWith('#') || href.startsWith('http:') || href.startsWith('https:') || href.startsWith('mailto:') || href.startsWith('tel:') || /\.[a-z0-9]+$/i.test(href.split(/[?#]/)[0])) return;
+  if (!href || href.startsWith('http:') || href.startsWith('https:') || href.startsWith('mailto:') || href.startsWith('tel:') || /\.[a-z0-9]+$/i.test(href.split(/[?#]/)[0])) return;
+
+  if (href.startsWith('#')) {
+    event.preventDefault();
+    const targetId = href.slice(1);
+    if (targetId) {
+      const targetEl = document.getElementById(targetId) || document.getElementById(`service-${targetId}`);
+      if (targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+    }
+    return;
+  }
+
   event.preventDefault();
-  navigate(href);
+  navigate(cleanPath(href));
 });
 
 window.addEventListener('popstate', renderSite);

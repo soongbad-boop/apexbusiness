@@ -1,0 +1,431 @@
+/* ========================================================================== 
+   APEX — Mobile & Responsive Hardening Layer
+   Loaded last so it safely fixes edge cases without rewriting the visual system.
+   ========================================================================== */
+
+html {
+  max-width: 100%;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  max-width: 100%;
+}
+
+img,
+video {
+  height: auto;
+}
+
+input,
+textarea,
+select,
+button {
+  max-width: 100%;
+}
+
+p,
+li,
+a,
+strong,
+span,
+h1,
+h2,
+h3,
+h4 {
+  overflow-wrap: anywhere;
+}
+
+:focus-visible {
+  outline: 3px solid rgba(88, 199, 72, .45);
+  outline-offset: 3px;
+}
+
+@media (max-width: 800px) {
+  :root {
+    --mobile-gutter: 18px;
+  }
+
+  .container,
+  .content-page > section,
+  .service-redesign-page > section,
+  .fresh-insights > section,
+  .article-detail-page > section {
+    max-width: 100%;
+  }
+
+  .container {
+    width: calc(100% - (var(--mobile-gutter) * 2)) !important;
+  }
+
+  .site-header {
+    position: relative;
+    z-index: 100;
+    min-width: 0;
+  }
+
+  .site-header .brand {
+    flex: 0 0 auto;
+  }
+
+  .menu-button {
+    display: grid !important;
+    place-items: center;
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    padding: 7px;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+
+  .desktop-nav {
+    top: calc(100% + 8px) !important;
+    right: 0 !important;
+    left: 0 !important;
+    z-index: 200;
+    width: 100% !important;
+    max-height: calc(100svh - 92px);
+    margin: 0 !important;
+    overflow-y: auto;
+    border: 1px solid rgba(121, 168, 180, .24);
+  }
+
+  .desktop-nav a {
+    display: block;
+    min-height: 44px;
+    padding: 13px 14px !important;
+    font-size: 13px !important;
+  }
+
+  .button,
+  .primary-button,
+  .text-cta,
+  button,
+  input,
+  select,
+  textarea {
+    touch-action: manipulation;
+  }
+
+  input,
+  select,
+  textarea {
+    font-size: 16px !important; /* prevents iOS Safari zoom on focus */
+  }
+
+  .button,
+  .primary-button {
+    min-height: 48px;
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .hero,
+  .contact-hero,
+  .about-hero,
+  .service-redesign-hero,
+  .fresh-hero,
+  .article-detail-hero {
+    overflow: hidden;
+  }
+
+  .hero h1,
+  .contact-hero h1,
+  .about-hero h1,
+  .service-redesign-hero h1,
+  .fresh-hero h1,
+  .article-detail-hero h1,
+  .article-header h1 {
+    max-width: 100%;
+    font-size: clamp(34px, 11vw, 54px) !important;
+    line-height: 1.02 !important;
+    letter-spacing: -2px !important;
+  }
+
+  .hero-description,
+  .section-lead,
+  .contact-hero-copy > p:not(.eyebrow),
+  .article-lead {
+    max-width: 100%;
+    font-size: 15px !important;
+    line-height: 1.65 !important;
+  }
+
+  /* Make complex desktop grids reliably single-column on phones. */
+  .feature-grid,
+  .visa-bento,
+  .services-overview-heading,
+  .service-card-grid,
+  .service-redesign-directory,
+  .service-redesign-details,
+  .service-redesign-process,
+  .contact-methods,
+  .contact-details,
+  .about-story,
+  .about-values-grid,
+  .fresh-feature,
+  .fresh-grid,
+  .fresh-insights-grid,
+  .insights-listing-grid,
+  .article-detail-layout,
+  .related-grid,
+  .home-contact-layout {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .service-redesign-panel,
+  .service-redesign-panel-intro,
+  .service-redesign-panel-body,
+  .contact-methods article,
+  .contact-form-panel,
+  .contact-availability,
+  .fresh-feature,
+  .fresh-more-card,
+  .insights-listing-card,
+  .article-detail-content,
+  .article-detail-sidebar {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .contact-methods,
+  .contact-details,
+  .service-redesign-directory,
+  .service-redesign-details,
+  .fresh-grid,
+  .insights-listing-grid {
+    gap: 18px !important;
+  }
+
+  .contact-form-panel,
+  .contact-availability,
+  .contact-map,
+  .service-redesign-panel,
+  .service-redesign-directory-aside,
+  .article-detail-content,
+  .article-detail-sidebar {
+    padding-left: clamp(18px, 5vw, 26px) !important;
+    padding-right: clamp(18px, 5vw, 26px) !important;
+  }
+
+  .simple-contact {
+    width: 100%;
+  }
+
+  .simple-contact label,
+  .simple-contact input,
+  .simple-contact textarea,
+  .simple-contact select {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .simple-contact textarea {
+    min-height: 130px;
+    resize: vertical;
+  }
+
+  .simple-contact .button {
+    width: 100%;
+  }
+
+  .article-detail-body,
+  .article-body {
+    max-width: 100%;
+    font-size: 16px !important;
+    line-height: 1.75 !important;
+  }
+
+  .article-detail-body h2,
+  .article-body h2 {
+    font-size: clamp(24px, 7vw, 30px) !important;
+    line-height: 1.15;
+  }
+
+  .article-detail-body table,
+  .article-body table {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+  }
+
+  .article-detail-body pre,
+  .article-body pre {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  .article-detail-body blockquote,
+  .article-body blockquote {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 20px !important;
+    font-size: 16px !important;
+  }
+
+  .article-detail-meta,
+  .article-detail-tags,
+  .article-detail-share,
+  .article-meta-bar,
+  .article-tags {
+    gap: 9px !important;
+    flex-wrap: wrap !important;
+  }
+
+  .article-detail-author,
+  .author-card {
+    grid-template-columns: 48px minmax(0, 1fr) !important;
+    gap: 14px !important;
+    padding: 20px !important;
+  }
+
+  .article-detail-author img,
+  .author-card img {
+    width: 48px !important;
+    height: 48px !important;
+  }
+
+  .footer-top,
+  .footer-bottom {
+    gap: 20px;
+  }
+
+  .footer-top nav {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 12px 18px;
+  }
+
+  .footer-bottom {
+    display: grid;
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Decorative desktop artwork must never create sideways scrolling. */
+  .hero-visual,
+  .services-hero-visual,
+  .service-redesign-hero-art,
+  .about-hero-art,
+  .map-grid,
+  .ai-stage {
+    max-width: 100%;
+  }
+
+  .services-hero-visual,
+  .service-redesign-hero-art,
+  .about-hero-art {
+    transform: none !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .container {
+    width: calc(100% - 28px) !important;
+  }
+
+  .site-header {
+    min-height: 62px;
+  }
+
+  .hero {
+    padding-top: 48px !important;
+  }
+
+  .hero h1,
+  .contact-hero h1,
+  .about-hero h1,
+  .service-redesign-hero h1,
+  .fresh-hero h1,
+  .article-detail-hero h1,
+  .article-header h1 {
+    font-size: clamp(32px, 11.5vw, 45px) !important;
+    letter-spacing: -1.7px !important;
+  }
+
+  .hero-visual {
+    height: 350px !important;
+  }
+
+  .contact-hero,
+  .contact-hero > img,
+  .contact-hero-overlay {
+    min-height: 440px;
+  }
+
+  .contact-hero-copy {
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+  }
+
+  .contact-methods,
+  .contact-details,
+  .service-redesign-page > section,
+  .about-page > section,
+  .fresh-insights > section {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+
+  .article-page-container {
+    padding: 24px 14px 60px !important;
+  }
+
+  .article-hero-figure img {
+    border-radius: 14px !important;
+  }
+
+  .article-breadcrumb {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 4px;
+  }
+
+  .footer-top,
+  .footer-bottom {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+/* Bot trap stays available to the form handler without affecting layout or accessibility. */
+.form-honeypot {
+  position: absolute !important;
+  left: -10000px !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}

@@ -16,7 +16,7 @@ Allow: /*.webp$
 Disallow: /dashboard.html
 Disallow: /dashboard.php
 Disallow: /login.php
-Disallow: /api/admin/
+Disallow: /api/
 Disallow: /app/
 Disallow: /config/
 Disallow: /database/

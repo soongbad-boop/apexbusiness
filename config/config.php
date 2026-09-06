@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 declare(strict_types=1);
 
 if (!function_exists('env_value')) {
@@ -35,10 +35,14 @@ if (!function_exists('env_value')) {
     }
 }
 
+$appEnv = strtolower((string) env_value('APP_ENV', 'development'));
+$appDebugRequested = env_value('APP_DEBUG', 'false') === 'true' || env_value('APP_DEBUG', '0') === '1';
+
 return [
     'app_name' => env_value('APP_NAME', 'Apex Business Consultancy'),
-    'app_env' => env_value('APP_ENV', 'development'),
-    'app_debug' => env_value('APP_DEBUG', 'false') === 'true' || env_value('APP_DEBUG', '0') === '1',
+    'app_env' => $appEnv,
+    // Never expose PHP error details in production even if APP_DEBUG is accidentally enabled.
+    'app_debug' => $appEnv !== 'production' && $appDebugRequested,
     'app_url' => rtrim((string) env_value('APP_URL', 'http://localhost/Apexco'), '/'),
     'database' => [
         'host' => env_value('DB_HOST', '127.0.0.1'),

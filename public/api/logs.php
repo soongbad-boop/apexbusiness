@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $entityType = $payload['entity_type'] ?? ($payload['module'] ?? 'system');
     $entityId = isset($payload['entity_id']) ? (int) $payload['entity_id'] : null;
-    $status = in_array($payload['status'] ?? '', ['success', 'failure', 'warning'], true) ? $payload['status'] : 'success';
+    $status = in_array($payload['status'] ?? '', ['success', 'failure'], true) ? $payload['status'] : 'success';
     $metadata = $payload['metadata'] ?? [];
     $userId = (int) $user['id'];
     $ip = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';

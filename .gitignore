@@ -16,6 +16,9 @@ storage/logs/*
 storage/media/*
 !storage/media/.gitkeep
 !storage/media/.htaccess
+storage/rate_limits/*
+!storage/rate_limits/.gitkeep
+!storage/rate_limits/.htaccess
 
 # IDE & Editor files
 .idea/

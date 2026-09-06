@@ -147,6 +147,25 @@ CREATE TABLE settings (
   CONSTRAINT fk_settings_user FOREIGN KEY (updated_by) REFERENCES users(id) ON DELETE SET NULL
 ) ENGINE=InnoDB;
 
+CREATE TABLE inquiries (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  type ENUM('general','conversation','visa','automation','advisory','newsletter') NOT NULL DEFAULT 'general',
+  name VARCHAR(160) NULL,
+  email VARCHAR(190) NOT NULL,
+  company VARCHAR(190) NULL,
+  phone VARCHAR(80) NULL,
+  subject VARCHAR(190) NULL,
+  message TEXT NULL,
+  metadata JSON NULL,
+  ip_hash BINARY(32) NULL,
+  user_agent VARCHAR(500) NULL,
+  status ENUM('new','contacted','closed','spam') NOT NULL DEFAULT 'new',
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  INDEX inquiries_status_created_idx (status, created_at),
+  INDEX inquiries_email_idx (email)
+) ENGINE=InnoDB;
+
 CREATE TABLE activity_logs (
   id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   user_id BIGINT UNSIGNED NULL,

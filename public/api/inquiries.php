@@ -1,0 +1,88 @@
+<?php
+declare(strict_types=1);
+
+require dirname(__DIR__, 2) . '/app/bootstrap.php';
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    json_response(['error' => 'Method not allowed.'], 405);
+}
+require_csrf();
+
+$payload = request_json();
+
+// Honeypot: bots often populate every field. Return a neutral success response.
+if (normalized_text($payload['website'] ?? '', 255) !== '') {
+    json_response(['ok' => true], 202);
+}
+
+$type = normalized_text($payload['form_type'] ?? 'general', 40);
+$allowedTypes = ['general', 'conversation', 'visa', 'automation', 'advisory', 'newsletter'];
+if (!in_array($type, $allowedTypes, true)) {
+    $type = 'general';
+}
+
+$name = normalized_text($payload['name'] ?? '', 160);
+$emailRaw = strtolower(normalized_text($payload['email'] ?? '', 190));
+$email = filter_var($emailRaw, FILTER_VALIDATE_EMAIL) ? $emailRaw : '';
+$company = normalized_text($payload['company'] ?? '', 190);
+$phone = normalized_text($payload['phone'] ?? '', 80);
+$message = normalized_text($payload['message'] ?? ($payload['description'] ?? ($payload['topics'] ?? '')), 6000);
+
+if ($email === '') {
+    json_response(['error' => 'Enter a valid email address.'], 422);
+}
+if ($type !== 'newsletter' && ($name === '' || $message === '')) {
+    json_response(['error' => 'Your name and enquiry details are required.'], 422);
+}
+
+$ip = (string) ($_SERVER['REMOTE_ADDR'] ?? 'unknown');
+$bucket = 'inquiry:' . $ip;
+$retryAfter = consume_rate_limit($bucket, $type === 'newsletter' ? 8 : 5, 3600);
+if ($retryAfter > 0) {
+    header('Retry-After: ' . $retryAfter);
+    json_response(['error' => 'Too many submissions from this connection. Please try again later.'], 429);
+}
+
+$knownKeys = ['form_type', 'website', 'name', 'email', 'company', 'phone', 'message', 'description', 'topics'];
+$metadata = [];
+foreach ($payload as $key => $value) {
+    if (!is_string($key) || in_array($key, $knownKeys, true)) {
+        continue;
+    }
+    if (is_scalar($value) || $value === null) {
+        $metadata[mb_substr($key, 0, 80)] = normalized_text($value, 500);
+    }
+}
+
+$userAgent = normalized_text($_SERVER['HTTP_USER_AGENT'] ?? '', 500);
+$subject = match ($type) {
+    'conversation' => 'Conversation request',
+    'visa' => 'Visa assistance request',
+    'automation' => 'AI automation request',
+    'advisory' => 'Advisory session request',
+    'newsletter' => 'Newsletter subscription',
+    default => 'Website enquiry',
+};
+
+try {
+    $pdo = db($config);
+    $stmt = $pdo->prepare('INSERT INTO inquiries (type, name, email, company, phone, subject, message, metadata, ip_hash, user_agent) VALUES (?, ?, ?, ?, ?, ?, ?, ?, UNHEX(SHA2(?, 256)), ?)');
+    $stmt->execute([
+        $type,
+        $name ?: null,
+        $email,
+        $company ?: null,
+        $phone ?: null,
+        $subject,
+        $message ?: null,
+        json_encode($metadata, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE),
+        $ip,
+        $userAgent ?: null,
+    ]);
+    json_response(['ok' => true, 'id' => (int) $pdo->lastInsertId()], 201);
+} catch (PDOException $e) {
+    if (!empty($config['app_debug'])) {
+        json_response(['error' => 'Unable to record the enquiry.', 'detail' => $e->getMessage()], 500);
+    }
+    json_response(['error' => 'Unable to submit your enquiry right now. Please contact us by email or WhatsApp.'], 500);
+}

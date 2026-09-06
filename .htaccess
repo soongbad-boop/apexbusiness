@@ -2,45 +2,43 @@
 # APEX BUSINESS CONSULTANCY — APACHE CONFIG
 # ==========================================
 
-# 1. Disable Directory Listings
-Options -Indexes
-
-# 2. Directory Index Priority
+Options -Indexes -MultiViews
 DirectoryIndex index.html index.php
 
-# 3. URL Rewrites & Clean Routing
+# Block sensitive paths and operational tooling before routing.
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
+  RewriteRule ^(?:\.git|app|config|database|scripts|storage/(?:logs|rate_limits))(?:/|$) - [F,L,NC]
+  RewriteRule ^deploy\.php$ - [F,L,NC]
 
-  # 3a. Legacy 301 Redirects to Clean Canonical URLs
-  RewriteCond %{THE_REQUEST} \s/index\.(html|php)\s [NC]
+  # Authenticated CMS routes must never fall through to the public SPA.
+  RewriteRule ^dashboard(?:\.html)?$ dashboard.php [L]
+  RewriteRule ^login/?$ login.php [L]
+
+  # Canonicalize legacy file URLs.
+  RewriteCond %{THE_REQUEST} \s/index\.(html|php)[?\s] [NC]
   RewriteRule ^index\.(html|php)$ / [R=301,L]
 
-  RewriteCond %{THE_REQUEST} \s/home/?\s [NC]
+  RewriteCond %{THE_REQUEST} \s/home/?[?\s] [NC]
   RewriteRule ^home/?$ / [R=301,L]
 
-  RewriteCond %{THE_REQUEST} \s/([a-z0-9-]+)\.(html|php)\s [NC]
-  RewriteRule ^([a-z0-9-]+)\.(html|php)$ /$1 [R=301,L]
-
-  # 3b. Dashboard Session Protection
-  RewriteRule ^dashboard\.html$ dashboard.php [L]
-
-  # 3c. API Endpoints
+  # API endpoints.
   RewriteRule ^api/(.*)$ public/api/$1 [L,QSA]
 
-  # 3d. Blog SSR Article Routing
+  # Server-rendered article/page routes.
   RewriteRule ^blog/([a-z0-9-]+)/?$ public/blog.php?slug=$1 [L,QSA]
+  RewriteRule ^insights/([a-z0-9-]+)/?$ public/blog.php?slug=$1 [L,QSA]
   RewriteRule ^page/([a-z0-9-]+)/?$ public/page.php?slug=$1 [L,QSA]
 
-  # 3e. Serve SPA Shell for all Clean Routes (/about, /services, /contact, /insights, /blog, etc.)
+  # SPA shell for public clean routes.
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule ^ index.html [L]
 </IfModule>
 
-# 4. Security Restrictions for Sensitive System Files & Folders
-<FilesMatch "^(\.env.*|\.git.*|\.cpanel\.yml|.*\.sql|.*\.log|.*\.md)$">
+# Deny direct access to secrets, source/config artifacts and backups.
+<FilesMatch "(?i)^(?:\.env(?:\..*)?|\.cpanel\.yml|composer\.(?:json|lock)|package-lock\.json)$|\.(?:sql|log|md|ini|conf|bak|old|orig|sh|ps1)$">
   <IfModule mod_authz_core.c>
     Require all denied
   </IfModule>
@@ -50,22 +48,31 @@ DirectoryIndex index.html index.php
   </IfModule>
 </FilesMatch>
 
-# 5. Core Source Directories Protection
-<IfModule mod_rewrite.c>
-  RewriteRule ^(app|config|database|storage/logs)/ - [F,L,NC]
-</IfModule>
+<Files "deploy.php">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+</Files>
 
-# 6. Security Headers
+# Security headers. CSP intentionally allows inline styles/scripts because the
+# existing site uses inline UI templates; third-party script access is limited
+# to the configured Google Analytics host.
 <IfModule mod_headers.c>
   Header always unset X-Powered-By
   Header always set X-Content-Type-Options "nosniff"
   Header always set X-Frame-Options "SAMEORIGIN"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
-  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
-  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self';"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+  Header always set X-Permitted-Cross-Domain-Policies "none"
+  Header always set Cross-Origin-Opener-Policy "same-origin-allow-popups"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://www.googletagmanager.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests;"
+
+  # HSTS only when Apache confirms HTTPS, avoiding accidental lock-in on local HTTP.
+  SetEnvIfExpr "%{HTTPS} == 'on'" HTTPS_REQUEST
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains" env=HTTPS_REQUEST
 </IfModule>
 
-# 7. MIME Types & Caching
+# MIME types.
 <IfModule mod_mime.c>
   AddType image/svg+xml .svg .svgz
   AddType font/woff2 .woff2
@@ -74,11 +81,19 @@ DirectoryIndex index.html index.php
   AddType application/json .json
 </IfModule>
 
+# Compression for text assets.
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/javascript application/javascript application/json application/xml image/svg+xml
+</IfModule>
+
+# Browser caching. HTML/PHP remains revalidated; versioned/static assets are cached.
 <IfModule mod_expires.c>
   ExpiresActive On
+  ExpiresByType image/jpeg "access plus 1 month"
+  ExpiresByType image/png "access plus 1 month"
   ExpiresByType image/svg+xml "access plus 1 month"
   ExpiresByType image/webp "access plus 1 month"
   ExpiresByType font/woff2 "access plus 1 year"
-  ExpiresByType text/css "access plus 1 week"
-  ExpiresByType application/javascript "access plus 1 week"
+  ExpiresByType text/css "access plus 7 days"
+  ExpiresByType application/javascript "access plus 7 days"
 </IfModule>

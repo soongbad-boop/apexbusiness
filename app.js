@@ -11,103 +11,103 @@ const initialContent = {
   articles: [
     {
       id: 1,
-      title: 'GCC Grand Tours Visa: How the Unified Schengen-Style Gulf Visa Reshapes Regional Business & Tourism',
+      title: "GCC Unified Tourist Visa: What Is Confirmed, What Is Still Pending, and Why It Matters",
       slug: 'gcc-grand-tours-visa-unified-gulf-mobility-guide',
       category: 'Market Entry',
       author: 'Maya Nasser',
       status: 'published',
       image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=85',
       image_alt: 'Modern skyline of GCC capital connecting business and travel',
-      image_caption: 'The Unified GCC Grand Tours Visa creates unprecedented cross-border mobility across all six Gulf states.',
-      tags: 'GCC Visa, Unified Tourism, Saudi Arabia, UAE, Regional Mobility, Business Expansion, MISA',
-      excerpt: 'A comprehensive breakdown of the GCC Grand Tours Unified Visa initiative covering Saudi Arabia, UAE, Bahrain, Qatar, Oman, and Kuwait, and how seamless cross-border mobility transforms regional investment.',
-      content: '<p>The announcement of the GCC Grand Tours Visa—widely termed the GCC Unified Tourist Visa—marks the most significant shift in regional mobility across the Arabian Peninsula since the inception of the Gulf Cooperation Council. Designed to function similarly to Europe\'s Schengen Zone, this single visa permits travelers to visit all six member nations: <strong>Saudi Arabia, the United Arab Emirates, Bahrain, Qatar, Oman, and Kuwait</strong>.</p><h2>The Strategic Objective Behind Unified Mobility</h2><p>Approved collaboratively by the GCC Interior and Tourism Ministries, the unified visa aims to consolidate the Gulf region into a cohesive international tourism and business hub. Rather than navigating six separate immigration protocols, international investors, consultants, and visitors will now be able to execute multi-country itineraries under a single digital approval.</p><blockquote>Regional integration is not just about tourism numbers; it is about creating a unified economic corridor where talent, capital, and commercial enterprise move without friction.</blockquote><h2>Key Advantages for International Investors &amp; Business Executives</h2><ul><li><strong>Frictionless Multi-Hub Operations:</strong> Enterprise teams can seamlessly conduct client meetings in Riyadh, attend conferences in Dubai, and visit manufacturing sites in Bahrain without multiple visa applications.</li><li><strong>Cost and Administrative Efficiency:</strong> Eliminating repeated individual visa fees, consular submissions, and redundant processing times.</li><li><strong>Extended Validity &amp; Digital Simplicity:</strong> The electronic visa application portal streamlines approval into minutes, offering extended multi-entry validity spanning 30 to 90 days.</li></ul><h2>What This Means for Saudi Market Entrants</h2><p>For organizations establishing a presence under Saudi Arabia\'s Regional Headquarters (RHQ) program or MISA licensing, the unified visa allows seamless deployment of senior executives and regional specialists across the entire GCC. The initiative solidifies Saudi Arabia as the central anchor of Gulf commerce.</p>',
+      image_caption: "The GCC unified tourist visa is a regional integration initiative; travelers should continue using current country-specific entry rules until official activation is confirmed.",
+      tags: "GCC Unified Tourist Visa, GCC Travel, Saudi Arabia, UAE, Bahrain, Qatar, Oman, Kuwait, Regional Mobility",
+      excerpt: "An evidence-based status guide to the planned GCC unified tourist visa, separating confirmed regional policy from launch details that travelers and businesses should not assume are final.",
+      content: "<p>The GCC unified tourist visa is an approved regional initiative intended to make multi-country tourism easier across Saudi Arabia, the United Arab Emirates, Bahrain, Qatar, Oman, and Kuwait. The important distinction is between <strong>approval of the initiative</strong> and <strong>full public activation of a GCC-wide visa service</strong>.</p><h2>What is confirmed</h2><ul><li>GCC authorities have continued work toward a unified tourist visa and a more integrated regional travel experience.</li><li>Technical, security, immigration, and operational coordination between member states is central to implementation.</li><li>The strategic objective is to make the GCC easier to experience as a multi-destination region.</li></ul><h2>What businesses and travelers should not assume</h2><p>Until competent authorities publish a live application service and final rules, do not treat unofficial claims about exact fees, universal eligibility, processing times, or fixed 30–90 day validity as guaranteed. Current entry requirements for each destination remain the operational baseline.</p><blockquote>Build travel plans around rules that are live today; treat the unified visa as a future efficiency until official activation is verifiable.</blockquote><h2>Why the initiative still matters for business</h2><p>A functioning multi-country visa could reduce planning friction for regional conferences, investor meetings, tourism itineraries, and executive travel. Companies operating across the Gulf can prepare now by standardizing traveler documentation, maintaining clear mobility policies, and monitoring official immigration updates rather than designing operations around unconfirmed launch assumptions.</p><p><strong>Editorial note:</strong> Status reviewed against GCC General Secretariat announcements. Entry rules can change quickly; confirm requirements with the relevant government authority before travel.</p>",
       publishedAt: '2026-08-20',
       views: 1640,
       is_featured: true,
-      seo_title: 'Unified GCC Grand Tours Visa Guide 2026 | Apex Business Consultancy',
-      seo_description: 'Learn how the GCC Grand Tours Unified Visa enables seamless travel across Saudi Arabia, UAE, Bahrain, Qatar, Oman, and Kuwait.',
-      focus_keyword: 'GCC Grand Tours Visa'
+      seo_title: "GCC Unified Tourist Visa Status & Business Guide | Apex",
+      seo_description: "Current-status guide to the GCC unified tourist visa: what is officially confirmed, what remains pending, and how businesses should prepare.",
+      focus_keyword: "GCC unified tourist visa"
     },
     {
       id: 2,
-      title: 'GCC Unified Visa for Residents: Step-by-Step Eligibility, Requirements & Compliance Checklist',
+      title: "GCC Unified Tourist Visa for Residents: Current Status and a Practical Readiness Checklist",
       slug: 'gcc-unified-visa-for-residents-requirements-guide',
       category: 'Tax & Compliance',
       author: 'Tariq Al-Mansoor',
       status: 'published',
       image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=85',
       image_alt: 'International business traveler preparing travel documents',
-      image_caption: 'Streamlined digital submission requirements for expatriate residents across the Gulf.',
-      tags: 'GCC Residents, Visa Requirements, Expat Mobility, Travel Compliance, Business Travel, Iqama',
-      excerpt: 'Everything expatriate professionals, executive directors, and corporate residents need to know about qualifying for the GCC Grand Tours Visa.',
-      content: '<p>One of the most anticipated dimensions of the GCC Grand Tours Visa is its specialized provision for expatriate residents living across the Gulf. With millions of international professionals residing in Saudi Arabia, the UAE, Qatar, and neighboring states, the unified resident framework provides unprecedented mobility for corporate executives and their families.</p><h2>Core Eligibility Criteria for Expatriate Residents</h2><p>To successfully apply through the forthcoming unified electronic portal, applicants must ensure their primary residency and documentation meet standardized GCC thresholds:</p><ul><li><strong>Valid GCC Residency (Iqama / Emirates ID):</strong> Must hold an active residency status with a minimum of 3 to 6 months remaining validity.</li><li><strong>Approved Professional Classifications:</strong> Priority digital fast-tracking is designated for accredited professions, corporate directors, engineers, legal counsel, and business owners.</li><li><strong>Valid International Passport:</strong> Passport with at least 6 months remaining validity and sufficient blank endorsement pages.</li><li><strong>Comprehensive Travel Insurance:</strong> Proof of regional medical and emergency repatriation insurance covering all participating GCC territories.</li></ul><blockquote>Ensuring documentation alignment before departure avoids border delays and guarantees seamless multi-port transit across GCC checkpoints.</blockquote><h2>Step-by-Step Application Protocol</h2><ol><li><strong>Digital Portal Submission:</strong> Complete the standardized online questionnaire and declare either a single-nation or multi-nation itinerary.</li><li><strong>Document Upload:</strong> Upload biometric photo scans, residence permit proof, and flight/accommodation itineraries.</li><li><strong>Electronic Fee Payment:</strong> Secure credit card processing with instant confirmation receipts.</li><li><strong>Digital Visa Delivery:</strong> Receive the unified electronic visa with scannable QR verification delivered directly via email.</li></ol>',
+      image_caption: "A practical readiness framework for GCC residents while final unified-visa rules remain subject to official publication.",
+      tags: "GCC Residents, Unified Tourist Visa, Expat Mobility, Travel Compliance, Business Travel, GCC",
+      excerpt: "What GCC residents can prepare now—and which eligibility, validity, fee, and application details should be verified only when official unified-visa rules are published.",
+      content: "<p>GCC residents are an important audience for regional mobility, but a professional travel plan should distinguish between existing country-specific resident visa policies and the planned GCC unified tourist visa. Final unified-visa eligibility rules should be taken only from the competent authorities when the service is formally activated.</p><h2>Do not rely on unofficial eligibility lists</h2><p>Claims about profession-based fast tracks, minimum residence validity, guaranteed approval windows, exact fees, or automatic multi-entry rights may circulate before final rules are published. Treat those details as provisional unless they appear on an official government or GCC channel.</p><h2>A readiness checklist that is useful today</h2><ul><li><strong>Passport:</strong> Keep sufficient validity for the destination and travel period.</li><li><strong>Residence status:</strong> Make sure your GCC residence permit is active and can be verified digitally where applicable.</li><li><strong>Identity and supporting documents:</strong> Keep clear copies of passport, residence card, employment or company information, accommodation, and itinerary documents.</li><li><strong>Insurance:</strong> Check the destination's current insurance requirements rather than assuming a future unified policy.</li><li><strong>Current entry rules:</strong> Verify each country separately until a GCC-wide service is officially live.</li></ul><h2>For corporate travel teams</h2><p>Maintain a country-by-country matrix for employee nationality, residency, destination, purpose of travel, and required permit. When the unified service becomes operational, that matrix can be updated without disrupting existing compliance workflows.</p><blockquote>Readiness is useful; guessing future visa rules is not. Verify the live rule at the point of application.</blockquote><p><strong>Editorial note:</strong> This article is informational and does not represent an immigration authority decision or guarantee of visa approval.</p>",
       publishedAt: '2026-08-18',
       views: 1280,
       is_featured: false,
-      seo_title: 'GCC Unified Visa for Residents Requirements | Apex Advisory',
-      seo_description: 'Complete eligibility, required documents, and step-by-step application checklist for GCC expatriate residents.',
-      focus_keyword: 'GCC visa for residents'
+      seo_title: "GCC Unified Tourist Visa for Residents: Current Status | Apex",
+      seo_description: "A practical readiness checklist for GCC residents, with clear separation between current entry rules and pending unified-tourist-visa details.",
+      focus_keyword: "GCC unified visa residents"
     },
     {
       id: 3,
-      title: 'One-Stop Border Entry & Aviation Integration: How the UAE & Bahrain Pilot Previews Seamless GCC Travel',
+      title: "UAE–Bahrain Single Entry Point Pilot: What the First Phase Means for GCC Travel",
       slug: 'one-stop-border-entry-and-aviation-integration-gcc',
       category: 'Advisory',
       author: 'Maya Nasser',
       status: 'published',
       image: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d?auto=format&fit=crop&w=1200&q=85',
       image_alt: 'Modern international airport terminal with passenger jets',
-      image_caption: 'Unified aviation authorities and bilateral one-stop border clearance protocols in action.',
-      tags: 'Aviation, Border Entry, Corporate Travel, UAE, Bahrain, Logistics, Supply Chain',
-      excerpt: 'Analyzing the landmark UAE-Bahrain single-window immigration clearance and the launch of the new unified GCC Aviation Authority.',
-      content: '<p>Cross-border corporate travel in the Gulf is undergoing a structural transformation. With the recent approval and active rollout of the One-Stop travel system between the United Arab Emirates and the Kingdom of Bahrain, paired with the establishment of the unified GCC Aviation Authority, the region is pioneering a truly integrated travel ecosystem.</p><h2>How the One-Stop Border System Operates</h2><p>Traditionally, travelers traversing Gulf borders were required to clear passport exit controls in the departing nation followed by separate entry immigration checkpoints in the destination country. Under the new bilateral protocol, travelers are screened only once at the point of origin, with shared biometric and security databases authorizing instant entry.</p><blockquote>Single-point clearance reduces airport and causeway transit bottlenecks by over 60%, delivering immense productivity gains for executive teams.</blockquote><h2>Key Commercial &amp; Operational Implications</h2><ul><li><strong>Accelerated Corporate Commutes:</strong> Daily business commuting between Manama, Dubai, Abu Dhabi, and Riyadh becomes as seamless as domestic travel.</li><li><strong>Unified Airspace Management:</strong> The new GCC Aviation Authority harmonizes flight paths, reducing air transit delays and increasing direct short-haul frequencies between secondary business cities.</li><li><strong>Supply Chain &amp; Cargo Velocity:</strong> Synchronized customs protocols expedite air cargo and specialized equipment movement across commercial hubs.</li></ul><p>As Saudi Arabia prepares to integrate its King Fahd Causeway and international air terminals into this single-window architecture, cross-border commercial execution will reach unprecedented speed.</p>',
+      image_caption: "The UAE–Bahrain Single Entry Point for Air Travel launched its first phase in February 2026 as a GCC pilot project.",
+      tags: "UAE, Bahrain, Single Entry Point, GCC Travel, Aviation, Corporate Mobility, Border Process",
+      excerpt: "What is actually live in the UAE–Bahrain Single Entry Point pilot, what the first phase changes, and why broader GCC expansion should not be assumed ahead of official rollout decisions.",
+      content: "<p>On 17 February 2026, the United Arab Emirates and Bahrain launched the first phase of the GCC <strong>Single Entry Point for Air Travel</strong> project. The GCC General Secretariat described it as a pilot implementation under a resolution of GCC interior ministers.</p><h2>What the first phase means</h2><p>The project is designed to streamline selected travel procedures between the participating states by completing agreed checks through a coordinated process. That is materially different from claiming that all GCC airports, land borders, customs systems, or immigration processes have already become a single domestic-style travel zone.</p><h2>What is confirmed—and what is not</h2><ul><li><strong>Confirmed:</strong> the first-phase UAE–Bahrain air-travel pilot launched in February 2026.</li><li><strong>Confirmed:</strong> GCC authorities intend to study expansion based on the readiness of each member state.</li><li><strong>Not safe to assume:</strong> universal GCC rollout, fixed time-savings percentages, or a new unified aviation authority unless announced by the competent authorities.</li></ul><h2>Business implications</h2><p>For companies with teams moving frequently between Gulf markets, the pilot is a useful signal that travel processes may become more integrated over time. Travel policies should still be built around current border, visa, security, and customs rules for each route.</p><blockquote>Pilot programs are strategically important, but operating policies should change only when the relevant route and procedure are officially active.</blockquote><p><strong>Source note:</strong> Reviewed against the GCC General Secretariat announcement dated 18 February 2026.</p>",
       publishedAt: '2026-08-14',
       views: 950,
       is_featured: false,
-      seo_title: 'One-Stop Border Entry & Aviation Integration in GCC | Apex Advisory',
-      seo_description: 'Discover how the UAE-Bahrain one-stop border pilot and GCC Aviation Authority streamline regional corporate travel.',
-      focus_keyword: 'one stop border entry gcc'
+      seo_title: "UAE–Bahrain Single Entry Point Pilot Explained | Apex",
+      seo_description: "A factual guide to the February 2026 UAE–Bahrain Single Entry Point for Air Travel pilot and what it does—and does not—mean for GCC travel.",
+      focus_keyword: "UAE Bahrain single entry point"
     },
     {
       id: 4,
-      title: 'Hospitality & Cross-Border Investment Surge Across Saudi Arabia, Oman, and the UAE',
+      title: "GCC Tourism Integration: How Hospitality Operators Can Prepare for More Multi-Destination Travel",
       slug: 'gcc-tourism-and-hospitality-investment-surge-2026',
       category: 'Advisory',
       author: 'Apex Administrator',
       status: 'published',
       image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=85',
       image_alt: 'Luxury hotel and urban resort development in the Gulf',
-      image_caption: 'Expanding luxury hospitality and commercial real estate across the GCC.',
-      tags: 'Hospitality, Real Estate, Investment, Tourism, Oman, UAE, Saudi Vision 2030',
-      excerpt: 'How unified GCC tourist visas are driving private equity and institutional capital into hospitality, MICE facilities, and urban infrastructure.',
-      content: '<p>The introduction of unified regional visas is creating a profound multiplier effect across the GCC hospitality and commercial real estate sectors. With international visitors now able to combine cultural heritage tours in AlUla, financial conferences in Riyadh, urban leisure in Dubai, and eco-resorts in Oman’s Musandam into single excursions, occupancy rates and hotel pipeline investments are reaching historic highs.</p><h2>The Economic Ripple Effect in Figures</h2><p>Regional tourism ministries project that the unified visa framework will contribute over $25 billion in incremental tourism receipts across the Gulf by 2030, with average visitor stays lengthening from 3.2 days to over 8.5 days.</p><ul><li><strong>Oman’s Hotel &amp; Eco-Tourism Boom:</strong> Leveraging proximity to the UAE and Saudi Arabia to capture multi-destination eco-tourists and wellness travelers.</li><li><strong>Saudi Mega-Projects:</strong> Direct flight and ground transit connectivity linking Red Sea Global, Diriyah Gate, and NEOM with established Gulf tourism corridors.</li><li><strong>MICE Industry Convergence:</strong> Major international exhibitions and summits can now draw cross-GCC delegates with zero visa friction.</li></ul><blockquote>Investors are no longer evaluating single-country hospitality yields; they are underwriting multi-hub regional assets that capture circulating Gulf traveler traffic.</blockquote><h2>Strategic Recommendations for Hospitality Operators</h2><p>Hospitality groups, asset managers, and commercial operators must tailor their packages to cross-border travelers—offering multi-city booking perks, integrated loyalty recognition, and seamless airport transfer partnerships across the GCC.</p>',
+      image_caption: "Hospitality operators can prepare for deeper regional travel integration without relying on unconfirmed visa timelines or forecasts.",
+      tags: "Hospitality, Tourism, GCC, Saudi Arabia, UAE, Oman, Investment, Multi-Destination Travel",
+      excerpt: "A scenario-based operating guide for hospitality and tourism businesses preparing for deeper GCC travel integration—without treating unconfirmed visa forecasts as established facts.",
+      content: "<p>Regional tourism integration could make multi-destination Gulf itineraries easier over time, creating opportunities for hotels, destination operators, event organizers, airlines, and mobility providers. The commercial opportunity is real, but investment decisions should not depend on unverified claims about a unified visa launch date, guaranteed visitor growth, or fixed revenue forecasts.</p><h2>Plan for scenarios, not headlines</h2><p>Hospitality operators can model three cases: current country-by-country entry rules, a phased regional integration scenario, and a mature multi-country travel environment. This keeps capital and operating decisions resilient if rollout timing changes.</p><h2>Practical moves that create value now</h2><ul><li><strong>Multi-city partnerships:</strong> Build referral relationships with hotels, tour operators, and transport providers in complementary GCC destinations.</li><li><strong>Flexible booking design:</strong> Make itinerary changes, split stays, and corporate group bookings easier to manage.</li><li><strong>Shared customer data discipline:</strong> Prepare consent, privacy, and CRM practices for cross-border partnerships.</li><li><strong>MICE readiness:</strong> Package accommodation, airport transfer, meeting space, and local support for regional business events.</li><li><strong>Demand monitoring:</strong> Track actual booking origin, length of stay, route mix, and conversion rather than relying on headline forecasts.</li></ul><h2>Investment lens</h2><p>Asset managers should stress-test occupancy, rate, seasonality, route capacity, and regulatory assumptions separately. A unified visa, if and when fully activated, should be treated as an upside case rather than the only justification for an investment.</p><blockquote>Good regional strategy captures integration upside without making the business dependent on a policy timeline it cannot control.</blockquote>",
       publishedAt: '2026-08-12',
       views: 870,
       is_featured: false,
-      seo_title: 'GCC Hospitality & Cross-Border Investment Surge | Apex Advisory',
-      seo_description: 'Explore how unified regional visas drive hospitality, private equity, and real estate investments across Saudi Arabia, Oman, and the UAE.',
-      focus_keyword: 'GCC hospitality investment'
+      seo_title: "GCC Tourism Integration: Hospitality Strategy Guide | Apex",
+      seo_description: "How hospitality operators and investors can prepare for multi-destination GCC travel using scenario planning and measurable operating data.",
+      focus_keyword: "GCC tourism integration"
     },
     {
       id: 5,
-      title: 'A Practical Guide to Entering the Saudi Market: Licensing, Legal Structures & Operational Realities',
+      title: "Entering the Saudi Market: Investment Registration, Entity Setup & Operating Realities",
       slug: 'a-practical-guide-to-entering-the-saudi-market',
       category: 'Market Entry',
       author: 'Maya Nasser',
       status: 'published',
       image: 'https://images.unsplash.com/photo-1580674684081-7617fbf3d745?auto=format&fit=crop&w=1200&q=85',
       image_alt: 'Modern commercial tower in King Abdullah Financial District, Riyadh',
-      image_caption: 'Strategic market entry and corporate structuring in Riyadh, Saudi Arabia.',
-      tags: 'Market Entry, MISA, Business Setup, Commercial Registration, ZATCA, Riyadh, Vision 2030',
-      excerpt: 'The foundational decisions shape every move that follows. Here is an executive analysis of licensing paths, entity structures, banking requirements, and local operating realities in Saudi Arabia.',
-      content: '<p>Entering Saudi Arabia represents one of the most compelling expansion opportunities in the global economy today. However, transforming strategic ambition into an active, compliant corporate entity requires navigating a precise sequence of legal, fiscal, and administrative milestones. The objective is not to execute every process simultaneously, but to establish the structural dependencies in the correct order.</p><h2>1. Defining the Commercial Model &amp; Licensing Framework</h2><p>Before initiating corporate formation, founders and multinational executives must evaluate their target sector against the Ministry of Investment (MISA) licensing classifications. Key considerations include:</p><ul><li><strong>100% Foreign-Owned LLCs:</strong> Enabled under modern foreign investment regulations for services, technology, manufacturing, and trading.</li><li><strong>Regional Headquarters (RHQ) Program:</strong> Tailored for multinational corporations overseeing Middle East and North Africa operations, unlocking substantial long-term tax and visa incentives.</li><li><strong>Branch of a Foreign Entity:</strong> A direct extension of an international parent company suitable for specific engineering, contracting, or consulting engagements.</li></ul><blockquote>Careful upfront licensing alignment prevents costly amendments and administrative delays during banking, municipal registration, and recruitment phases.</blockquote><h2>2. Commercial Registration (CR) &amp; Regulatory Registrations</h2><p>Once MISA issues the investment license, the enterprise proceeds to the Ministry of Commerce for its Articles of Association (AoA) and Commercial Registration (CR). This unlocks subsequent statutory enrollments with:</p><ol><li><strong>Chamber of Commerce:</strong> Official business membership in the relevant provincial chamber.</li><li><strong>ZATCA (Zakat, Tax and Customs Authority):</strong> Corporate income tax registration, VAT registration, and Phase 2 E-Invoicing integration.</li><li><strong>Qiwa &amp; Muqeem Portals:</strong> Labor Ministry platforms governing employment contracts, Saudization (Nitaqat) quotas, and work visas.</li><li><strong>GOSI (General Organization for Social Insurance):</strong> Social security registration for domestic and international staff.</li></ol><h2>3. Corporate Banking &amp; Capitalization</h2><p>Opening a corporate bank account in Saudi Arabia has become significantly more streamlined with digital verification. International founders must provide notarized parent-company resolutions, ultimate beneficial ownership (UBO) disclosures, and authenticated MISA licenses to ensure swift KYC clearance.</p><h2>4. Building a Resilient Local Operating Cadence</h2><p>Establishing an entity is merely the first milestone. Sustainable market leadership requires ongoing PRO/GRO support, diligent tax filing, and proactive compliance monitoring. Apex Advisory partners with leadership teams from initial feasibility through day-to-day operations to ensure long-term commercial success.</p>',
+      image_caption: "Saudi market entry requires the right investment registration, entity structure, sector approvals, tax setup, and operating controls.",
+      tags: "Saudi Market Entry, MISA Registration, Business Setup, Commercial Registration, ZATCA, Riyadh, Investment Law",
+      excerpt: "A current executive guide to Saudi market entry, including MISA investment registration, entity formation, sector-specific approvals, tax setup, banking, and operating readiness.",
+      content: "<p>Entering Saudi Arabia can create significant growth opportunities, but a durable setup depends on sequencing investment, corporate, tax, labor, banking, and sector requirements correctly. The updated Saudi Investment Law is especially important because it replaced the former foreign-investor licensing procedure with an <strong>investment registration mechanism</strong>.</p><h2>1. Confirm the activity and investment-registration path</h2><p>A foreign investor must register with the Ministry of Investment (MISA) before carrying out investment activities, subject to the Investment Law and its Executive Regulations. Some activities are restricted or governed by additional sector rules, so the first task is to classify the proposed activity and identify any competent-authority approvals.</p><ul><li><strong>Entity choice:</strong> Select a structure that matches ownership, liability, governance, contracting, and tax needs.</li><li><strong>Restricted or regulated activities:</strong> Identify prior approvals and sector-specific licensing before committing to a launch timeline.</li><li><strong>Regional Headquarters considerations:</strong> Multinational groups should evaluate RHQ rules and incentives separately from ordinary operating-company formation.</li></ul><blockquote>The right sequence is more important than moving every workstream at once.</blockquote><h2>2. Establish the company and statutory registrations</h2><p>After the relevant investment-registration step, the business can progress through company establishment and Commercial Registration procedures, then complete the statutory registrations that apply to its activity. These may include Chamber of Commerce, ZATCA, labor platforms such as Qiwa, immigration services such as Muqeem, GOSI, municipal requirements, and sector regulators.</p><h2>3. Prepare banking and beneficial-ownership documentation</h2><p>Bank onboarding is a separate KYC process. Expect requests for corporate documents, ownership and ultimate beneficial owner information, authorized signatory evidence, source-of-funds context, and other documents required by the bank and the specific structure.</p><h2>4. Build compliance into the operating model</h2><p>Formation is only the beginning. Maintain a compliance calendar covering tax, e-invoicing, labor, immigration, corporate records, licenses and permits, renewals, and management reporting. Requirements vary by activity and can change, so operating teams should verify current rules with the relevant authority.</p><p><strong>Source note:</strong> Reviewed against the Saudi Ministry of Investment's updated Investment Law and 2026 Investor Guide. This article is general information, not legal or tax advice.</p>",
       publishedAt: '2026-08-15',
       views: 1420,
       is_featured: false,
-      seo_title: 'Guide to Entering the Saudi Market | Apex Business Consultancy',
-      seo_description: 'Practical guide to establishing your business in Saudi Arabia with MISA licensing, legal structures, and local operating context.',
-      focus_keyword: 'Saudi market entry'
+      seo_title: "Saudi Market Entry: MISA Registration & Entity Setup Guide | Apex",
+      seo_description: "Current Saudi market-entry guide covering MISA investment registration, entity setup, sector approvals, tax, banking, labor, and operating readiness.",
+      focus_keyword: "Saudi market entry"
     },
     {
       id: 6,
@@ -142,7 +142,15 @@ const initialContent = {
 };
 
 const storeKey = 'apex-content-v1';
-const storedContent = JSON.parse(localStorage.getItem(storeKey) || 'null') || {};
+function safeStoredContent() {
+  try {
+    const parsed = JSON.parse(localStorage.getItem(storeKey) || 'null');
+    return parsed && typeof parsed === 'object' ? parsed : {};
+  } catch {
+    return {};
+  }
+}
+const storedContent = safeStoredContent();
 const content = {
   ...initialContent,
   ...storedContent,
@@ -166,6 +174,84 @@ function slugify(text) {
     .replace(/[^\w\s-]/g, '')
     .replace(/[\s_-]+/g, '-')
     .replace(/^-+|-+$/g, '');
+}
+
+function escapeHtml(value = '') {
+  return String(value ?? '').replace(/[&<>"']/g, (char) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
+  }[char]));
+}
+
+function safeUrl(value = '', fallback = '') {
+  const raw = String(value || '').trim();
+  if (!raw) return fallback;
+  if (/^(https?:\/\/|mailto:|tel:|\/|\.\.?\/)/i.test(raw)) return raw;
+  return fallback;
+}
+
+function sanitizeRichHtml(html = '') {
+  const template = document.createElement('template');
+  template.innerHTML = String(html || '');
+  const allowedTags = new Set(['P','BR','STRONG','B','EM','I','U','H2','H3','H4','UL','OL','LI','BLOCKQUOTE','A','CODE','PRE','HR','TABLE','THEAD','TBODY','TR','TH','TD','FIGURE','FIGCAPTION','IMG']);
+  const allowedAttrs = {
+    A: new Set(['href','title','target','rel']),
+    IMG: new Set(['src','alt','title','width','height','loading']),
+    TH: new Set(['colspan','rowspan','scope']),
+    TD: new Set(['colspan','rowspan'])
+  };
+  [...template.content.querySelectorAll('*')].forEach((node) => {
+    if (!allowedTags.has(node.tagName)) {
+      node.replaceWith(...node.childNodes);
+      return;
+    }
+    [...node.attributes].forEach((attr) => {
+      if (!allowedAttrs[node.tagName]?.has(attr.name.toLowerCase())) node.removeAttribute(attr.name);
+    });
+    if (node.tagName === 'A') {
+      const href = node.getAttribute('href') || '';
+      if (!/^(https?:\/\/|mailto:|tel:|\/|#)/i.test(href)) node.removeAttribute('href');
+      if (node.getAttribute('target') === '_blank') node.setAttribute('rel', 'noopener noreferrer');
+    }
+    if (node.tagName === 'IMG') {
+      const src = node.getAttribute('src') || '';
+      if (!/^(https?:\/\/|\/|\.\.?\/)/i.test(src)) node.remove();
+      else if (!node.getAttribute('loading')) node.setAttribute('loading', 'lazy');
+    }
+  });
+  return template.innerHTML;
+}
+
+const APP_BASE_URL = new URL('.', document.currentScript?.src || location.href);
+const apiUrl = (path) => new URL(String(path).replace(/^\/+/, ''), APP_BASE_URL).toString();
+
+let csrfTokenPromise = null;
+async function getCsrfToken() {
+  if (!csrfTokenPromise) {
+    csrfTokenPromise = fetch(apiUrl('api/auth/csrf.php'), { credentials: 'same-origin', headers: { Accept: 'application/json' } })
+      .then(async (response) => {
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok || !data.csrf_token) throw new Error(data.error || 'Unable to initialize secure form submission.');
+        return data.csrf_token;
+      })
+      .catch((error) => { csrfTokenPromise = null; throw error; });
+  }
+  return csrfTokenPromise;
+}
+
+async function submitInquiry(payload) {
+  const token = await getCsrfToken();
+  const response = await fetch(apiUrl('api/inquiries.php'), {
+    method: 'POST',
+    credentials: 'same-origin',
+    headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': token, Accept: 'application/json' },
+    body: JSON.stringify(payload)
+  });
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    if (response.status === 419) csrfTokenPromise = null;
+    throw new Error(data.error || 'We could not submit your request. Please try again.');
+  }
+  return data;
 }
 
 function cleanPath(href) {
@@ -238,7 +324,7 @@ function navigate(path) {
 
 function header() {
   const items = content.cms.navigation?.header?.filter((item) => item.visible !== false) || headerItems.map(([page, label]) => ({ label, href: toHref(page) }));
-  const links = items.map((item) => `<a href="${cleanPath(item.href)}">${item.label}</a>`).join('');
+  const links = items.map((item) => `<a href="${escapeHtml(cleanPath(item.href))}">${escapeHtml(item.label)}</a>`).join('');
   return `<header class="site-header container"><a class="brand" href="/" aria-label="Apex Business Consultancy home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span>apex</span></a><nav class="desktop-nav" aria-label="Main navigation">${links}</nav><button class="menu-button menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span></button></header>`;
 }
 
@@ -250,13 +336,13 @@ const socialLinks = [
 ];
 
 function footerSocial() {
-  return `<div class="footer-social"><p class="footer-social-heading">Follow Us</p><div class="social-icons">${socialLinks.map((item) => `<a href="${item.url}" target="_blank" rel="noopener noreferrer" aria-label="${item.label === 'WhatsApp' ? 'Message' : item.label === 'YouTube' ? 'Subscribe to' : 'Follow'} ${content.settings.name} on ${item.label}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="${item.path}"/></svg></a>`).join('')}</div></div>`;
+  return `<div class="footer-social"><p class="footer-social-heading">Follow Us</p><div class="social-icons">${socialLinks.map((item) => `<a href="${item.url}" target="_blank" rel="noopener noreferrer" aria-label="${item.label === 'WhatsApp' ? 'Message' : item.label === 'YouTube' ? 'Subscribe to' : 'Follow'} ${escapeHtml(content.settings.name)} on ${escapeHtml(item.label)}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="${item.path}"/></svg></a>`).join('')}</div></div>`;
 }
 
 function footer() {
   const items = content.cms.navigation?.footer?.filter((item) => item.visible !== false) || footerItems.map(([page, label]) => ({ label, href: toHref(page) }));
-  const links = items.map((item) => `<a href="${cleanPath(item.href)}">${item.label}</a>`).join('');
-  return `<footer class="site-footer"><div class="container footer-top"><a class="brand" href="/" aria-label="Apex Business Consultancy home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span>apex</span></a><nav aria-label="Footer navigation">${links}</nav>${footerSocial()}</div><div class="container footer-bottom"><span>${content.settings.footer}</span><span>&copy; 2026 ${content.settings.name}. All rights reserved.</span></div></footer>`;
+  const links = items.map((item) => `<a href="${escapeHtml(cleanPath(item.href))}">${escapeHtml(item.label)}</a>`).join('');
+  return `<footer class="site-footer"><div class="container footer-top"><a class="brand" href="/" aria-label="Apex Business Consultancy home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span>apex</span></a><nav aria-label="Footer navigation">${links}</nav>${footerSocial()}</div><div class="container footer-bottom"><span>${escapeHtml(content.settings.footer)}</span><span>&copy; 2026 ${escapeHtml(content.settings.name)}. All rights reserved.</span></div></footer>`;
 }
 
 function updatePageMetadata() {
@@ -279,7 +365,7 @@ function updatePageMetadata() {
   const metadata = {
     home: { title: `${brandName} | ${tagline}`, description: 'Apex Business Consultancy helps founders, investors, and operators establish, license, and scale businesses in Saudi Arabia with local market context and operating support.', path: '/' },
     about: { title: `About ${brandName} | Local Context & Strategic Execution in Riyadh`, description: 'Learn how Apex Business Consultancy supports founders, corporate investors, and leadership teams navigating market entry and operational growth in Saudi Arabia.', path: '/about' },
-    services: { title: `Services | Market Entry, PRO, Visas, Tax & AI Automation | ${brandName}`, description: 'Explore Apex Business Consultancy services: MISA licensing, investment advisory, PRO/GRO support, visa assistance, tax return guidance, audit review, trading education, and AI workflow automation.', path: '/services' },
+    services: { title: `Services | Market Entry, PRO, Visas, Tax & AI Automation | ${brandName}`, description: 'Explore Apex Business Consultancy services: MISA investment registration, investment advisory, PRO/GRO support, visa assistance, tax return guidance, audit review, trading education, and AI workflow automation.', path: '/services' },
     insights: { title: `Insights & Strategic Perspectives | ${brandName} Riyadh`, description: 'In-depth analysis, regulatory guides, and practical intelligence on building, investing, and scaling in Saudi Arabia and the GCC.', path: location.pathname.startsWith('/blog') ? '/blog' : '/insights' },
     contact: { title: `Contact ${brandName} | Riyadh, Saudi Arabia`, description: 'Get in touch with Apex Business Consultancy in King Abdullah Financial District, Riyadh. Start a conversation regarding market entry, licensing, tax, or AI automation.', path: '/contact' },
     conversation: { title: `Start a Conversation | ${brandName}`, description: 'Initiate an exploratory consultation with Apex Business Consultancy in Riyadh. Discuss your market entry, licensing, operational growth, or AI automation goals.', path: '/conversation' },
@@ -508,7 +594,7 @@ function conversationPage() {
           <div>
             <small>APEX ADVISORY</small>
             <strong>Riyadh Hub</strong>
-            <span>KAFD Tower 4, Floor 18</span>
+            <span>King Abdullah Financial District, Riyadh</span>
             <a href="https://www.google.com/maps/search/?api=1&query=King+Abdullah+Financial+District+Riyadh" target="_blank" rel="noreferrer">Directions <b aria-hidden="true">&rarr;</b></a>
           </div>
         </div>
@@ -525,7 +611,7 @@ function conversationPage() {
           <label>Company / Organization<input name="company" autocomplete="organization" placeholder="Your business or venture name" /></label>
           <label>Primary Topic of Interest
             <select name="topic" style="width:100%; padding:13px; border:1px solid #c9e3e6; border-radius:10px; background:#fbfefe; color:#07152f; font:600 13px Manrope;">
-              <option value="Market Entry & MISA Licensing">Market Entry &amp; MISA Licensing</option>
+              <option value="Market Entry & MISA Registration">Market Entry &amp; MISA Registration</option>
               <option value="Strategic Business Advisory">Strategic Business Advisory</option>
               <option value="PRO / GRO Government Relations">PRO / GRO Government Relations</option>
               <option value="Visa & Relocation Assistance">Visa &amp; Relocation Assistance</option>
@@ -568,7 +654,7 @@ function visaAssistancePage() {
           <span>01</span>
           <div class="service-icon icon-visa" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M2 16 22 8 20 12 22 16 13.5 13.5 9 20 7.5 19 9.5 13 2 16Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
           <h3>Saudi Investor &amp; Business Visas</h3>
-          <p>MISA investor visas, commercial visit visas, and corporate executive transfers into the Kingdom.</p>
+          <p>Investor and business mobility support, commercial visit guidance, and corporate executive transfer coordination into the Kingdom.</p>
         </article>
         <article class="service-offer">
           <span>02</span>
@@ -699,7 +785,7 @@ function automationPage() {
           <h2>How We Deploy AI Into Your Stack</h2>
           <p>We do not deliver theoretical demos. We build production-ready automations that save quantifiable hours every single week.</p>
           <ul>
-            <li><span aria-hidden="true"></span><div><strong>Workflow &amp; Bottleneck Audit</strong><small>Identify the 3-5 highest ROI manual workflows in your organization.</small></div></li>
+            <li><span aria-hidden="true"></span><div><strong>Workflow &amp; Bottleneck Audit</strong><small>Identify the highest-value repetitive workflows in your organization using impact, risk, effort, and data readiness.</small></div></li>
             <li><span aria-hidden="true"></span><div><strong>Custom Architecture &amp; Integration</strong><small>Connect APIs, LLMs, CRMs, and messaging channels securely.</small></div></li>
             <li><span aria-hidden="true"></span><div><strong>Testing, Deployment &amp; Monitoring</strong><small>Continuous performance tracking and prompt optimization.</small></div></li>
           </ul>
@@ -757,7 +843,7 @@ function advisorySessionPage() {
         <article class="service-offer">
           <span>01</span>
           <div class="service-icon icon-entry" aria-hidden="true"><i></i><i></i><i></i></div>
-          <h3>MISA &amp; Legal Structure</h3>
+          <h3>Investment Registration &amp; Legal Structure</h3>
           <p>Determining optimal entity type: 100% foreign-owned LLC, Regional Headquarters (RHQ), or Branch Office.</p>
         </article>
         <article class="service-offer">
@@ -847,7 +933,7 @@ function advisorsPage() {
           <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=160&q=80" alt="Tariq Al-Mansoor" style="width:72px; height:72px; border-radius:50%; object-fit:cover; margin-bottom:16px;" />
           <p class="eyebrow" style="margin:0 0 6px; color:#5c9e91;">MARKET ENTRY &amp; GOV RELATIONS</p>
           <h3 style="margin:0 0 8px; color:#07152f; font-size:22px; letter-spacing:-0.8px;">Tariq Al-Mansoor</h3>
-          <p style="color:#747d89; font-size:12px; font-weight:600; line-height:1.65; margin-bottom:16px;">Over 14 years advising multinational enterprises on MISA licensing, Regional Headquarters (RHQ) setup, and Ministry of Commerce compliance in Riyadh.</p>
+          <p style="color:#747d89; font-size:12px; font-weight:600; line-height:1.65; margin-bottom:16px;">Advises leadership teams on Saudi investment registration, Regional Headquarters (RHQ) considerations, corporate setup, and Ministry of Commerce processes in Riyadh.</p>
           <a class="text-cta" href="/advisory-session">Book Consultation with Tariq <span aria-hidden="true">&rarr;</span></a>
         </article>
 
@@ -887,7 +973,7 @@ function advisorsPage() {
 
 function servicesPageRedesign() {
   const services = [
-    { id: 'market-entry', number: '01', group: 'Market entry', title: 'Entrepreneur License (MISA)', summary: 'Shape the right entity and licensing path for a confident start in Saudi Arabia.', body: 'We help businesses understand the requirements, structure, documentation, and practical steps involved in establishing their presence.', bullets: ['Market-entry guidance', 'Entity and licensing considerations', 'Documentation and process clarity'], ctaTarget: '/conversation' },
+    { id: 'market-entry', number: '01', group: 'Market entry', title: 'Saudi Market Entry & MISA Registration', summary: 'Shape the right entity, investment-registration path, and regulatory sequence for a confident start in Saudi Arabia.', body: 'We help businesses understand the requirements, structure, documentation, and practical steps involved in establishing their presence.', bullets: ['Market-entry guidance', 'Entity and licensing considerations', 'Documentation and process clarity'], ctaTarget: '/conversation' },
     { id: 'business-advisory', number: '02', group: 'Business advisory', title: 'Investment Advisory', summary: 'Turn market context, commercial questions, and priorities into decisions you can use.', body: 'We help entrepreneurs and businesses evaluate opportunities, understand the local business environment, and make informed decisions based on practical market considerations.', bullets: ['Opportunity evaluation', 'Local business context', 'Commercial priorities and next steps'], ctaTarget: '/advisory-session' },
     { id: 'government-support', number: '03', group: 'Government & business support', title: 'PRO / GRO Services', summary: 'Keep essential government relations work moving with reliable, informed support.', body: 'Our PRO/GRO services help businesses manage essential government-related processes and administrative requirements, allowing owners and management teams to focus on operations.', bullets: ['Government-related processes', 'Administrative requirements', 'Ongoing operational support'], ctaTarget: '/conversation' },
     { id: 'visa-assistance', number: '04', group: 'Visa assistance', title: 'Visa Assistance Services', summary: 'Make international travel and relocation simpler with professional visa assistance.', body: 'We assist individuals, families, professionals, students, and businesses with requirements, documentation, applications, and the wider application process.', bullets: ['Tourist, visit, business, student, family, and work visas', 'Document preparation and review', 'Application and appointment guidance'], note: 'Applications remain subject to the requirements and decisions of the relevant authority. Assistance does not guarantee approval.', ctaTarget: '/visa-assistance' },
@@ -912,7 +998,7 @@ function servicesPageRedesign() {
 
 function servicesPage() {
   const overview = [
-    { icon: 'icon-entry', eyebrow: 'MARKET ENTRY', title: 'Entrepreneur License (MISA)', lead: 'Shape the right entity and licensing path for a confident start in Saudi Arabia.', anchor: 'service-market-entry' },
+    { icon: 'icon-entry', eyebrow: 'MARKET ENTRY', title: 'Saudi Market Entry & MISA Registration', lead: 'Shape the right entity, investment-registration path, and regulatory sequence for a confident start in Saudi Arabia.', anchor: 'service-market-entry' },
     { icon: 'icon-advisory', eyebrow: 'BUSINESS ADVISORY', title: 'Investment Advisory', lead: 'Turn market context, commercial questions, and priorities into decisions you can use.', anchor: 'service-business-advisory' },
     { icon: 'icon-support', eyebrow: 'GOVERNMENT & BUSINESS SUPPORT', title: 'PRO / GRO Services', lead: 'Keep essential government relations work moving with reliable, informed support.', anchor: 'service-government-support' },
     { icon: 'icon-visa', eyebrow: 'VISA ASSISTANCE', title: 'Visa Assistance Services', lead: 'Make international travel and relocation simpler with professional visa assistance.', anchor: 'service-visa-assistance' },
@@ -946,14 +1032,14 @@ function servicesPage() {
   return `<article class="content-page services-page">
     <section class="services-hero">
       <div class="services-hero-copy"><p class="eyebrow">WHAT WE DO</p><h1>Practical support for<br /><em>the moves that matter.</em></h1><p>From entering Saudi Arabia and managing essential business requirements to making better commercial decisions and adopting smarter technology, Apex brings local context, practical expertise, and reliable execution into one clear working relationship.</p><p>Whether you are starting a business, managing an existing operation, expanding internationally, or looking for ways to work more efficiently, we help turn complex requirements into clear next steps.</p><a class="button" href="/conversation">Start a conversation <span aria-hidden="true">&rarr;</span></a></div>
-      <div class="services-hero-visual" aria-label="Apex advisory services working together"><div class="service-halo"></div><article class="hero-service-card hero-service-card-top"><span>MARKET ENTRY</span><strong>MISA licensing</strong><i></i></article><article class="hero-service-card hero-service-card-bottom"><span>OPERATIONS</span><strong>PRO/GRO support</strong><i></i></article><div class="service-core"><span class="brand-mark large" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><small>APEX<br />ADVISORY</small></div><span class="hero-link hero-link-one"></span><span class="hero-link hero-link-two"></span></div>
+      <div class="services-hero-visual" aria-label="Apex advisory services working together"><div class="service-halo"></div><article class="hero-service-card hero-service-card-top"><span>MARKET ENTRY</span><strong>MISA registration</strong><i></i></article><article class="hero-service-card hero-service-card-bottom"><span>OPERATIONS</span><strong>PRO/GRO support</strong><i></i></article><div class="service-core"><span class="brand-mark large" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><small>APEX<br />ADVISORY</small></div><span class="hero-link hero-link-one"></span><span class="hero-link hero-link-two"></span></div>
     </section>
 
     <section class="services-overview"><div class="services-overview-heading"><p class="eyebrow">OUR SERVICES</p><h2>One team. Practical support across the business.</h2><p>Our services are designed around the real challenges businesses face &mdash; from market entry and government processes to accounting, auditing, visa assistance, and AI-powered automation.</p></div><div class="service-card-grid">
       ${overview.map((item, index) => `<article class="service-offer"><span>0${index + 1}</span><div class="service-icon ${item.icon}" aria-hidden="true">${dotIcons.includes(item.icon) ? '<i></i><i></i><i></i>' : svgIcons[item.icon]}</div><h3>${item.title}</h3><p>${item.lead}</p><a href="#${item.anchor}" aria-label="Learn more about ${item.title}">Learn more <b aria-hidden="true">&rarr;</b></a></article>`).join('')}
     </div></section>
 
-    <section class="service-detail" id="service-market-entry"><div class="service-detail-inner"><span class="detail-num">01</span><div class="service-icon icon-entry" aria-hidden="true"><i></i><i></i><i></i></div><div class="detail-copy"><p class="eyebrow">MARKET ENTRY</p><h2>Entrepreneur License (MISA)</h2><p class="detail-lead">Shape the right entity and licensing path for a confident start in Saudi Arabia.</p><p>We provide guidance around the Saudi market-entry process, helping businesses understand the requirements, structure, documentation, and practical steps involved in establishing their presence.</p><a class="text-cta" href="/conversation">Let's talk <span aria-hidden="true">&rarr;</span></a></div></div></section>
+    <section class="service-detail" id="service-market-entry"><div class="service-detail-inner"><span class="detail-num">01</span><div class="service-icon icon-entry" aria-hidden="true"><i></i><i></i><i></i></div><div class="detail-copy"><p class="eyebrow">MARKET ENTRY</p><h2>Saudi Market Entry &amp; MISA Registration</h2><p class="detail-lead">Shape the right entity, investment-registration path, and regulatory sequence for a confident start in Saudi Arabia.</p><p>We provide guidance around the Saudi market-entry process, helping businesses understand the requirements, structure, documentation, and practical steps involved in establishing their presence.</p><a class="text-cta" href="/conversation">Let's talk <span aria-hidden="true">&rarr;</span></a></div></div></section>
 
     <section class="service-detail" id="service-business-advisory"><div class="service-detail-inner"><span class="detail-num">02</span><div class="service-icon icon-advisory" aria-hidden="true"><i></i><i></i><i></i></div><div class="detail-copy"><p class="eyebrow">BUSINESS ADVISORY</p><h2>Investment Advisory</h2><p class="detail-lead">Turn market context, commercial questions, and priorities into decisions you can use.</p><p>We help entrepreneurs and businesses evaluate opportunities, understand the local business environment, and make informed decisions based on practical market considerations.</p><a class="text-cta" href="/advisory-session">Schedule Advisory <span aria-hidden="true">&rarr;</span></a></div></div></section>
 
@@ -1009,31 +1095,25 @@ function singleArticlePage(slug) {
   const article = articles.find(a => (a.slug === slug) || (slugify(a.title) === slug)) || articles[0];
 
   if (!article) {
-    return `<article class="content-page insights-page">
-      <section class="insights-hero">
-        <p class="eyebrow">APEX INSIGHTS</p>
-        <h1>Article Not Found</h1>
-        <p>The article you are looking for does not exist or has been relocated.</p>
-        <a class="button" href="/insights">← Browse all Insights</a>
-      </section>
-    </article>`;
+    return `<article class="content-page insights-page"><section class="insights-hero"><p class="eyebrow">APEX INSIGHTS</p><h1>Article Not Found</h1><p>The article you are looking for does not exist or has been relocated.</p><a class="button" href="/insights">← Browse all Insights</a></section></article>`;
   }
 
   const category = article.category || 'Market Entry';
   const author = article.author || 'Apex Administrator';
-  const dateFormatted = article.publishedAt ? new Date(article.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : 'August 2026';
+  const dateFormatted = article.publishedAt ? new Date(article.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : 'Latest update';
   const wordCount = (article.content || '').replace(/<[^>]*>/g, '').split(/\s+/).filter(Boolean).length;
   const readTime = Math.max(1, Math.ceil(wordCount / 200));
-  const articleSlug = article.slug || slugify(article.title);
   const tags = String(article.tags || '').split(',').map(tag => tag.trim()).filter(Boolean);
   const categories = [...new Set(articles.filter(item => item.status === 'published' || !item.status).map(item => item.category || 'Insights'))];
   const related = articles.filter(item => item.slug !== article.slug && (item.status === 'published' || !item.status)).sort((first, second) => Number((second.category || '') === category) - Number((first.category || '') === category)).slice(0, 3);
+  const image = safeUrl(article.image || article.featured_image, '');
+  const publishedAt = /^\d{4}-\d{2}-\d{2}/.test(String(article.publishedAt || '')) ? String(article.publishedAt).slice(0, 10) : '';
 
   return `<article class="article-detail">
-    <header class="article-detail-header"><nav class="article-detail-breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/insights">Insights</a><span>/</span><span>${category}</span></nav><span class="article-detail-category">${category}</span><h1>${article.title}</h1><div class="article-detail-meta"><span>By <strong>${author}</strong></span><time datetime="${article.publishedAt || ''}">${dateFormatted}</time><span>${readTime} min read</span>${article.views ? `<span>${Number(article.views).toLocaleString()} views</span>` : ''}</div></header>
-    ${article.image ? `<figure class="article-detail-figure"><img src="${article.image}" alt="${article.image_alt || article.title}" fetchpriority="high" />${article.image_caption ? `<figcaption>${article.image_caption}</figcaption>` : ''}</figure>` : ''}
-    <div class="article-detail-layout"><main class="article-detail-content"><p class="article-detail-lead">${article.excerpt || article.description || ''}</p><div class="article-detail-body">${article.content || '<p>No content available.</p>'}</div><footer class="article-detail-footer"><div class="article-detail-tags"><strong>Tags</strong>${tags.map(tag => `<span>${tag}</span>`).join('')}</div><div class="article-detail-share" aria-label="Share this article"><strong>Share</strong><button type="button" data-share="facebook">Facebook</button><button type="button" data-share="twitter">X</button><button type="button" data-share="linkedin">LinkedIn</button></div></footer><aside class="article-detail-author" aria-label="Article author"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=96&q=80" alt="${author}" /><div><small>Written by</small><strong>${author}</strong><span>Strategic Advisory &amp; Market Insights</span></div></aside></main>
-      <aside class="article-detail-sidebar" aria-label="Article navigation"><section><p class="fresh-insights-label">Related reading</p><h2>More insights</h2><ol>${related.map(item => `<li><a href="/insights/${item.slug || slugify(item.title)}"><span>${item.category || 'Insights'}</span>${item.title}</a></li>`).join('') || '<li>No related articles yet.</li>'}</ol></section><section><p class="fresh-insights-label">Browse category</p><h2>Topics</h2><ul>${categories.map(item => `<li><a href="/insights">${item}</a></li>`).join('')}</ul></section><section><p class="fresh-insights-label">Article tags</p><div class="article-sidebar-tags">${tags.map(tag => `<span>${tag}</span>`).join('')}</div></section></aside>
+    <header class="article-detail-header"><nav class="article-detail-breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/insights">Insights</a><span>/</span><span>${escapeHtml(category)}</span></nav><span class="article-detail-category">${escapeHtml(category)}</span><h1>${escapeHtml(article.title)}</h1><div class="article-detail-meta"><span>By <strong>${escapeHtml(author)}</strong></span><time datetime="${escapeHtml(publishedAt)}">${escapeHtml(dateFormatted)}</time><span>${readTime} min read</span>${article.views ? `<span>${Number(article.views).toLocaleString()} views</span>` : ''}</div></header>
+    ${image ? `<figure class="article-detail-figure"><img src="${escapeHtml(image)}" alt="${escapeHtml(article.image_alt || article.title)}" fetchpriority="high" />${article.image_caption ? `<figcaption>${escapeHtml(article.image_caption)}</figcaption>` : ''}</figure>` : ''}
+    <div class="article-detail-layout"><main class="article-detail-content"><p class="article-detail-lead">${escapeHtml(article.excerpt || article.description || '')}</p><div class="article-detail-body">${sanitizeRichHtml(article.content || '<p>No content available.</p>')}</div><footer class="article-detail-footer"><div class="article-detail-tags"><strong>Tags</strong>${tags.map(tag => `<span>${escapeHtml(tag)}</span>`).join('')}</div><div class="article-detail-share" aria-label="Share this article"><strong>Share</strong><button type="button" data-share="facebook">Facebook</button><button type="button" data-share="twitter">X</button><button type="button" data-share="linkedin">LinkedIn</button></div></footer><aside class="article-detail-author" aria-label="Article author"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=96&q=80" alt="${escapeHtml(author)}" /><div><small>Written by</small><strong>${escapeHtml(author)}</strong><span>Strategic Advisory &amp; Market Insights</span></div></aside></main>
+      <aside class="article-detail-sidebar" aria-label="Article navigation"><section><p class="fresh-insights-label">Related reading</p><h2>More insights</h2><ol>${related.map(item => `<li><a href="/insights/${encodeURIComponent(item.slug || slugify(item.title))}"><span>${escapeHtml(item.category || 'Insights')}</span>${escapeHtml(item.title)}</a></li>`).join('') || '<li>No related articles yet.</li>'}</ol></section><section><p class="fresh-insights-label">Browse category</p><h2>Topics</h2><ul>${categories.map(item => `<li><a href="/insights">${escapeHtml(item)}</a></li>`).join('')}</ul></section><section><p class="fresh-insights-label">Article tags</p><div class="article-sidebar-tags">${tags.map(tag => `<span>${escapeHtml(tag)}</span>`).join('')}</div></section></aside>
     </div>
   </article>`;
 }
@@ -1045,18 +1125,19 @@ function freshInsightsPage() {
   const recent = [...published].sort((first, second) => new Date(second.publishedAt || 0) - new Date(first.publishedAt || 0)).slice(0, 4);
   const date = article => article.publishedAt ? new Date(article.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Latest insight';
   const card = (article, index) => {
-    const slug = article.slug || slugify(article.title);
+    const slug = encodeURIComponent(article.slug || slugify(article.title));
     const articleTags = String(article.tags || '').split(',').map(tag => tag.trim()).filter(Boolean).slice(0, 3);
-    return `<article class="insights-listing-card" data-category="${article.category || 'Insights'}" data-tags="${articleTags.join('|')}"${index >= 6 ? ' hidden' : ''}>
-      <a class="insights-card-image" href="/insights/${slug}" aria-label="Read ${article.title}"><img src="${article.image || 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=900&q=85'}" alt="${article.image_alt || article.title}" loading="lazy" /></a>
-      <div class="insights-card-content"><div class="insights-card-meta"><span>${article.category || 'Insights'}</span><time>${date(article)}</time></div><h2><a href="/insights/${slug}">${article.title}</a></h2><p>${article.excerpt || article.description || 'Practical guidance for leaders building and operating in Saudi Arabia.'}</p><div class="insights-card-footer"><div class="insights-tag-list">${articleTags.map(tag => `<span>${tag}</span>`).join('')}</div><a href="/insights/${slug}" class="insights-read-more">Read more <span aria-hidden="true">&rarr;</span></a></div></div>
+    const image = safeUrl(article.image || article.featured_image, 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=900&q=85');
+    return `<article class="insights-listing-card" data-category="${escapeHtml(article.category || 'Insights')}" data-tags="${escapeHtml(articleTags.join('|'))}"${index >= 6 ? ' hidden' : ''}>
+      <a class="insights-card-image" href="/insights/${slug}" aria-label="Read ${escapeHtml(article.title)}"><img src="${escapeHtml(image)}" alt="${escapeHtml(article.image_alt || article.title)}" loading="lazy" /></a>
+      <div class="insights-card-content"><div class="insights-card-meta"><span>${escapeHtml(article.category || 'Insights')}</span><time>${escapeHtml(date(article))}</time></div><h2><a href="/insights/${slug}">${escapeHtml(article.title)}</a></h2><p>${escapeHtml(article.excerpt || article.description || 'Practical guidance for leaders building and operating in Saudi Arabia.')}</p><div class="insights-card-footer"><div class="insights-tag-list">${articleTags.map(tag => `<span>${escapeHtml(tag)}</span>`).join('')}</div><a href="/insights/${slug}" class="insights-read-more">Read more <span aria-hidden="true">&rarr;</span></a></div></div>
     </article>`;
   };
 
   return `<article class="insights-listing">
     <header class="insights-listing-hero"><div><p class="fresh-insights-kicker">APEX INSIGHTS</p><h1>Perspectives for the<br /><em>work ahead.</em></h1><p>Focused analysis, operating context, and decision support for leaders building in Saudi Arabia.</p></div><p class="insights-listing-count"><strong>${published.length}</strong> published perspectives</p></header>
     <div class="insights-listing-layout"><section class="insights-listing-main" aria-labelledby="insights-list-title"><div class="insights-listing-heading"><div><p class="fresh-insights-label">Latest publication</p><h2 id="insights-list-title">Insights and analysis</h2></div><p>Clear thinking for market entry, growth, and compliance.</p></div><div class="insights-card-grid">${published.map(card).join('') || '<p class="insights-empty">New perspectives are being prepared.</p>'}</div>${published.length > 6 ? '<button class="insights-load-more" type="button">Load more insights</button>' : ''}</section>
-      <aside class="insights-listing-sidebar" aria-label="Insights filters and recent posts"><section><p class="fresh-insights-label">Browse topics</p><h2>Categories</h2><div class="insights-filter-list"><button type="button" class="is-active" data-insights-filter="all">All insights <span>${published.length}</span></button>${categories.map(category => `<button type="button" data-insights-filter="${category}">${category} <span>${published.filter(article => (article.category || 'Insights') === category).length}</span></button>`).join('')}</div></section><section><p class="fresh-insights-label">Explore by tag</p><div class="insights-tag-filter">${tags.map(tag => `<button type="button" data-insights-tag="${tag}">${tag}</button>`).join('')}</div></section><section><p class="fresh-insights-label">Recent posts</p><h2>Recently published</h2><ol class="insights-recent-list">${recent.map(article => `<li><a href="/insights/${article.slug || slugify(article.title)}"><span>${article.category || 'Insights'}</span>${article.title}</a></li>`).join('')}</ol></section></aside>
+      <aside class="insights-listing-sidebar" aria-label="Insights filters and recent posts"><section><p class="fresh-insights-label">Browse topics</p><h2>Categories</h2><div class="insights-filter-list"><button type="button" class="is-active" data-insights-filter="all">All insights <span>${published.length}</span></button>${categories.map(category => `<button type="button" data-insights-filter="${escapeHtml(category)}">${escapeHtml(category)} <span>${published.filter(article => (article.category || 'Insights') === category).length}</span></button>`).join('')}</div></section><section><p class="fresh-insights-label">Explore by tag</p><div class="insights-tag-filter">${tags.map(tag => `<button type="button" data-insights-tag="${escapeHtml(tag)}">${escapeHtml(tag)}</button>`).join('')}</div></section><section><p class="fresh-insights-label">Recent posts</p><h2>Recently published</h2><ol class="insights-recent-list">${recent.map(article => `<li><a href="/insights/${encodeURIComponent(article.slug || slugify(article.title))}"><span>${escapeHtml(article.category || 'Insights')}</span>${escapeHtml(article.title)}</a></li>`).join('')}</ol></section></aside>
     </div>
   </article>`;
 }
@@ -1072,39 +1153,103 @@ function contactPage() {
 }
 
 function bind() {
-  document.querySelector('.menu-toggle')?.addEventListener('click', () => document.querySelector('.site-header nav')?.classList.toggle('is-open'));
+  const menuToggle = document.querySelector('.menu-toggle');
+  menuToggle?.addEventListener('click', () => {
+    const nav = document.querySelector('.site-header nav');
+    const isOpen = nav?.classList.toggle('is-open') || false;
+    menuToggle.setAttribute('aria-expanded', String(isOpen));
+  });
+
   document.querySelectorAll('.simple-contact').forEach((form) => {
-    form.addEventListener('submit', (event) => {
+    if (!form.querySelector('[name="website"]')) {
+      const honeypot = document.createElement('input');
+      honeypot.type = 'text';
+      honeypot.name = 'website';
+      honeypot.tabIndex = -1;
+      honeypot.autocomplete = 'off';
+      honeypot.setAttribute('aria-hidden', 'true');
+      honeypot.className = 'form-honeypot';
+      form.prepend(honeypot);
+    }
+
+    form.addEventListener('submit', async (event) => {
       event.preventDefault();
       const statusMsg = form.querySelector('.form-message');
+      const submitButton = form.querySelector('button[type="submit"]');
+      const originalLabel = submitButton?.innerHTML || '';
+      const formData = Object.fromEntries(new FormData(form).entries());
+      const formType = form.classList.contains('conversation-form') ? 'conversation'
+        : form.classList.contains('visa-assistance-form') ? 'visa'
+        : form.classList.contains('automation-form') ? 'automation'
+        : form.classList.contains('advisory-session-form') ? 'advisory'
+        : 'general';
+      formData.form_type = formType;
+
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = 'Submitting…';
+      }
       if (statusMsg) {
-        if (form.classList.contains('conversation-form')) {
-          statusMsg.textContent = 'Thank you for your brief. An Apex advisory coordinator will contact you within one business day to schedule your consultation.';
-        } else if (form.classList.contains('visa-assistance-form')) {
-          statusMsg.textContent = 'Your visa assistance inquiry has been received. Our mobility team will review your eligibility criteria and reach out promptly.';
-        } else if (form.classList.contains('automation-form')) {
-          statusMsg.textContent = 'Thank you for requesting an AI blueprint. Our automation architects are preparing your custom assessment.';
-        } else if (form.classList.contains('advisory-session-form')) {
-          statusMsg.textContent = 'Your advisory session request has been submitted. We will confirm your preferred format and calendar slot shortly.';
-        } else {
-          statusMsg.textContent = 'Thank you for reaching out. An Apex advisory specialist will review your enquiry and respond within one business day.';
-        }
-        statusMsg.style.color = '#206e7c';
+        statusMsg.textContent = 'Submitting securely…';
+        statusMsg.style.color = '#52666f';
         statusMsg.style.fontWeight = '700';
       }
-      form.reset();
+
+      try {
+        await submitInquiry(formData);
+        if (statusMsg) {
+          const messages = {
+            conversation: 'Thank you for your brief. An Apex advisory coordinator will contact you within one business day.',
+            visa: 'Your visa assistance enquiry has been received. Our mobility team will review the information provided and follow up.',
+            automation: 'Thank you for requesting an AI blueprint. Our automation team will review your workflow requirements.',
+            advisory: 'Your advisory session request has been received. We will follow up regarding your preferred format and timing.',
+            general: 'Thank you for reaching out. An Apex advisory specialist will review your enquiry and respond within one business day.'
+          };
+          statusMsg.textContent = messages[formType];
+          statusMsg.style.color = '#206e7c';
+        }
+        form.reset();
+      } catch (error) {
+        if (statusMsg) {
+          statusMsg.textContent = error?.message || 'We could not submit your enquiry. Please email hello@apexbusinessksa.com or use WhatsApp.';
+          statusMsg.style.color = '#a53131';
+        }
+      } finally {
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.innerHTML = originalLabel;
+        }
+      }
     });
   });
 
-  document.querySelector('.insight-subscribe')?.addEventListener('submit', (event) => {
+  document.querySelector('.insight-subscribe')?.addEventListener('submit', async (event) => {
     event.preventDefault();
-    const signupMsg = event.currentTarget.querySelector('.signup-status');
-    if (signupMsg) {
-      signupMsg.textContent = 'Thank you for subscribing to Apex Executive Briefings.';
-      signupMsg.style.color = '#206e7c';
-      signupMsg.style.fontWeight = '700';
+    const form = event.currentTarget;
+    const signupMsg = form.querySelector('.signup-status');
+    const button = form.querySelector('button[type="submit"]');
+    const original = button?.innerHTML || '';
+    const payload = Object.fromEntries(new FormData(form).entries());
+    payload.form_type = 'newsletter';
+    payload.website = payload.website || '';
+    try {
+      if (button) { button.disabled = true; button.textContent = 'Subscribing…'; }
+      await submitInquiry(payload);
+      if (signupMsg) {
+        signupMsg.textContent = 'Thank you for subscribing to Apex Executive Briefings.';
+        signupMsg.style.color = '#206e7c';
+        signupMsg.style.fontWeight = '700';
+      }
+      form.reset();
+    } catch (error) {
+      if (signupMsg) {
+        signupMsg.textContent = error?.message || 'Subscription could not be completed. Please try again.';
+        signupMsg.style.color = '#a53131';
+        signupMsg.style.fontWeight = '700';
+      }
+    } finally {
+      if (button) { button.disabled = false; button.innerHTML = original; }
     }
-    event.currentTarget.reset();
   });
 
   const insightCards = [...document.querySelectorAll('.insights-listing-card')];
@@ -1238,6 +1383,40 @@ function renderSite() {
   normalizeImages();
 }
 
+async function hydratePublishedArticles() {
+  try {
+    const response = await fetch(apiUrl('api/posts.php?limit=100'), { credentials: 'same-origin', headers: { Accept: 'application/json' } });
+    if (!response.ok) return;
+    const payload = await response.json();
+    if (!Array.isArray(payload.data) || payload.data.length === 0) return;
+    content.articles = payload.data.map((row) => ({
+      id: Number(row.id),
+      title: row.title || '',
+      slug: row.slug || '',
+      category: row.category_name || 'Insights',
+      author: row.author_name || 'Apex Business Consultancy',
+      status: row.status || 'published',
+      image: row.featured_image || row.image_url || '',
+      image_alt: row.image_alt || row.title || '',
+      image_caption: row.image_caption || '',
+      tags: row.tags || '',
+      excerpt: row.description || '',
+      description: row.description || '',
+      content: row.content || '',
+      publishedAt: row.published_at || row.created_at || '',
+      views: Number(row.views || 0),
+      is_featured: Boolean(Number(row.is_featured || 0)),
+      allow_comments: Boolean(Number(row.allow_comments || 0)),
+      seo_title: row.seo_title || '',
+      seo_description: row.seo_description || '',
+      focus_keyword: row.focus_keyword || ''
+    }));
+    renderSite();
+  } catch {
+    // Static/local preview intentionally falls back to bundled editorial content.
+  }
+}
+
 function syncFromStorage() {
   const saved = localStorage.getItem(storeKey);
   if (!saved || saved === lastSyncedValue) return;
@@ -1283,3 +1462,4 @@ document.addEventListener('click', (event) => {
 window.addEventListener('popstate', renderSite);
 window.addEventListener('hashchange', renderSite);
 renderSite();
+hydratePublishedArticles();

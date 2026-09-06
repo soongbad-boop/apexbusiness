@@ -1,4 +1,4 @@
-﻿# Production Deployment Guide: cPanel & GitHub Auto-Deploy
+# Production Deployment Guide: cPanel & GitHub Auto-Deploy
 
 This guide outlines how to deploy **Apex Business Consultancy** to cPanel hosting using either **Option A: GitHub Auto-Deploy (Git Version Control)** or **Option B: Direct cPanel Upload (File Manager)**.
 

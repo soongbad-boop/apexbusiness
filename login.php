@@ -8,19 +8,12 @@ if (current_user()) {
     header('Location: dashboard.php', true, 302);
     exit;
 }
+header('Cache-Control: no-store, private');
+header('X-Robots-Tag: noindex, nofollow, noarchive');
 ?>
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZNWDH4V7BB"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-ZNWDH4V7BB');
-    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex,nofollow,noarchive" />

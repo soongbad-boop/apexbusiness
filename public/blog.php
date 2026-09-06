@@ -16,7 +16,7 @@ $query = $pdo->prepare('
     LEFT JOIN media m ON m.id = p.featured_media_id 
     LEFT JOIN post_categories pc ON pc.post_id = p.id
     LEFT JOIN categories c ON c.id = pc.category_id
-    WHERE p.slug = ? AND p.status = \'published\' 
+    WHERE p.slug = ? AND p.status = \'published\' AND (p.published_at IS NULL OR p.published_at <= NOW())
     LIMIT 1
 ');
 $query->execute([$slug]);
@@ -54,7 +54,7 @@ if (!$is404) {
         LEFT JOIN media m ON m.id = p.featured_media_id
         LEFT JOIN post_categories pc ON pc.post_id = p.id
         LEFT JOIN categories c ON c.id = pc.category_id
-        WHERE p.id != ? AND p.status = \'published\'
+        WHERE p.id != ? AND p.status = \'published\' AND (p.published_at IS NULL OR p.published_at <= NOW())
         ORDER BY p.published_at DESC
         LIMIT 3
     ');
@@ -87,12 +87,8 @@ $readTime = max(1, (int) ceil(str_word_count(strip_tags((string) $post['content'
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title><?= e($pageTitle) ?></title>
     <meta name="description" content="<?= e($description) ?>" />
-    <?php if (!empty($post['canonical_url'])): ?>
-      <link rel="canonical" href="<?= e($post['canonical_url']) ?>" />
-    <?php endif; ?>
-    <?php if ($post['robots_index'] === 0 || $post['robots_follow'] === 0): ?>
-      <meta name="robots" content="<?= $post['robots_index'] === 0 ? 'noindex' : 'index' ?>,<?= $post['robots_follow'] === 0 ? 'nofollow' : 'follow' ?>" />
-    <?php endif; ?>
+    <link rel="canonical" href="<?= e(!empty($post['canonical_url']) ? $post['canonical_url'] : rtrim((string) $config['app_url'], '/') . '/blog/' . rawurlencode($slug)) ?>" />
+    <meta name="robots" content="<?= ((int) ($post['robots_index'] ?? 1) === 0 || $is404) ? 'noindex' : 'index' ?>,<?= ((int) ($post['robots_follow'] ?? 1) === 0 || $is404) ? 'nofollow' : 'follow' ?>,max-image-preview:large" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="<?= e(!empty($post['og_title']) ? $post['og_title'] : $title) ?>" />
     <meta property="og:description" content="<?= e(!empty($post['og_description']) ? $post['og_description'] : $description) ?>" />
@@ -106,6 +102,7 @@ $readTime = max(1, (int) ceil(str_word_count(strip_tags((string) $post['content'
     <link rel="stylesheet" href="../styles.css" />
     <link rel="stylesheet" href="../consulting.css" />
     <link rel="stylesheet" href="../insights-fresh.css" />
+    <link rel="stylesheet" href="../mobile-hardening.css" />
     <style>
       .article-page-container { max-width: 920px; margin: 0 auto; padding: 40px 24px 80px; }
       .article-breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 800; color: #5c7882; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 20px; }
@@ -199,7 +196,7 @@ $readTime = max(1, (int) ceil(str_word_count(strip_tags((string) $post['content'
       <?php endif; ?>
 
       <div class="article-body">
-        <?= $post['content'] ?>
+        <?= sanitize_rich_html((string) $post['content']) ?>
       </div>
 
       <?php if (!empty($post['tags'])): ?>

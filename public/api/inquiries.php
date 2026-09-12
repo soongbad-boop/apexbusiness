@@ -64,6 +64,33 @@ $subject = match ($type) {
     default => 'Website enquiry',
 };
 
+function send_inquiry_email(array $config, string $subject, array $details): bool
+{
+    $recipient = filter_var($config['mail']['to_address'] ?? '', FILTER_VALIDATE_EMAIL);
+    $from = filter_var($config['mail']['from_address'] ?? '', FILTER_VALIDATE_EMAIL);
+    if (!$recipient || !$from) {
+        return false;
+    }
+
+    $lines = ['A new enquiry was submitted through the Apex website.', ''];
+    foreach ($details as $label => $value) {
+        $value = trim((string) $value);
+        if ($value !== '') {
+            $lines[] = $label . ': ' . $value;
+        }
+    }
+
+    $headers = [
+        'From: ' . normalized_text($config['mail']['from_name'] ?? 'Apex Business Consultancy', 100) . ' <' . $from . '>',
+        'Reply-To: ' . $details['Email'],
+        'Content-Type: text/plain; charset=UTF-8',
+        'MIME-Version: 1.0',
+        'X-Mailer: Apex Website',
+    ];
+
+    return mail($recipient, '[Apex Website] ' . $subject, implode("\r\n", $lines), implode("\r\n", $headers));
+}
+
 try {
     $pdo = db($config);
     $stmt = $pdo->prepare('INSERT INTO inquiries (type, name, email, company, phone, subject, message, metadata, ip_hash, user_agent) VALUES (?, ?, ?, ?, ?, ?, ?, ?, UNHEX(SHA2(?, 256)), ?)');
@@ -79,10 +106,24 @@ try {
         $ip,
         $userAgent ?: null,
     ]);
-    json_response(['ok' => true, 'id' => (int) $pdo->lastInsertId()], 201);
-} catch (PDOException $e) {
-    if (!empty($config['app_debug'])) {
-        json_response(['error' => 'Unable to record the enquiry.', 'detail' => $e->getMessage()], 500);
+    $inquiryId = (int) $pdo->lastInsertId();
+    $emailDetails = [
+        'Reference' => (string) $inquiryId,
+        'Type' => $type,
+        'Name' => $name,
+        'Email' => $email,
+        'Company' => $company,
+        'Phone' => $phone,
+        'Message' => $message,
+    ];
+    foreach ($metadata as $key => $value) {
+        $emailDetails[ucwords(str_replace(['_', '-'], ' ', $key))] = $value;
     }
+    $emailSent = send_inquiry_email($config, $subject, $emailDetails);
+    if (!$emailSent) {
+        error_log('Apex enquiry email delivery failed for inquiry #' . $inquiryId);
+    }
+    json_response(['ok' => true, 'id' => $inquiryId, 'email_sent' => $emailSent], 201);
+} catch (PDOException $e) {
     json_response(['error' => 'Unable to submit your enquiry right now. Please contact us by email or WhatsApp.'], 500);
 }

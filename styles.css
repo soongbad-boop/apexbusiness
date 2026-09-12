@@ -40,7 +40,8 @@ body::before {
   max-width: 1320px;
   min-height: 100vh;
   margin: auto;
-  overflow: hidden;
+  padding-top: 76px;
+  overflow: visible;
   background: #fff;
 }
 
@@ -49,13 +50,32 @@ body::before {
   margin-inline: auto;
 }
 
-.site-header {
+.site-header,
+.site-header.container {
   height: 76px;
+  min-height: 76px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: relative;
-  z-index: 10;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding-left: max(32px, calc((100% - 1120px) / 2)) !important;
+  padding-right: max(32px, calc((100% - 1120px) / 2)) !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  z-index: 1000;
+  background: #ffffff;
+  background: rgba(255, 255, 255, .98);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(7, 21, 47, .07);
+  box-shadow: 0 4px 20px rgba(7, 21, 47, .04);
+  box-sizing: border-box;
 }
 
 .brand {
@@ -1189,15 +1209,19 @@ body::before {
     width: min(100% - 38px, 620px)
   }
 
-  .site-header {
-    height: 65px
+  .site-header,
+  .site-header.container {
+    height: 65px;
+    min-height: 65px;
+    padding-left: max(19px, calc((100% - 620px) / 2)) !important;
+    padding-right: max(19px, calc((100% - 620px) / 2)) !important;
   }
 
   .desktop-nav {
     position: absolute;
     top: 60px;
-    right: 0;
-    left: 0;
+    right: max(19px, calc((100% - 620px) / 2));
+    left: max(19px, calc((100% - 620px) / 2));
     display: none;
     flex-direction: column;
     gap: 0;
@@ -1299,18 +1323,30 @@ body::before {
   }
 
   .insights-section h2 {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
     align-items: center;
     gap: 7px;
     margin-bottom: 49px;
-    letter-spacing: -2px
+    padding-bottom: 8px;
+    letter-spacing: -2px;
+    line-height: 1;
+    text-align: center
   }
 
   .insights-section h2 strong {
-    font-size: 56px
+    font-size: clamp(44px, 16vw, 56px);
+    line-height: 1.05;
+    white-space: nowrap;
+    overflow-wrap: normal;
+    word-break: normal
   }
 
   .insights-section h2 span {
-    font-size: 30px
+    font-size: clamp(26px, 8vw, 30px);
+    line-height: 1.05;
+    overflow-wrap: normal;
+    word-break: normal
   }
 
   .feature-grid {

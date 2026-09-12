@@ -2,13 +2,34 @@ const initialContent = {
   settings: {
     name: 'Apex Business Consultancy',
     tagline: 'Strategic Clarity for Business Growth in Saudi Arabia',
+    heroSubtitle: 'Clear market context, licensing guidance, and practical execution for founders, investors, and enterprise teams expanding into Saudi Arabia.',
     favicon: 'favicon.svg',
-    email: 'hello@apexbusinessksa.com',
-    whatsapp: '966115550142',
+    email: 'info@apexbusinessksa.com',
+    whatsapp: '966570082565',
     footer: 'Clarity for ambitious businesses entering and growing in Saudi Arabia.',
     icons: { entry: 'MISA', advisory: 'ADVISORY', learning: 'LEARNING', support: 'PRO/GRO' }
   },
   articles: [
+    {
+      id: 7,
+      title: "Vision 2030 Opportunities: Best Business Sectors to Invest in Saudi Arabia (2026)",
+      slug: 'vision-2030-business-opportunities-saudi-arabia',
+      category: 'Market Entry',
+      author: 'Apex Administrator',
+      status: 'published',
+      image: 'https://images.unsplash.com/photo-1580674684081-7617fbf3d745?auto=format&fit=crop&w=1400&q=85',
+      image_alt: 'Business executives walking through the modern King Abdullah Financial District in Riyadh, representing Vision 2030 investment opportunities',
+      image_caption: "Riyadh’s King Abdullah Financial District (KAFD) stands as the epicenter of Saudi Arabia’s Vision 2030 economic transformation.",
+      tags: "Saudi Vision 2030, Investment Opportunities, Saudi Arabia, Foreign Investment, AI, Tourism, Renewable Energy, Logistics, Healthcare, FinTech",
+      excerpt: "A comprehensive executive analysis of the most lucrative Vision 2030 business sectors, foreign investment regulations, market entry models, and growth industries in Saudi Arabia.",
+      content: "<p>Saudi Arabia is experiencing one of the largest economic transformations in the world. Driven by <strong>Saudi Vision 2030</strong>, the Kingdom is creating high-growth new industries, attracting international direct investment, and aggressively developing commercial sectors beyond traditional energy.</p><p>For decades, Saudi Arabia's economy was strongly connected to oil. Today, the Kingdom is building a diversified, knowledge-based economy centered around technology, artificial intelligence, tourism, healthcare, advanced manufacturing, renewable energy, and financial services. For entrepreneurs, international corporations, and venture investors, understanding current <a href=\"/insights/vision-2030-business-opportunities-saudi-arabia\">Vision 2030 business opportunities</a> is essential for capturing long-term market upside.</p><p>This guide explores the most promising business sectors to invest in Saudi Arabia in 2026, foreign ownership frameworks, and how businesses can successfully participate in the Kingdom's economic evolution.</p><figure class=\"article-image-box\"><img src=\"https://images.unsplash.com/photo-1580674684081-7617fbf3d745?auto=format&fit=crop&w=1200&q=85\" alt=\"Business executives walking through the modern King Abdullah Financial District in Riyadh, representing Vision 2030 investment opportunities\" loading=\"lazy\" width=\"1200\" height=\"675\"><figcaption>Riyadh’s King Abdullah Financial District (KAFD) stands as the epicenter of Saudi Arabia’s Vision 2030 economic transformation.</figcaption></figure><h2>Why Invest in Saudi Arabia Under Vision 2030?</h2><p>Saudi Arabia is rapidly emerging as the premier corporate and financial hub in the Middle East due to several structural catalysts:</p><h3>1. Economic Diversification</h3><p>The Kingdom is actively channeling capital into non-oil sectors. High-priority growth sectors include technology, tourism, manufacturing, healthcare, and renewable energy—creating unprecedented commercial openings for international innovators.</p><h3>2. Large-Scale Giga-Projects</h3><p>Saudi Arabia is deploying hundreds of billions of dollars into world-defining development projects that require specialized technology providers, engineering contractors, strategic consultants, and international domain expertise. Key examples include:</p><ul><li><strong>NEOM:</strong> A cognitive, zero-carbon region developing next-generation robotics, clean water, and urban mobility.</li><li><strong>Red Sea Global:</strong> World-class luxury regenerative tourism destinations powered entirely by renewable energy.</li><li><strong>Qiddiya:</strong> The global capital of entertainment, sports, and cultural arts.</li><li><strong>Smart City Initiatives:</strong> Nationwide modernization of Riyadh, Jeddah, Dammam, and special economic zones.</li></ul><h3>3. Rapidly Growing Demand for Enterprise Innovation</h3><p>Saudi government entities and private enterprises are aggressively adopting solutions that enhance operational productivity, automate workflows, elevate customer experiences, and build robust digital capabilities.</p><hr><h2>Top 10 Business Sectors to Invest in Saudi Arabia</h2><h3>1. Artificial Intelligence and Technology</h3><p>Artificial intelligence is the cornerstone of Saudi Arabia's digital transformation. Government ministries and private enterprises are actively deploying AI to improve decision-making, predictive analytics, enterprise automation, and public service delivery.</p><ul><li><strong>AI Software Solutions:</strong> High demand for B2B workflow automation, intelligent ERP platforms, analytics software, and generative AI assistants. Explore our dedicated <a href=\"/automation\">AI &amp; workflow automation solutions</a> for GCC enterprises.</li><li><strong>AI Strategy &amp; Consulting:</strong> Advisory firms that guide organizations through digital maturity, change management, and workforce upskilling.</li><li><strong>Arabic Language AI:</strong> Large Language Models (LLMs), natural language processing (NLP), Arabic chatbots, and automated voice assistants tailored for regional dialects.</li></ul><p><strong>Ideal Investors:</strong> Technology enterprises, SaaS founders, enterprise software developers, and AI research startups.</p><h3>2. Tourism and Hospitality</h3><p>Tourism is one of the foundational pillars of Vision 2030, targeting 150 million annual visits by 2030 across cultural, luxury, adventure, and business tourism segments.</p><ul><li><strong>Hotels &amp; Luxury Resorts:</strong> Strong appetite for boutique luxury hotels, branded serviced apartments, and sustainable eco-lodges. Review our <a href=\"/insights/gcc-tourism-and-hospitality-investment-surge-2026\">Saudi tourism &amp; hospitality investment analysis</a>.</li><li><strong>Tour Operations &amp; Travel Tech:</strong> Digital booking engines, destination management companies (DMCs), and bespoke cultural travel experiences.</li><li><strong>Specialized Leisure &amp; Adventure:</strong> Desert hospitality, UNESCO heritage exploration in AlUla and Diriyah, marine expeditions, and eco-tours.</li></ul><p><strong>Ideal Investors:</strong> Hospitality operators, travel tech innovators, asset managers, and experiential tourism brands.</p><h3>3. Healthcare and Medical Technology (HealthTech)</h3><p>The Kingdom is modernizing its healthcare ecosystem through extensive privatization, digital health initiatives, and public-private partnerships (PPPs).</p><ul><li><strong>Digital Health &amp; Telemedicine:</strong> Virtual consultation platforms, remote patient monitoring, and integrated clinical data systems.</li><li><strong>Medical Technology (MedTech):</strong> Advanced diagnostic imaging, laboratory automation, robotic surgical devices, and smart hospital infrastructure.</li><li><strong>Specialized Care Facilities:</strong> Specialized clinics, rehabilitation centers, longevity wellness institutes, and preventive care networks.</li></ul><p><strong>Ideal Investors:</strong> Healthcare networks, medical device manufacturers, HealthTech developers, and biotech ventures.</p><h3>4. Renewable Energy and Sustainability</h3><p>Aligned with the Saudi Green Initiative, the Kingdom is developing monumental clean energy capacity aiming for 50% renewable power generation by 2030.</p><ul><li><strong>Solar &amp; Wind Power:</strong> Photovoltaic technology, grid management, solar farm engineering, and energy storage systems.</li><li><strong>Sustainable Infrastructure:</strong> Green building materials, water desalination efficiency, circular economy recycling, and carbon management technologies.</li><li><strong>CleanTech &amp; ESG Consulting:</strong> Environmental compliance advisory, carbon footprint auditing, and industrial energy efficiency solutions.</li></ul><p><strong>Ideal Investors:</strong> Utility developers, renewable IPPs, clean energy technology firms, and sustainability funds.</p><h3>5. Advanced Manufacturing and Industrial Development</h3><p>Under the National Industrial Development and Logistics Program (NIDLP), Saudi Arabia is building self-sufficient industrial capacity and localized supply chains.</p><ul><li><strong>Advanced Industrial Automation:</strong> Industry 4.0 robotics, IoT sensors, precision machinery, and additive manufacturing (3D printing).</li><li><strong>Food Processing &amp; AgriTech:</strong> Controlled-environment agriculture, vertical farming, sustainable food packaging, and cold-chain logistics.</li><li><strong>Industrial Equipment &amp; Assembly:</strong> Specialized manufacturing components, EV parts assembly, and industrial chemical processing.</li></ul><p><strong>Ideal Investors:</strong> International manufacturers, industrial engineering groups, and AgriTech pioneers.</p><h3>6. Logistics, Supply Chain, and Transportation</h3><p>Positioned at the crossroads of three continents (Asia, Europe, and Africa), Saudi Arabia is solidifying its position as the premier regional supply chain nexus.</p><ul><li><strong>Supply Chain Technology:</strong> Autonomous warehouse management, AI route optimization, and digital freight forwarding.</li><li><strong>Cold Chain &amp; Specialized Freight:</strong> Temperature-controlled pharma and food logistics across the GCC.</li><li><strong>Modern Warehousing:</strong> High-cube fulfillment centers in Special Integrated Logistics Zones (SILZ) near international airports and seaports.</li></ul><p><strong>Ideal Investors:</strong> 3PL/4PL logistics conglomerates, fleet operators, and industrial real estate developers.</p><h3>7. Financial Technology (FinTech)</h3><p>Propelled by the Saudi Central Bank (SAMA) regulatory sandbox and the Financial Sector Development Program, KSA has become the fastest-growing FinTech ecosystem in the MENA region.</p><ul><li><strong>Payment Gateways &amp; POS:</strong> Seamless cashless point-of-sale systems, cross-border remittance, and payment aggregators.</li><li><strong>Open Banking &amp; API Platforms:</strong> Consumer financial management, credit scoring algorithms, and embedded finance.</li><li><strong>InsurTech &amp; WealthTech:</strong> Automated robo-advisory, micro-insurance products, and institutional fractional real estate investing.</li></ul><p><strong>Ideal Investors:</strong> Venture-backed FinTechs, banking technology providers, and payment infrastructure companies.</p><h3>8. E-Commerce and Digital Retail</h3><p>High smartphone penetration, young demographics, and high consumer purchasing power drive double-digit year-over-year e-commerce expansion.</p><ul><li><strong>Niche Marketplaces:</strong> B2B industrial procurement platforms, specialty luxury commerce, and localized consumer marketplaces.</li><li><strong>E-Commerce Enablement:</strong> Last-mile delivery networks, dark-store fulfillment, omnichannel inventory software, and automated customer support.</li><li><strong>MarTech &amp; Performance Marketing:</strong> Regional localization engines, dynamic pricing tools, and retention marketing platforms.</li></ul><p><strong>Ideal Investors:</strong> E-commerce operators, retail tech software firms, and digital agency networks.</p><h3>9. Education, EdTech, and Professional Training</h3><p>A rapidly diversifying economy demands high-level technical skills, specialized certifications, and continuous executive learning.</p><ul><li><strong>Corporate Learning &amp; Upskilling:</strong> Enterprise training in AI, data science, project management, and cybersecurity.</li><li><strong>EdTech Platforms:</strong> Gamified learning, Arabic interactive STEM curricula, and vocational digital academies.</li><li><strong>Early Childhood &amp; K-12 Education:</strong> International private schools and specialized bilingual STEM academies.</li></ul><p><strong>Ideal Investors:</strong> Education management operators, digital learning platforms, and corporate training academies.</p><h3>10. Entertainment, Sports, and Creative Industries</h3><p>Supported by the General Entertainment Authority (GEA) and Ministry of Culture, the entertainment and sports economy is experiencing exponential growth.</p><ul><li><strong>Live Events &amp; Production:</strong> Concert staging, cultural festival production, and international sports management.</li><li><strong>Digital Content &amp; Media Production:</strong> Arabic film production, animation studios, visual effects (VFX), and post-production studios.</li><li><strong>Gaming &amp; Esports:</strong> Game development studios, competitive esports tournament infrastructure, and community gaming venues.</li></ul><p><strong>Ideal Investors:</strong> Media conglomerates, entertainment producers, esports organizations, and creative agencies.</p><hr><h2>Best Business Models for Foreign Investors</h2><p>International businesses can enter Saudi Arabia through established corporate models governed by the Ministry of Investment (MISA) and the Ministry of Commerce:</p><ol><li><strong>100% Foreign-Owned Limited Liability Company (LLC):</strong> Ideal for long-term operations, direct government contracting, and full operational control. Learn more in our comprehensive <a href=\"/insights/a-practical-guide-to-entering-the-saudi-market\">Saudi market entry and entity setup guide</a>.</li><li><strong>Strategic Joint Ventures &amp; Partnerships:</strong> Teaming up with reputable local Saudi partners to accelerate market penetration, municipal approvals, and commercial relationships.</li><li><strong>Technology Licensing &amp; Distribution:</strong> Providing proprietary software, patents, or specialized machinery to certified Saudi operating partners.</li><li><strong>Regional Headquarters (RHQ) Program:</strong> Establishing a regional executive hub in Riyadh to oversee MENA operations and qualify for government procurement incentives.</li></ol><blockquote>\"Entering the Saudi market with the correct legal framework, clear sector sequencing, and proactive local relationships transforms regulatory complexity into a powerful competitive advantage.\"</blockquote><hr><h2>How to Select the Right Investment Sector</h2><p>Before deploying capital into the Saudi market, executive teams should systematically evaluate:</p><ul><li><strong>Addressable Market Demand:</strong> Validate real enterprise or consumer willingness to pay vs. general macroeconomic excitement.</li><li><strong>Regulatory &amp; Licensing Roadmap:</strong> Review the specific licensing prerequisites from MISA, municipal authorities, and sector regulators. Browse our full suite of <a href=\"/services\">corporate advisory and company formation services</a>.</li><li><strong>Competitive Differentiation:</strong> Assess existing local players and identify underserved market niches.</li><li><strong>Long-Term Alignment:</strong> Prioritize business models directly reinforced by national Vision 2030 targets and government incentives.</li></ul><hr><h2>Key Challenges and Strategic Considerations</h2><ul><li><strong>Navigating Evolving Regulations:</strong> Compliance requirements—from electronic invoicing (ZATCA) to Saudization labor quotas (Nitaqat)—require attentive local oversight.</li><li><strong>Cultivating Local Commercial Networks:</strong> Business success in Saudi Arabia relies heavily on trust, long-term commitment, and active executive presence.</li><li><strong>Cultural &amp; Market Adaptation:</strong> Products, customer service channels, and brand messaging must be tailored to Saudi consumer expectations and language preferences.</li></ul><hr><h2>Frequently Asked Questions (FAQ)</h2><h3>What are the most profitable sectors to invest in Saudi Arabia?</h3><p>The highest profitability and growth potential are currently found in Artificial Intelligence &amp; Cloud Technology, Luxury Hospitality &amp; Tourism, Specialized Healthcare, Renewable Energy, Industrial Supply Chains, and FinTech.</p><h3>Is Saudi Arabia open to 100% foreign business ownership?</h3><p>Yes. Under the modernized Saudi Investment Law, foreign investors can obtain 100% ownership in the vast majority of commercial and industrial sectors through an investment registration with MISA.</p><h3>Can international startups and SMEs establish in Saudi Arabia?</h3><p>Yes. Saudi Arabia offers streamlined entrepreneur licenses, startup incubators, and specialized venture funding initiatives tailored for early-stage and high-growth foreign enterprises.</p><h3>Why is Vision 2030 critical for international investors?</h3><p>Vision 2030 provides a transparent national roadmap outlining where billions in sovereign funding, regulatory support, and infrastructure spending will be focused through the next decade.</p><hr><h2>Accelerate Your Saudi Expansion with Apex</h2><p>Navigating market entry, MISA investment registration, corporate structuring, and commercial partnerships requires reliable local execution. <a href=\"/conversation\">Start a conversation with our Riyadh advisory team today</a> or explore our <a href=\"/advisory-session\">strategic advisory sessions</a> to turn Vision 2030 opportunities into profitable growth.</p>",
+      publishedAt: '2026-09-12',
+      views: 1950,
+      is_featured: true,
+      seo_title: "Vision 2030 Opportunities: Best Business Sectors to Invest in Saudi Arabia (2026) | Apex",
+      seo_description: "Discover the best Vision 2030 business opportunities and top sectors to invest in Saudi Arabia, from AI and tourism to healthcare, renewable energy, and logistics.",
+      focus_keyword: "Vision 2030 business opportunities"
+    },
     {
       id: 1,
       title: "GCC Unified Tourist Visa: What Is Confirmed, What Is Still Pending, and Why It Matters",
@@ -160,12 +181,14 @@ const content = {
   logs: storedContent.logs || initialContent.logs,
   cms: storedContent.cms || {}
 };
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+let pendingRouteScroll = null;
 let lastSyncedValue = localStorage.getItem(storeKey);
 const app = document.querySelector('.site-shell');
 const legacyHome = app.innerHTML;
 const consultingStyles = document.querySelector('link[href="consulting.css"]');
 const headerItems = [['home', 'Home'], ['about', 'About'], ['services', 'Services'], ['insights', 'Insights'], ['contact', 'Contact']];
-const footerItems = [['home', 'Home'], ['privacy-policy', 'Privacy'], ['terms-and-conditions', 'Terms'], ['login.php', 'CMS Sign In']];
+const footerItems = [['home', 'Home'], ['privacy-policy', 'Privacy'], ['terms-and-conditions', 'Terms']];
 
 function slugify(text) {
   return String(text || '')
@@ -221,13 +244,14 @@ function sanitizeRichHtml(html = '') {
   return template.innerHTML;
 }
 
-const APP_BASE_URL = new URL('.', document.currentScript?.src || location.href);
+const APP_BASE_URL = new URL('.', location.href);
+const SITE_BASE_PATH = APP_BASE_URL.pathname.replace(/\/+$/, '');
 const apiUrl = (path) => new URL(String(path).replace(/^\/+/, ''), APP_BASE_URL).toString();
 
 let csrfTokenPromise = null;
 async function getCsrfToken() {
   if (!csrfTokenPromise) {
-    csrfTokenPromise = fetch(apiUrl('api/auth/csrf.php'), { credentials: 'same-origin', headers: { Accept: 'application/json' } })
+    csrfTokenPromise = fetch(apiUrl('public/api/auth/csrf.php'), { credentials: 'same-origin', headers: { Accept: 'application/json' } })
       .then(async (response) => {
         const data = await response.json().catch(() => ({}));
         if (!response.ok || !data.csrf_token) throw new Error(data.error || 'Unable to initialize secure form submission.');
@@ -240,7 +264,7 @@ async function getCsrfToken() {
 
 async function submitInquiry(payload) {
   const token = await getCsrfToken();
-  const response = await fetch(apiUrl('api/inquiries.php'), {
+  const response = await fetch(apiUrl('public/api/inquiries.php'), {
     method: 'POST',
     credentials: 'same-origin',
     headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': token, Accept: 'application/json' },
@@ -259,13 +283,17 @@ function cleanPath(href) {
   let path = href.replace(/#.*$/, '').trim();
   if (!path || path === 'home' || path === '/home') return '/';
   if (/\.[a-z0-9]+$/i.test(path) || path.startsWith('http:') || path.startsWith('https:') || path.startsWith('mailto:') || path.startsWith('tel:')) return path;
+  if (SITE_BASE_PATH && (path === SITE_BASE_PATH || path.startsWith(`${SITE_BASE_PATH}/`))) {
+    path = path.slice(SITE_BASE_PATH.length) || '/';
+  }
   if (!path.startsWith('/')) path = '/' + path;
   return path;
 }
 
 function toHref(page) {
   if (/\.[a-z0-9]+$/i.test(page)) return page;
-  return page === 'home' ? '/' : `/${page}`;
+  const path = page === 'home' ? '/' : `/${page}`;
+  return `${SITE_BASE_PATH}${path}` || path;
 }
 
 function routeInfo() {
@@ -277,19 +305,15 @@ function routeInfo() {
 
     if (recognizedPages.includes(rawHash)) {
       targetPath = rawHash === 'home' ? '/' : `/${rawHash}`;
-    }
-
-    history.replaceState(null, '', `${targetPath}${location.search}`);
-
-    if (rawHash && !recognizedPages.includes(rawHash)) {
-      setTimeout(() => {
-        const targetEl = document.getElementById(rawHash) || document.getElementById(`service-${rawHash}`);
-        if (targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
+      history.replaceState(null, '', `${SITE_BASE_PATH}${targetPath}${location.search}`);
     }
   }
 
-  const segment = location.pathname.replace(/^\/+/, '').replace(/\/+$/, '').replace(/\.html$/, '').trim();
+  let pathname = location.pathname;
+  if (SITE_BASE_PATH && (pathname === SITE_BASE_PATH || pathname.startsWith(`${SITE_BASE_PATH}/`))) {
+    pathname = pathname.slice(SITE_BASE_PATH.length) || '/';
+  }
+  const segment = pathname.replace(/^\/+/, '').replace(/\/+$/, '').replace(/\.html$/, '').trim();
   if (!segment || segment === 'home') return { view: 'home', slug: '' };
   if (segment === 'insights' || segment === 'blog') return { view: 'insights', slug: '' };
   if (segment.startsWith('insights/')) {
@@ -305,7 +329,7 @@ function routeInfo() {
     return { view: segment, slug: '' };
   }
 
-  return { view: 'home', slug: '' };
+  return { view: '404', slug: '' };
 }
 
 function route() {
@@ -316,40 +340,84 @@ function link(page, label) {
   return `<a href="${toHref(page)}">${label}</a>`;
 }
 
+function scrollToTop() {
+  const root = document.documentElement;
+  const previousBehavior = root.style.scrollBehavior;
+  root.style.scrollBehavior = 'auto';
+  window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  root.style.scrollBehavior = previousBehavior;
+}
+
+function scrollToHashTarget(hash) {
+  const decodedHash = decodeURIComponent(String(hash || '').replace(/^#/, ''));
+  if (!decodedHash) return false;
+  const targetEl = document.getElementById(decodedHash) || document.getElementById(`service-${decodedHash}`);
+  if (!targetEl) return false;
+  const root = document.documentElement;
+  const previousBehavior = root.style.scrollBehavior;
+  root.style.scrollBehavior = 'auto';
+  window.scrollTo({ top: targetEl.getBoundingClientRect().top + window.scrollY, left: 0, behavior: 'auto' });
+  root.style.scrollBehavior = previousBehavior;
+  return true;
+}
+
+function applyPendingRouteScroll() {
+  if (pendingRouteScroll !== `${location.pathname}${location.hash}`) return;
+  if (!location.hash || !scrollToHashTarget(location.hash)) scrollToTop();
+}
+
 function navigate(path) {
-  if (location.pathname === path) return;
-  history.pushState(null, '', path);
+  const [pathName, hash] = String(path || '/').split('#', 2);
+  const targetPath = `${SITE_BASE_PATH}${pathName}` || pathName;
+  const target = hash ? `${targetPath}#${hash}` : targetPath;
+  if (`${location.pathname}${location.hash}` === target) return;
+  history.pushState(null, '', target);
+  pendingRouteScroll = target;
   renderSite();
+  requestAnimationFrame(applyPendingRouteScroll);
+  setTimeout(() => {
+    applyPendingRouteScroll();
+    if (pendingRouteScroll === `${location.pathname}${location.hash}`) pendingRouteScroll = null;
+  }, 800);
+}
+
+function isPrivateNavigationItem(item) {
+  const href = String(item?.href || '').toLowerCase();
+  const label = String(item?.label || '').toLowerCase();
+  return href === '/login.php' || href === '/login' || href.endsWith('/login.php') || href.endsWith('/login') || label.includes('cms sign in');
 }
 
 function header() {
-  const items = content.cms.navigation?.header?.filter((item) => item.visible !== false) || headerItems.map(([page, label]) => ({ label, href: toHref(page) }));
+  const items = content.cms.navigation?.header?.filter((item) => item.visible !== false && !isPrivateNavigationItem(item)) || headerItems.map(([page, label]) => ({ label, href: toHref(page) }));
   const links = items.map((item) => `<a href="${escapeHtml(cleanPath(item.href))}">${escapeHtml(item.label)}</a>`).join('');
-  return `<header class="site-header container"><a class="brand" href="/" aria-label="Apex Business Consultancy home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span>apex</span></a><nav class="desktop-nav" aria-label="Main navigation">${links}</nav><button class="menu-button menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span></button></header>`;
+  const brandName = content.settings.name || 'Apex Business Consultancy';
+  return `<header class="site-header container"><a class="brand" href="/" aria-label="${escapeHtml(brandName)} home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span>${escapeHtml(brandName)}</span></a><nav class="desktop-nav" aria-label="Main navigation">${links}</nav><button class="menu-button menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span></button></header>`;
 }
 
 const socialLinks = [
   { label: 'Facebook', url: 'https://www.facebook.com/apexbusinessadvisory', path: 'M13.5 21v-7.2h2.4l.4-2.8h-2.8V9.1c0-.8.2-1.3 1.4-1.3h1.5V5.1c-.3 0-1.1-.1-2.1-.1-2.1 0-3.5 1.3-3.5 3.6v2.2H8.4v2.8h2.4V21h2.7Z' },
   { label: 'YouTube', url: 'https://www.youtube.com/@apexbusinessadvisory', path: 'M21.6 7.6a2.7 2.7 0 0 0-1.9-1.9C18 5.2 12 5.2 12 5.2s-6 0-7.7.5a2.7 2.7 0 0 0-1.9 1.9A28 28 0 0 0 2 12a28 28 0 0 0 .4 4.4 2.7 2.7 0 0 0 1.9 1.9c1.7.5 7.7.5 7.7.5s6 0 7.7-.5a2.7 2.7 0 0 0 1.9-1.9A28 28 0 0 0 22 12a28 28 0 0 0-.4-4.4ZM10 15V9l5.2 3Z' },
   { label: 'LinkedIn', url: 'https://www.linkedin.com/company/apexbusinessadvisory', path: 'M6.9 8.6H3.9V20h3V8.6ZM5.4 4c-1 0-1.7.7-1.7 1.6 0 .9.7 1.6 1.7 1.6 1 0 1.7-.7 1.7-1.6C7.1 4.7 6.4 4 5.4 4ZM20.2 20h-3v-6c0-1.4-.5-2.4-1.8-2.4-1 0-1.6.7-1.8 1.3-.1.2-.1.6-.1.9V20h-3s0-10.5 0-11.4h3v1.6c.4-.6 1.1-1.5 2.8-1.5 2.1 0 3.6 1.3 3.6 4.2V20Z' },
-  { label: 'WhatsApp', url: 'https://wa.me/966115550142', path: 'M12 3.5A8.5 8.5 0 0 0 4.6 16.6L3.5 20.5l4-1a8.5 8.5 0 1 0 4.5-16Zm4.9 12.1c-.2.6-1.2 1.1-1.7 1.2-.4.1-1 .1-1.6-.1-.4-.1-.9-.3-1.5-.6-2.7-1.2-4.4-3.9-4.6-4.1-.1-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9.9-2.1.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.4l.8 2c.1.2.1.4 0 .6l-.4.5c-.1.2-.2.3-.1.5.2.4.8 1.3 1.7 2.1 1.1 1 2.1 1.3 2.5 1.5.2.1.4.1.5-.1l.7-.8c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.4.3 0 .2 0 .7-.2 1.2Z' }
+  { label: 'WhatsApp', url: 'https://wa.me/966570082565', path: 'M12 3.5A8.5 8.5 0 0 0 4.6 16.6L3.5 20.5l4-1a8.5 8.5 0 1 0 4.5-16Zm4.9 12.1c-.2.6-1.2 1.1-1.7 1.2-.4.1-1 .1-1.6-.1-.4-.1-.9-.3-1.5-.6-2.7-1.2-4.4-3.9-4.6-4.1-.1-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9.9-2.1.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.4l.8 2c.1.2.1.4 0 .6l-.4.5c-.1.2-.2.3-.1.5.2.4.8 1.3 1.7 2.1 1.1 1 2.1 1.3 2.5 1.5.2.1.4.1.5-.1l.7-.8c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.4.3 0 .2 0 .7-.2 1.2Z' }
 ];
 
 function footerSocial() {
-  return `<div class="footer-social"><p class="footer-social-heading">Follow Us</p><div class="social-icons">${socialLinks.map((item) => `<a href="${item.url}" target="_blank" rel="noopener noreferrer" aria-label="${item.label === 'WhatsApp' ? 'Message' : item.label === 'YouTube' ? 'Subscribe to' : 'Follow'} ${escapeHtml(content.settings.name)} on ${escapeHtml(item.label)}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="${item.path}"/></svg></a>`).join('')}</div></div>`;
+  return `<div class="footer-social"><p class="footer-social-heading">Follow Us</p><div class="social-icons">${socialLinks.map((item) => `<a href="${escapeHtml(socialHref(item))}" target="_blank" rel="noopener noreferrer" aria-label="${item.label === 'WhatsApp' ? 'Message' : item.label === 'YouTube' ? 'Subscribe to' : 'Follow'} ${escapeHtml(content.settings.name)} on ${escapeHtml(item.label)}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="${item.path}"/></svg></a>`).join('')}</div></div>`;
 }
 
 function footer() {
-  const items = content.cms.navigation?.footer?.filter((item) => item.visible !== false) || footerItems.map(([page, label]) => ({ label, href: toHref(page) }));
+  const items = content.cms.navigation?.footer?.filter((item) => item.visible !== false && !isPrivateNavigationItem(item)) || footerItems.map(([page, label]) => ({ label, href: toHref(page) }));
   const links = items.map((item) => `<a href="${escapeHtml(cleanPath(item.href))}">${escapeHtml(item.label)}</a>`).join('');
-  return `<footer class="site-footer"><div class="container footer-top"><a class="brand" href="/" aria-label="Apex Business Consultancy home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span>apex</span></a><nav aria-label="Footer navigation">${links}</nav>${footerSocial()}</div><div class="container footer-bottom"><span>${escapeHtml(content.settings.footer)}</span><span>&copy; 2026 ${escapeHtml(content.settings.name)}. All rights reserved.</span></div></footer>`;
+  const brandName = content.settings.name || 'Apex Business Consultancy';
+  return `<footer class="site-footer"><div class="container footer-top"><a class="brand" href="/" aria-label="${escapeHtml(brandName)} home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span>${escapeHtml(brandName)}</span></a><nav aria-label="Footer navigation">${links}</nav>${footerSocial()}</div><div class="container footer-bottom"><span>${escapeHtml(content.settings.footer)}</span><span>&copy; 2026 ${escapeHtml(brandName)}. All rights reserved.</span></div></footer>`;
 }
 
 function updatePageMetadata() {
   const page = route();
+  const seo = cmsGroup('seo');
   const brandName = content.settings.name || 'Apex Business Consultancy';
   const tagline = content.settings.tagline || 'Market Entry & Strategic Advisory in Saudi Arabia';
-  const faviconUrl = content.settings.favicon || 'favicon.svg';
+  const faviconUrl = cmsGroup('branding').faviconUrl || content.settings.favicon || 'favicon.svg';
 
   // Dynamically update favicon
   let favLink = document.querySelector("link[rel~='icon']");
@@ -374,13 +442,28 @@ function updatePageMetadata() {
     'advisory-session': { title: `Schedule an Advisory Session | Executive Guidance | ${brandName}`, description: 'Book a dedicated one-on-one strategic advisory session with our senior consultants in Riyadh. Get immediate clarity on market entry, corporate structuring, and regulatory milestones.', path: '/advisory-session' },
     advisors: { title: `Meet Our Advisors | Senior Leadership & Consultants | ${brandName}`, description: 'Meet the senior business consultants, regulatory specialists, and operations advisors at Apex Business Consultancy in King Abdullah Financial District, Riyadh.', path: '/advisors' },
     'privacy-policy': { title: `Privacy Policy | ${brandName}`, description: 'Read the Apex Business Consultancy privacy policy outlining our data governance and client confidentiality commitments in Saudi Arabia.', path: '/privacy-policy' },
-    'terms-and-conditions': { title: `Terms & Conditions | ${brandName}`, description: 'Read the terms and conditions governing the use of Apex Business Consultancy web services and publications.', path: '/terms-and-conditions' }
+    'terms-and-conditions': { title: `Terms & Conditions | ${brandName}`, description: 'Read the terms and conditions governing the use of Apex Business Consultancy web services and publications.', path: '/terms-and-conditions' },
+    '404': { title: `Page Not Found | ${brandName}`, description: 'The requested Apex Business Consultancy page could not be found.', path: location.pathname || '/' }
   }[page] || { title: `${brandName} | ${tagline}`, description: 'Apex Business Consultancy helps ambitious businesses move forward in Saudi Arabia.', path: location.pathname.replace(/\/+$/, '') || '/' };
-  const canonical = `https://apexbusinessksa.com${metadata.path}`;
+  if (page === 'home') {
+    if (seo.title) metadata.title = seo.title;
+    if (seo.description) metadata.description = seo.description;
+  }
+  const canonicalBase = String(seo.canonical || 'https://apexbusinessksa.com').trim().replace(/\/+$/, '');
+  const canonical = `${canonicalBase}${metadata.path}`;
   document.title = metadata.title;
   const setMeta = (selector, attribute, value) => {
     const element = document.head.querySelector(selector);
     if (element) element.setAttribute(attribute, value);
+  };
+  const setNamedMeta = (name, value) => {
+    let element = document.head.querySelector(`meta[name="${name}"]`);
+    if (!element) {
+      element = document.createElement('meta');
+      element.setAttribute('name', name);
+      document.head.appendChild(element);
+    }
+    element.setAttribute('content', value);
   };
   setMeta('meta[name="description"]', 'content', metadata.description);
   setMeta('link[rel="canonical"]', 'href', canonical);
@@ -389,6 +472,13 @@ function updatePageMetadata() {
   setMeta('meta[property="og:url"]', 'content', canonical);
   setMeta('meta[name="twitter:title"]', 'content', metadata.title);
   setMeta('meta[name="twitter:description"]', 'content', metadata.description);
+  setNamedMeta('robots', `${seo.robotsIndex || 'index'},${seo.robotsFollow || 'follow'},max-image-preview:large`);
+  const ogImage = safeUrl(seo.ogImage, '');
+  if (ogImage) {
+    setMeta('meta[property="og:image"]', 'content', ogImage);
+    setMeta('meta[name="twitter:image"]', 'content', ogImage);
+  }
+  if (seo.twitterHandle) setNamedMeta('twitter:site', seo.twitterHandle);
 }
 
 function normalizeImages() {
@@ -456,6 +546,10 @@ function legal(title) {
     <h2>6. Contact</h2>
     <p>For inquiries regarding these Terms &amp; Conditions, please reach out to <a href="mailto:${content.settings.email}">${content.settings.email}</a>.</p>
   </article>`;
+}
+
+function notFoundPage() {
+  return `<article class="content-page not-found-page"><section class="not-found-content"><p class="eyebrow">PAGE NOT FOUND</p><h1>That page is not available.</h1><p>The address may be incorrect or the page may have moved. Use the navigation below to continue.</p><div class="not-found-actions"><a class="button" href="/">Return home <span aria-hidden="true">&rarr;</span></a><a class="button-ghost" href="/contact">Contact Apex</a></div></section></article>`;
 }
 
 function aboutPage() {
@@ -557,16 +651,16 @@ function conversationPage() {
       <article>
         <span class="contact-symbol contact-symbol-chat" aria-hidden="true"><i></i><i></i></span>
         <p class="eyebrow">INSTANT MESSAGING</p>
-        <h2>WhatsApp Coordinator</h2>
+        <h2>+966 57 008 2565</h2>
         <p>Chat directly with our client onboarding team for prompt preliminary answers.</p>
-        <a href="https://wa.me/966115550142" target="_blank" rel="noreferrer">Open WhatsApp <b aria-hidden="true">&rarr;</b></a>
+        <a href="https://wa.me/966570082565" target="_blank" rel="noreferrer">Open WhatsApp <b aria-hidden="true">&rarr;</b></a>
       </article>
       <article class="contact-method-featured">
         <span class="contact-symbol contact-symbol-mail" aria-hidden="true"><i></i></span>
         <p class="eyebrow">DIRECT INTAKE</p>
-        <h2>hello@apexbusinessksa.com</h2>
+        <h2>info@apexbusinessksa.com</h2>
         <p>Send your project overview, pitch deck, or specific regulatory questions.</p>
-        <a href="mailto:hello@apexbusinessksa.com">Email Our Advisors <b aria-hidden="true">&rarr;</b></a>
+        <a href="mailto:info@apexbusinessksa.com">Email Our Advisors <b aria-hidden="true">&rarr;</b></a>
       </article>
       <article>
         <span class="contact-symbol contact-symbol-location" aria-hidden="true"><i></i></span>
@@ -1092,10 +1186,10 @@ function insightsPage() {
 
 function singleArticlePage(slug) {
   const articles = content.articles || [];
-  const article = articles.find(a => (a.slug === slug) || (slugify(a.title) === slug)) || articles[0];
+  const article = articles.find(a => (a.slug === slug) || (slugify(a.title) === slug));
 
   if (!article) {
-    return `<article class="content-page insights-page"><section class="insights-hero"><p class="eyebrow">APEX INSIGHTS</p><h1>Article Not Found</h1><p>The article you are looking for does not exist or has been relocated.</p><a class="button" href="/insights">← Browse all Insights</a></section></article>`;
+    return notFoundPage();
   }
 
   const category = article.category || 'Market Entry';
@@ -1136,7 +1230,7 @@ function freshInsightsPage() {
 
   return `<article class="insights-listing">
     <header class="insights-listing-hero"><div><p class="fresh-insights-kicker">APEX INSIGHTS</p><h1>Perspectives for the<br /><em>work ahead.</em></h1><p>Focused analysis, operating context, and decision support for leaders building in Saudi Arabia.</p></div><p class="insights-listing-count"><strong>${published.length}</strong> published perspectives</p></header>
-    <div class="insights-listing-layout"><section class="insights-listing-main" aria-labelledby="insights-list-title"><div class="insights-listing-heading"><div><p class="fresh-insights-label">Latest publication</p><h2 id="insights-list-title">Insights and analysis</h2></div><p>Clear thinking for market entry, growth, and compliance.</p></div><div class="insights-card-grid">${published.map(card).join('') || '<p class="insights-empty">New perspectives are being prepared.</p>'}</div>${published.length > 6 ? '<button class="insights-load-more" type="button">Load more insights</button>' : ''}</section>
+    <div class="insights-listing-layout"><section class="insights-listing-main" aria-labelledby="insights-list-title"><div class="insights-listing-heading"><div><p class="fresh-insights-label">Latest publication</p><h2 id="insights-list-title">Insights and analysis</h2></div></div><div class="insights-card-grid">${published.map(card).join('') || '<p class="insights-empty">New perspectives are being prepared.</p>'}</div>${published.length > 6 ? '<button class="insights-load-more" type="button">Load more insights</button>' : ''}</section>
       <aside class="insights-listing-sidebar" aria-label="Insights filters and recent posts"><section><p class="fresh-insights-label">Browse topics</p><h2>Categories</h2><div class="insights-filter-list"><button type="button" class="is-active" data-insights-filter="all">All insights <span>${published.length}</span></button>${categories.map(category => `<button type="button" data-insights-filter="${escapeHtml(category)}">${escapeHtml(category)} <span>${published.filter(article => (article.category || 'Insights') === category).length}</span></button>`).join('')}</div></section><section><p class="fresh-insights-label">Explore by tag</p><div class="insights-tag-filter">${tags.map(tag => `<button type="button" data-insights-tag="${escapeHtml(tag)}">${escapeHtml(tag)}</button>`).join('')}</div></section><section><p class="fresh-insights-label">Recent posts</p><h2>Recently published</h2><ol class="insights-recent-list">${recent.map(article => `<li><a href="/insights/${encodeURIComponent(article.slug || slugify(article.title))}"><span>${escapeHtml(article.category || 'Insights')}</span>${escapeHtml(article.title)}</a></li>`).join('')}</ol></section></aside>
     </div>
   </article>`;
@@ -1145,7 +1239,7 @@ function freshInsightsPage() {
 function contactPage() {
   return `<article class="content-page contact-page">
     <section class="contact-hero"><img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1800&q=85" alt="King Abdullah Financial District Riyadh" /><div class="contact-hero-overlay"></div><div class="contact-hero-copy"><p class="eyebrow">CONTACT APEX</p><h1>Bring us your<br /><em>key priorities.</em></h1><p>Whether you are establishing a new entity in Saudi Arabia, evaluating an investment opportunity, or resolving operational hurdles, our Riyadh team is ready to assist.</p></div></section>
-    <section class="contact-methods" aria-label="Ways to contact Apex"><article><span class="contact-symbol contact-symbol-chat" aria-hidden="true"><i></i><i></i></span><p class="eyebrow">DIRECT MESSAGING</p><h2>WhatsApp Consultation</h2><p>Connect directly with our advisory coordinators for immediate guidance.</p><a href="https://wa.me/966115550142" target="_blank" rel="noreferrer">Message Apex <b aria-hidden="true">&rarr;</b></a></article><article class="contact-method-featured"><span class="contact-symbol contact-symbol-mail" aria-hidden="true"><i></i></span><p class="eyebrow">OFFICIAL ENQUIRY</p><h2>hello@apexbusinessksa.com</h2><p>Submit your detailed expansion brief or corporate advisory requirements.</p><a href="mailto:hello@apexbusinessksa.com">Send an Email <b aria-hidden="true">&rarr;</b></a></article><article><span class="contact-symbol contact-symbol-location" aria-hidden="true"><i></i></span><p class="eyebrow">HEADQUARTERS</p><h2>Riyadh, Saudi Arabia</h2><p>King Abdullah Financial District (KAFD), central to the Kingdom's business core.</p><a href="https://www.google.com/maps/search/?api=1&query=King+Abdullah+Financial+District+Riyadh" target="_blank" rel="noreferrer">View Location <b aria-hidden="true">&rarr;</b></a></article></section>
+    <section class="contact-methods" aria-label="Ways to contact Apex"><article><span class="contact-symbol contact-symbol-chat" aria-hidden="true"><i></i><i></i></span><p class="eyebrow">DIRECT MESSAGING</p><h2>+966 57 008 2565</h2><p>Connect directly with our advisory coordinators for immediate guidance.</p><a href="https://wa.me/966570082565" target="_blank" rel="noreferrer">Message Apex <b aria-hidden="true">&rarr;</b></a></article><article class="contact-method-featured"><span class="contact-symbol contact-symbol-mail" aria-hidden="true"><i></i></span><p class="eyebrow">OFFICIAL ENQUIRY</p><h2>info@apexbusinessksa.com</h2><p>Submit your detailed expansion brief or corporate advisory requirements.</p><a href="mailto:info@apexbusinessksa.com">Send an Email <b aria-hidden="true">&rarr;</b></a></article><article><span class="contact-symbol contact-symbol-location" aria-hidden="true"><i></i></span><p class="eyebrow">HEADQUARTERS</p><h2>Riyadh, Saudi Arabia</h2><p>King Abdullah Financial District (KAFD), central to the Kingdom's business core.</p><a href="https://www.google.com/maps/search/?api=1&query=King+Abdullah+Financial+District+Riyadh" target="_blank" rel="noreferrer">View Location <b aria-hidden="true">&rarr;</b></a></article></section>
     <section class="contact-details"><div class="contact-side"><div class="contact-availability"><p class="eyebrow">OUR CONSULTATION PROCESS</p><h2>A structured advisory conversation.</h2><p>Share your business model, target timeline, and specific expansion requirements. We respond with a clear, actionable roadmap.</p><ul><li><span aria-hidden="true"></span><div><strong>Initial Scope Assessment</strong><small>Review of licensing, legal structure, tax, or operational needs.</small></div></li><li><span aria-hidden="true"></span><div><strong>Strategic Priority Alignment</strong><small>Identifying key statutory dependencies and immediate milestones.</small></div></li><li><span aria-hidden="true"></span><div><strong>Structured Execution Plan</strong><small>Receive a practical roadmap and dedicated advisory support.</small></div></li></ul></div><div class="contact-map"><div class="map-grid" aria-hidden="true"><i></i><i></i><i></i><i></i><b></b></div><div><small>APEX BUSINESS CONSULTANCY</small><strong>Riyadh Office</strong><span>King Abdullah Financial District</span><a href="https://www.google.com/maps/search/?api=1&query=King+Abdullah+Financial+District+Riyadh" target="_blank" rel="noreferrer">Get Directions <b aria-hidden="true">&rarr;</b></a></div></div></div>
       <section class="contact-form-panel" aria-labelledby="contact-form-title"><p class="eyebrow">SUBMIT AN ENQUIRY</p><h2 id="contact-form-title">Start a Consultation</h2><p>Complete the form below and an Apex advisory specialist will review your request within one business day.</p><form class="simple-contact"><label>Full Name<input name="name" autocomplete="name" required placeholder="e.g. Tariq Al-Mansoor" /></label><label>Corporate Email<input name="email" type="email" autocomplete="email" required placeholder="name@company.com" /></label><label>Company Name <span>(optional)</span><input name="company" autocomplete="organization" placeholder="Your organization" /></label><label>How Can We Assist?<textarea name="message" required placeholder="Describe your market entry, licensing, tax, or operational requirements..."></textarea></label><button class="button" type="submit">Submit Enquiry <span aria-hidden="true">&rarr;</span></button><p class="form-message" role="status" aria-live="polite"></p></form></section>
     </section>
@@ -1211,7 +1305,7 @@ function bind() {
         form.reset();
       } catch (error) {
         if (statusMsg) {
-          statusMsg.textContent = error?.message || 'We could not submit your enquiry. Please email hello@apexbusinessksa.com or use WhatsApp.';
+          statusMsg.textContent = error?.message || 'We could not submit your enquiry. Please email info@apexbusinessksa.com or use WhatsApp.';
           statusMsg.style.color = '#a53131';
         }
       } finally {
@@ -1295,10 +1389,11 @@ function render() {
     automation: automationPage,
     'advisory-session': advisorySessionPage,
     advisors: advisorsPage,
-    article: () => singleArticlePage(info.slug)
+    article: () => singleArticlePage(info.slug),
+    '404': notFoundPage
   };
-  const page = pages[info.view] ? pages[info.view]() : info.view === 'privacy-policy' ? legal('Privacy Policy') : info.view === 'terms-and-conditions' ? legal('Terms & Conditions') : freshInsightsPage();
-  const mainClass = ['about', 'services', 'insights', 'contact', 'article', 'conversation', 'visa-assistance', 'automation', 'advisory-session', 'advisors'].includes(info.view) ? `${info.view}-main` : '';
+  const page = pages[info.view] ? pages[info.view]() : info.view === 'privacy-policy' ? legal('Privacy Policy') : info.view === 'terms-and-conditions' ? legal('Terms & Conditions') : notFoundPage();
+  const mainClass = ['about', 'services', 'insights', 'contact', 'article', 'conversation', 'visa-assistance', 'automation', 'advisory-session', 'advisors', '404'].includes(info.view) ? `${info.view}-main` : '';
   app.innerHTML = `${header()}<main class="consult-main ${mainClass}">${page}</main>${footer()}`;
   bind();
 }
@@ -1329,15 +1424,133 @@ function bindLegacyHome() {
   }
 }
 
+function cmsGroup(name) {
+  const group = content.cms?.[name];
+  return group && typeof group === 'object' && !Array.isArray(group) ? group : {};
+}
+
+function whatsappHref(value, fallback = '') {
+  const raw = String(value || '').trim();
+  if (!raw) return fallback;
+  if (/^https?:\/\//i.test(raw)) return raw;
+  const digits = raw.replace(/\D/g, '');
+  return digits ? `https://wa.me/${digits}` : fallback;
+}
+
+function socialHref(item) {
+  const social = cmsGroup('social');
+  const configured = social[{ Facebook: 'facebook', YouTube: 'youtube', LinkedIn: 'linkedin', WhatsApp: 'whatsapp' }[item.label]];
+  if (item.label === 'WhatsApp') return whatsappHref(configured || content.settings.whatsapp, item.url);
+  return safeUrl(configured, item.url);
+}
+
+// Applies database-backed CMS values onto whichever markup the current page already renders.
+function applyCmsPresentation() {
+  const branding = cmsGroup('branding');
+  const footerCms = cmsGroup('footer');
+  const contactCms = cmsGroup('contact');
+  const social = cmsGroup('social');
+  const looksLikePhone = (value) => /^[+\d][\d\s()+-]{6,}$/.test(String(value || '').trim());
+
+  if (branding.primaryColor) document.documentElement.style.setProperty('--navy', branding.primaryColor);
+  if (branding.accentColor) document.documentElement.style.setProperty('--green', branding.accentColor);
+
+  const email = contactCms.email || footerCms.email || content.settings.email || '';
+  const phone = contactCms.phone || footerCms.phone || '';
+  const whatsapp = whatsappHref(contactCms.whatsapp || social.whatsapp || content.settings.whatsapp, '');
+  const address = contactCms.address || footerCms.address || '';
+
+  if (email) {
+    document.querySelectorAll('a[href^="mailto:"]').forEach((anchor) => {
+      anchor.setAttribute('href', `mailto:${email}`);
+      anchor.querySelectorAll('strong').forEach((node) => {
+        if (node.textContent.includes('@')) node.textContent = email;
+      });
+    });
+    document.querySelectorAll('.contact-methods h2').forEach((heading) => {
+      if (heading.textContent.includes('@')) heading.textContent = email;
+    });
+  }
+
+  if (whatsapp) {
+    document.querySelectorAll('a[href*="wa.me"]').forEach((anchor) => {
+      anchor.setAttribute('href', whatsapp);
+      if (!phone) return;
+      anchor.querySelectorAll('strong').forEach((node) => {
+        if (looksLikePhone(node.textContent)) node.textContent = phone;
+      });
+    });
+  }
+
+  if (phone) {
+    document.querySelectorAll('.contact-methods h2').forEach((heading) => {
+      if (looksLikePhone(heading.textContent)) heading.textContent = phone;
+    });
+    document.querySelectorAll('a[href^="tel:"]').forEach((anchor) => {
+      anchor.setAttribute('href', `tel:${phone.replace(/\s+/g, '')}`);
+    });
+  }
+
+  if (address) {
+    document.querySelectorAll('.contact-map > div > span').forEach((node) => { node.textContent = address; });
+  }
+
+  const socialHosts = [['facebook.com', social.facebook], ['linkedin.com', social.linkedin], ['youtube.com', social.youtube], ['twitter.com', social.twitter], ['instagram.com', social.instagram]];
+  document.querySelectorAll('.site-footer, .footer-social, .social-icons, .home-contact-details').forEach((scope) => {
+    socialHosts.forEach(([host, url]) => {
+      if (!url) return;
+      scope.querySelectorAll(`a[href*="${host}"]`).forEach((anchor) => {
+        anchor.setAttribute('href', safeUrl(url, anchor.getAttribute('href') || ''));
+      });
+    });
+  });
+
+  const footerCopyright = document.querySelector('.footer-bottom span:last-child');
+  if (footerCopyright && footerCms.copyright) footerCopyright.textContent = footerCms.copyright;
+  const footerTagline = document.querySelector('.footer-bottom span:first-child');
+  if (footerTagline && footerCms.description) footerTagline.textContent = footerCms.description;
+
+  const logo = safeUrl(branding.logoUrl, '');
+  if (logo) {
+    document.querySelectorAll('.brand .brand-mark').forEach((mark) => {
+      if (mark.querySelector('img')) return;
+      mark.innerHTML = `<img src="${escapeHtml(logo)}" alt="" style="width:100%;height:100%;object-fit:contain;" />`;
+    });
+  }
+}
+
 function applySharedContentToPage() {
   const footerText = document.querySelector('.footer-bottom span');
+  const brandName = content.settings.name || 'Apex Business Consultancy';
+  const renderNavLinks = (items) => items.map((item) => `<a href="${escapeHtml(cleanPath(item.href))}">${escapeHtml(item.label)}</a>`).join('');
+  const savedHeaderItems = content.cms.navigation?.header?.filter((item) => item.visible !== false && !isPrivateNavigationItem(item)) || headerItems.map(([page, label]) => ({ label, href: toHref(page) }));
+  const savedFooterItems = content.cms.navigation?.footer?.filter((item) => item.visible !== false && !isPrivateNavigationItem(item)) || footerItems.map(([page, label]) => ({ label, href: toHref(page) }));
+  const headerNavigation = document.querySelector('.site-header .desktop-nav');
+  const footerNavigation = document.querySelector('.site-footer nav');
+  if (headerNavigation) headerNavigation.innerHTML = renderNavLinks(savedHeaderItems);
+  if (footerNavigation) footerNavigation.innerHTML = renderNavLinks(savedFooterItems);
+  document.querySelectorAll('a[href^="/"]').forEach((anchor) => {
+    const href = anchor.getAttribute('href') || '';
+    if (SITE_BASE_PATH && href !== SITE_BASE_PATH && !href.startsWith(`${SITE_BASE_PATH}/`)) {
+      anchor.setAttribute('href', `${SITE_BASE_PATH}${href}`);
+    }
+  });
+  document.querySelectorAll('.brand').forEach((brand) => {
+    const label = brand.querySelector(':scope > span:last-child');
+    if (label) label.textContent = brandName;
+    brand.setAttribute('aria-label', `${brandName} home`);
+  });
   const footerCopyright = document.querySelector('.footer-bottom span:last-child');
   if (footerText) footerText.textContent = content.settings.footer;
-  if (footerCopyright) footerCopyright.innerHTML = `&copy; 2026 ${content.settings.name}. All rights reserved.`;
+  if (footerCopyright) footerCopyright.innerHTML = `&copy; 2026 ${brandName}. All rights reserved.`;
 
   const heroEyebrow = document.querySelector('.hero .eyebrow');
   if (heroEyebrow && content.settings.tagline) {
     heroEyebrow.textContent = content.settings.tagline.toUpperCase();
+  }
+  const heroDescription = document.querySelector('.hero-description');
+  if (heroDescription && content.settings.heroSubtitle) {
+    heroDescription.textContent = content.settings.heroSubtitle;
   }
 
   const icons = content.settings.icons || {};
@@ -1345,6 +1558,8 @@ function applySharedContentToPage() {
   document.querySelectorAll('.icon-advisory').forEach((icon) => { icon.title = icons.advisory || 'ADVISORY'; });
   document.querySelectorAll('.icon-learning').forEach((icon) => { icon.title = icons.learning || 'LEARNING'; });
   document.querySelectorAll('.icon-support').forEach((icon) => { icon.title = icons.support || 'PRO/GRO'; });
+
+  applyCmsPresentation();
 
   if (route() === 'insights') {
     const featured = content.articles[0];
@@ -1365,6 +1580,27 @@ function applySharedContentToPage() {
   }
 }
 
+let lastSettingsSignature = '';
+async function hydrateSiteSettings() {
+  try {
+    const response = await fetch(apiUrl('public/api/settings.php'), { credentials: 'same-origin', headers: { Accept: 'application/json' }, cache: 'no-store' });
+    if (!response.ok) return;
+    const payload = await response.json();
+    const remote = payload.site_settings;
+    if (!remote || typeof remote !== 'object') return;
+    const signature = JSON.stringify(remote);
+    if (signature === lastSettingsSignature) return;
+    lastSettingsSignature = signature;
+    content.settings = { ...initialContent.settings, ...(remote.settings || {}) };
+    content.cms = remote.cms && typeof remote.cms === 'object' ? remote.cms : {};
+    localStorage.setItem(storeKey, JSON.stringify({ ...safeStoredContent(), settings: content.settings, cms: content.cms }));
+    lastSyncedValue = localStorage.getItem(storeKey);
+    renderSite();
+  } catch {
+    // Static/local preview intentionally falls back to bundled and local content.
+  }
+}
+
 function renderSite() {
   if (location.hash.startsWith('#/dashboard') || location.pathname.replace(/\/+$/, '') === '/dashboard') {
     location.replace('dashboard.html');
@@ -1381,14 +1617,20 @@ function renderSite() {
   applySharedContentToPage();
   updatePageMetadata();
   normalizeImages();
+  if (pendingRouteScroll === `${location.pathname}${location.hash}`) requestAnimationFrame(applyPendingRouteScroll);
+  if (location.hash) requestAnimationFrame(() => scrollToHashTarget(location.hash));
 }
 
+let lastArticlesSignature = '';
 async function hydratePublishedArticles() {
   try {
-    const response = await fetch(apiUrl('api/posts.php?limit=100'), { credentials: 'same-origin', headers: { Accept: 'application/json' } });
+    const response = await fetch(apiUrl('public/api/posts.php?limit=100'), { credentials: 'same-origin', headers: { Accept: 'application/json' }, cache: 'no-store' });
     if (!response.ok) return;
     const payload = await response.json();
     if (!Array.isArray(payload.data) || payload.data.length === 0) return;
+    const signature = JSON.stringify(payload.data);
+    if (signature === lastArticlesSignature) return;
+    lastArticlesSignature = signature;
     content.articles = payload.data.map((row) => ({
       id: Number(row.id),
       title: row.title || '',
@@ -1456,10 +1698,27 @@ document.addEventListener('click', (event) => {
   }
 
   event.preventDefault();
-  navigate(cleanPath(href));
+  const [hrefPath, hrefHash] = href.split('#', 2);
+  navigate(`${cleanPath(hrefPath)}${hrefHash ? `#${hrefHash}` : ''}`);
 });
 
 window.addEventListener('popstate', renderSite);
 window.addEventListener('hashchange', renderSite);
+
+let cmsRefreshInFlight = false;
+async function refreshCmsFromServer() {
+  if (cmsRefreshInFlight) return;
+  cmsRefreshInFlight = true;
+  try {
+    await hydrateSiteSettings();
+    await hydratePublishedArticles();
+  } finally {
+    cmsRefreshInFlight = false;
+  }
+}
+
 renderSite();
-hydratePublishedArticles();
+refreshCmsFromServer();
+window.setInterval(refreshCmsFromServer, 20000);
+window.addEventListener('focus', refreshCmsFromServer);
+document.addEventListener('visibilitychange', () => { if (!document.hidden) refreshCmsFromServer(); });

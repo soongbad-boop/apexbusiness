@@ -56,10 +56,10 @@ function json_response(mixed $payload, int $status = 200): never
     exit;
 }
 
-function request_json(): array
+function request_json(int $maxBytes = 25_000_000): array
 {
     $raw = file_get_contents('php://input') ?: '';
-    if (strlen($raw) > 1_000_000) {
+    if (strlen($raw) > $maxBytes) {
         json_response(['error' => 'Request body is too large.'], 413);
     }
     $data = json_decode($raw, true);
@@ -231,13 +231,16 @@ function normalized_text(mixed $value, int $maxLength = 255): string
     return mb_substr($value, 0, $maxLength);
 }
 
-function valid_http_url_or_path(mixed $value, int $maxLength = 500): ?string
+function valid_http_url_or_path(mixed $value, int $maxLength = 2048): ?string
 {
     $value = normalized_text($value, $maxLength);
     if ($value === '') {
         return null;
     }
-    if (str_starts_with($value, '/')) {
+    if (str_starts_with($value, '/') || str_starts_with($value, './')) {
+        return $value;
+    }
+    if (str_starts_with($value, 'data:image/')) {
         return $value;
     }
     if (!filter_var($value, FILTER_VALIDATE_URL)) {

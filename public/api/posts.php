@@ -176,6 +176,11 @@ try {
         $catQuery = $pdo->prepare('SELECT id FROM categories WHERE name = ? OR slug = ? LIMIT 1');
         $catQuery->execute([$categoryName, $categorySlug]);
         $catId = $catQuery->fetchColumn();
+        if (!$catId) {
+            $catInsert = $pdo->prepare('INSERT INTO categories (name, slug) VALUES (?, ?)');
+            $catInsert->execute([$categoryName, $categorySlug]);
+            $catId = (int) $pdo->lastInsertId();
+        }
         if ($catId) {
             $pdo->prepare('DELETE FROM post_categories WHERE post_id = ?')->execute([$id]);
             $pdo->prepare('INSERT INTO post_categories (post_id, category_id) VALUES (?, ?)')->execute([$id, $catId]);
@@ -191,9 +196,6 @@ try {
     }
     if ((string) $e->getCode() === '23000') {
         json_response(['error' => 'That article URL slug is already in use.'], 409);
-    }
-    if (!empty($config['app_debug'])) {
-        json_response(['error' => 'Database error.', 'detail' => $e->getMessage()], 500);
     }
     json_response(['error' => 'Unable to save the article.'], 500);
 }

@@ -11,6 +11,41 @@
     flex-direction: column;
 }
 
+.not-found-page {
+    display: grid;
+    min-height: 62vh;
+    place-items: center;
+    padding: 96px 24px;
+    background: radial-gradient(circle at 50% 20%, #e8f8f8 0, #fff 58%);
+    text-align: center;
+}
+
+.not-found-content {
+    width: min(100%, 620px);
+}
+
+.not-found-content h1 {
+    margin: 12px 0 18px;
+    color: #07152f;
+    font-size: clamp(42px, 6vw, 72px);
+    line-height: 1;
+}
+
+.not-found-content > p:not(.eyebrow) {
+    max-width: 490px;
+    margin: 0 auto 30px;
+    color: #747d89;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.not-found-actions {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
 .page-intro,
 .service-rows,
 .insight-feature,

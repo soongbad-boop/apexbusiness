@@ -1,5 +1,5 @@
 body { background:#dff6f8; }
-.site-shell { max-width:1320px; margin-inline:auto; overflow:hidden; }
+.site-shell { max-width:1320px; margin-inline:auto; overflow:visible; }
 .consult-header { background:rgba(255,255,255,.92); border-bottom-color:rgba(188,229,234,.55); }
 .consult-brand span { color:#fff; }
 .outline-button,.secondary-button,.primary-button { border-radius:999px; color:#fff; }

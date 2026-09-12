@@ -582,11 +582,7 @@
 }
 
 .insights-listing-heading>p {
-  max-width: 245px;
-  margin: 0;
-  color: var(--listing-muted);
-  font-size: 11px;
-  line-height: 1.55;
+  display: none !important;
 }
 
 .insights-card-grid {
@@ -862,7 +858,7 @@
   }
 
   .insights-listing-heading>p {
-    margin-top: 11px;
+    display: none !important;
   }
 
   .insights-card-grid,

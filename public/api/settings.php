@@ -3,16 +3,29 @@ declare(strict_types=1);
 
 require dirname(__DIR__, 2) . '/app/bootstrap.php';
 $pdo = db($config);
-// All settings operations (read and write) require authentication.
-$user = require_permission($pdo, 'settings.manage');
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $rows = $pdo->query('SELECT setting_key, setting_value, value_type FROM settings ORDER BY setting_key')->fetchAll();
-    $settings = [];
+    $rows = $pdo->query("SELECT setting_key, setting_value, value_type FROM settings WHERE setting_key = 'site_settings' OR setting_key IN ('site_name', 'tagline', 'favicon', 'support_email', 'support_phone', 'footer_copy')")->fetchAll();
+    $settings = ['settings' => [], 'cms' => []];
     foreach ($rows as $row) {
-        $settings[$row['setting_key']] = $row['value_type'] === 'json' ? json_decode($row['setting_value'], true) : $row['setting_value'];
+        $value = $row['value_type'] === 'json' ? json_decode($row['setting_value'], true) : $row['setting_value'];
+        if ($row['setting_key'] === 'site_settings' && is_array($value)) {
+            $settings = array_replace_recursive($settings, $value);
+        }
+        $legacyMap = [
+            'site_name' => ['settings', 'name'],
+            'tagline' => ['settings', 'tagline'],
+            'favicon' => ['settings', 'favicon'],
+            'support_email' => ['settings', 'email'],
+            'support_phone' => ['settings', 'phone'],
+            'footer_copy' => ['settings', 'footer'],
+        ];
+        if (isset($legacyMap[$row['setting_key']])) {
+            [$group, $key] = $legacyMap[$row['setting_key']];
+            $settings[$group][$key] ??= $value;
+        }
     }
-    json_response($settings);
+    json_response(['site_settings' => $settings]);
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'PATCH' && $_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -21,6 +34,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'PATCH' && $_SERVER['REQUEST_METHOD'] !== 'PO
 require_csrf();
 $user = require_permission($pdo, 'settings.manage');
 $payload = request_json();
+$payload = ['site_settings' => $payload['site_settings'] ?? null];
+if (!is_array($payload['site_settings'])) {
+    json_response(['error' => 'Site settings payload is required.'], 422);
+}
 $allowedTypes = ['string', 'integer', 'boolean', 'json'];
 $statement = $pdo->prepare('INSERT INTO settings (setting_key, setting_value, value_type, updated_by) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE setting_value = VALUES(setting_value), value_type = VALUES(value_type), updated_by = VALUES(updated_by)');
 foreach ($payload as $key => $value) {

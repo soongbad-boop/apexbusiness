@@ -70,10 +70,26 @@ h4 {
     width: calc(100% - (var(--mobile-gutter) * 2)) !important;
   }
 
-  .site-header {
-    position: relative;
-    z-index: 100;
+  .site-header,
+  .site-header.container {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding-left: max(16px, var(--mobile-gutter)) !important;
+    padding-right: max(16px, var(--mobile-gutter)) !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    z-index: 1000 !important;
     min-width: 0;
+    box-sizing: border-box !important;
+    background: #ffffff !important;
+    background: rgba(255, 255, 255, .98) !important;
+    border-bottom: 1px solid rgba(7, 21, 47, .07) !important;
+    box-shadow: 0 4px 20px rgba(7, 21, 47, .04) !important;
   }
 
   .site-header .brand {
@@ -93,10 +109,10 @@ h4 {
 
   .desktop-nav {
     top: calc(100% + 8px) !important;
-    right: 0 !important;
-    left: 0 !important;
+    right: max(14px, var(--mobile-gutter)) !important;
+    left: max(14px, var(--mobile-gutter)) !important;
     z-index: 200;
-    width: 100% !important;
+    width: auto !important;
     max-height: calc(100svh - 92px);
     margin: 0 !important;
     overflow-y: auto;
@@ -341,8 +357,12 @@ h4 {
     width: calc(100% - 28px) !important;
   }
 
-  .site-header {
-    min-height: 62px;
+  .site-header,
+  .site-header.container {
+    height: 62px !important;
+    min-height: 62px !important;
+    padding-left: 14px !important;
+    padding-right: 14px !important;
   }
 
   .hero {

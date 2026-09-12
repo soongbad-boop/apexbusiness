@@ -89,12 +89,23 @@ $readTime = max(1, (int) ceil(str_word_count(strip_tags((string) $post['content'
     <meta name="description" content="<?= e($description) ?>" />
     <link rel="canonical" href="<?= e(!empty($post['canonical_url']) ? $post['canonical_url'] : rtrim((string) $config['app_url'], '/') . '/blog/' . rawurlencode($slug)) ?>" />
     <meta name="robots" content="<?= ((int) ($post['robots_index'] ?? 1) === 0 || $is404) ? 'noindex' : 'index' ?>,<?= ((int) ($post['robots_follow'] ?? 1) === 0 || $is404) ? 'nofollow' : 'follow' ?>,max-image-preview:large" />
+    <meta name="application-name" content="Apex Business Consultancy" />
+    <meta property="og:site_name" content="Apex Business Consultancy" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="<?= e(!empty($post['og_title']) ? $post['og_title'] : $title) ?>" />
     <meta property="og:description" content="<?= e(!empty($post['og_description']) ? $post['og_description'] : $description) ?>" />
     <?php if (!empty($image)): ?>
       <meta property="og:image" content="<?= e($image) ?>" />
     <?php endif; ?>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Apex Business Consultancy",
+      "alternateName": ["Apex Business", "Apex Business Consultancy KSA"],
+      "url": "https://apexbusinessksa.com/"
+    }
+    </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -135,7 +146,7 @@ $readTime = max(1, (int) ceil(str_word_count(strip_tags((string) $post['content'
     </style>
   </head>
   <body style="margin:0; background:linear-gradient(135deg, #f3fcfd 0%, #e8f9fb 100%); font-family:Manrope, sans-serif; color:#07152f;">
-    <header class="site-header container" style="display:flex; justify-content:space-between; align-items:center; padding:24px 32px; max-width:1200px; margin:0 auto;">
+    <header class="site-header">
       <a class="brand" href="/" aria-label="Apex Business home" style="display:flex; align-items:center; gap:10px; text-decoration:none; font-weight:800; color:#07152f; font-size:20px;">
         <span class="brand-mark" aria-hidden="true" style="display:inline-grid; grid-template-columns:repeat(3, 1fr); width:20px; height:20px;">
           <i style="grid-area:1/2;background:#45c5dc;border-radius:6px 2px 6px 2px;"></i>

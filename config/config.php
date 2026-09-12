@@ -68,7 +68,8 @@ return [
         'username' => env_value('MAIL_USERNAME', ''),
         'password' => env_value('MAIL_PASSWORD', ''),
         'encryption' => env_value('MAIL_ENCRYPTION', 'tls'),
-        'from_address' => env_value('MAIL_FROM_ADDRESS', 'hello@apexbusinessksa.com'),
+        'from_address' => env_value('MAIL_FROM_ADDRESS', 'info@apexbusinessksa.com'),
         'from_name' => env_value('MAIL_FROM_NAME', 'Apex Business Consultancy'),
+        'to_address' => env_value('MAIL_TO_ADDRESS', 'info@apexbusinessksa.com'),
     ],
 ];

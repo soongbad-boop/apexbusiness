@@ -36,11 +36,12 @@ UPLOAD_MAX_BYTES=10485760
 MAIL_MAILER=smtp
 MAIL_HOST=mail.apexbusinessksa.com
 MAIL_PORT=465
-MAIL_USERNAME=hello@apexbusinessksa.com
+MAIL_USERNAME=info@apexbusinessksa.com
 MAIL_PASSWORD=YourEmailPasswordHere
 MAIL_ENCRYPTION=ssl
-MAIL_FROM_ADDRESS=hello@apexbusinessksa.com
+MAIL_FROM_ADDRESS=info@apexbusinessksa.com
 MAIL_FROM_NAME="Apex Business Consultancy"
+MAIL_TO_ADDRESS=info@apexbusinessksa.com
 ```
 
 > **Security Rule**: Never commit `.env` to GitHub or make it accessible publicly. `.htaccess` automatically denies public access to `.env*` files.

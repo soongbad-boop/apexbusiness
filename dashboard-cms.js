@@ -177,8 +177,8 @@
     footer: {
       description: 'Clarity for ambitious businesses entering and growing in Saudi Arabia.',
       address: 'King Abdullah Financial District, Riyadh',
-      phone: '+966 11 555 0142',
-      email: 'hello@apexbusinessksa.com',
+      phone: '+966 57 008 2565',
+      email: 'info@apexbusinessksa.com',
       copyright: '© 2026 Apex Business Consultancy. All rights reserved.',
       showNewsletter: true
     },
@@ -195,14 +195,14 @@
       facebook: 'https://www.facebook.com/apexbusinessadvisory',
       linkedin: 'https://www.linkedin.com/company/apexbusinessadvisory',
       youtube: 'https://www.youtube.com/@apexbusinessadvisory',
-      whatsapp: 'https://wa.me/966115550142',
+      whatsapp: 'https://wa.me/966570082565',
       twitter: 'https://twitter.com/apexbusiness',
       instagram: 'https://instagram.com/apexbusiness'
     },
     contact: {
-      email: 'hello@apexbusinessksa.com',
-      phone: '+966 11 555 0142',
-      whatsapp: '966115550142',
+      email: 'info@apexbusinessksa.com',
+      phone: '+966 57 008 2565',
+      whatsapp: '966570082565',
       address: 'King Abdullah Financial District, Riyadh',
       hours: 'Sunday – Thursday: 9:00 AM – 6:00 PM (AST)'
     },
@@ -250,9 +250,10 @@
     settings: {
       name: 'Apex Business Consultancy',
       tagline: 'Strategic Clarity for Business Growth in Saudi Arabia',
+      heroSubtitle: 'Clear market context, licensing guidance, and practical execution for founders, investors, and enterprise teams expanding into Saudi Arabia.',
       favicon: 'favicon.svg',
-      email: 'hello@apexbusinessksa.com',
-      whatsapp: '966115550142',
+      email: 'info@apexbusinessksa.com',
+      whatsapp: '966570082565',
       footer: 'Clarity for ambitious businesses entering and growing in Saudi Arabia.',
       icons: { entry: 'MISA', advisory: 'ADVISORY', learning: 'LEARNING', support: 'PRO/GRO' }
     },
@@ -347,18 +348,15 @@
 
   const CMS_BASE_URL = new URL('.', document.currentScript?.src || location.href);
   const cmsApiUrl = (path) => new URL(String(path).replace(/^\/+/, ''), CMS_BASE_URL).toString();
-  let cmsCsrfPromise = null;
   const getCmsCsrf = async () => {
-    if (!cmsCsrfPromise) {
-      cmsCsrfPromise = fetch(cmsApiUrl('public/api/auth/csrf.php'), { credentials: 'same-origin', headers: { Accept: 'application/json' } })
-        .then(async (response) => {
-          const payload = await response.json().catch(() => ({}));
-          if (!response.ok || !payload.csrf_token) throw new Error(payload.error || 'Unable to initialize secure CMS request.');
-          return payload.csrf_token;
-        })
-        .catch((error) => { cmsCsrfPromise = null; throw error; });
-    }
-    return cmsCsrfPromise;
+    const response = await fetch(cmsApiUrl('public/api/auth/csrf.php'), {
+      credentials: 'same-origin',
+      cache: 'no-store',
+      headers: { Accept: 'application/json' }
+    });
+    const payload = await response.json().catch(() => ({}));
+    if (!response.ok || !payload.csrf_token) throw new Error(payload.error || 'Unable to initialize secure CMS request.');
+    return payload.csrf_token;
   };
   const cmsApiFetch = async (path, options = {}, retry = true) => {
     const method = String(options.method || 'GET').toUpperCase();
@@ -367,10 +365,31 @@
     headers.set('Accept', 'application/json');
     const response = await fetch(cmsApiUrl(path), { ...options, method, headers, credentials: 'same-origin' });
     if (response.status === 419 && retry) {
-      cmsCsrfPromise = null;
       return cmsApiFetch(path, options, false);
     }
     return response;
+  };
+
+  const publicCmsSections = ['header', 'footer', 'branding', 'navigation', 'contact', 'seo', 'social', 'categories', 'pages', 'media', 'advanced'];
+  const publicCmsSettings = (data) => ({
+    settings: data.settings || {},
+    cms: publicCmsSections.reduce((sections, section) => {
+      const value = data.cms?.[section];
+      sections[section] = Array.isArray(value) ? value : (value || {});
+      return sections;
+    }, {})
+  });
+
+  const saveCmsSettings = async (data) => {
+    const response = await cmsApiFetch('public/api/settings.php', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ site_settings: publicCmsSettings(data) })
+    });
+    const payload = await response.json().catch(() => ({}));
+    if (!response.ok || payload.ok !== true) {
+      throw new Error(payload.error || 'The settings could not be saved to the server.');
+    }
   };
 
   const shell = (title, description, body, badge = 'Apex CMS v2.4') => `
@@ -1088,14 +1107,43 @@
       if (previewContainer) previewContainer.style.display = 'block';
     };
 
+    const handleFeaturedImageFile = async (file) => {
+      if (!file) return;
+      try {
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('alt_text', root.querySelector('#article-image-alt')?.value?.trim() || '');
+        const response = await cmsApiFetch('public/api/media.php', {
+          method: 'POST',
+          body: formData
+        });
+        const payload = await response.json().catch(() => ({}));
+        if (response.ok && payload.url) {
+          setFeaturedImage(payload.url);
+          showToast('Image uploaded successfully! 🖼️');
+          return;
+        }
+      } catch (err) {
+        // Fall back to local DataURL preview
+      }
+      const reader = new FileReader();
+      reader.onload = (re) => setFeaturedImage(re.target?.result);
+      reader.readAsDataURL(file);
+    };
+
     dropzone?.addEventListener('click', () => fileInput?.click());
+    dropzone?.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('dragover'); });
+    dropzone?.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+    dropzone?.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropzone.classList.remove('dragover');
+      const file = e.dataTransfer?.files?.[0];
+      if (file) handleFeaturedImageFile(file);
+    });
+
     fileInput?.addEventListener('change', (e) => {
       const file = e.target.files?.[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = (re) => setFeaturedImage(re.target?.result);
-        reader.readAsDataURL(file);
-      }
+      if (file) handleFeaturedImageFile(file);
     });
 
     imageUrlInput?.addEventListener('input', (e) => {
@@ -1320,13 +1368,16 @@
         <div>
           <h2 style="font-size:16px; margin:0 0 14px; color:var(--navy);">Website Pages</h2>
           <div class="cms-list">
-            ${data.cms.pages.map((p) => `
+            ${data.cms.pages.map((p, index) => `
               <article class="cms-row" style="display:flex; justify-content:space-between; align-items:center; padding:12px 14px;">
                 <div>
                   <strong style="display:block; color:var(--navy); font-size:13px;">${esc(p.title)}</strong>
                   <span style="font-size:11px; color:var(--muted);">/${esc(p.slug)} · <strong style="color:var(--green);">${esc(p.status)}</strong></span>
                 </div>
-                <a href="/${esc(p.slug)}" target="_blank" class="cms-button cms-button-soft cms-button-sm" style="text-decoration:none;">Preview ↗</a>
+                <div style="display:flex; gap:8px; align-items:center;">
+                  <a href="/${esc(p.slug)}" target="_blank" class="cms-button cms-button-soft cms-button-sm" style="text-decoration:none;">Preview ↗</a>
+                  <button class="cms-button cms-button-danger cms-button-sm" type="button" data-action="delete-page:${index}">Delete</button>
+                </div>
               </article>
             `).join('')}
           </div>
@@ -1354,7 +1405,11 @@
           </article>
         `).join('') || '<p class="cms-empty">No media assets in library yet.</p>'}
       </div>
-      ${form('add-media', [input('Image URL', 'url', ''), input('Alt text', 'alt', '')], 'Add Media Asset')}
+      ${form('add-media', [
+        input('Upload Image File', 'media_file', '', 'file', 'Select JPEG, PNG, WebP, or GIF file'),
+        input('Or Image URL', 'url', ''),
+        input('Alt text', 'alt', '')
+      ], 'Add Media Asset')}
     `);
   }
 
@@ -1375,7 +1430,7 @@
       textarea('Footer Description / Tagline', 'description', f.description || data.settings?.footer || ''),
       input('Head Office Address', 'address', f.address || 'King Abdullah Financial District, Riyadh'),
       input('Support Email', 'email', f.email || data.settings?.email || ''),
-      input('Support Phone', 'phone', f.phone || '+966 11 555 0142'),
+      input('Support Phone', 'phone', f.phone || '+966 57 008 2565'),
       input('Copyright Line', 'copyright', f.copyright || '© 2026 Apex Business Consultancy. All rights reserved.'),
       select('Show Newsletter Subscription', 'showNewsletter', f.showNewsletter ? 'true' : 'false', [{ val: 'true', label: 'Enabled' }, { val: 'false', label: 'Disabled' }])
     ], 'Save Footer Configuration'));
@@ -1386,6 +1441,7 @@
     return shell('Website Branding & Identity', 'Manage official brand name, tagline, favicon, and brand color palette.', form('save-branding', [
       input('Official Brand Name', 'brandName', b.brandName || data.settings?.name || 'Apex Business Consultancy'),
       input('Website Tagline', 'tagline', b.tagline || data.settings?.tagline || 'Strategic Clarity for Business Growth in Saudi Arabia', 'text', 'Displayed across page titles, search metadata, and hero headers'),
+      textarea('Homepage Hero Subtitle', 'heroSubtitle', b.heroSubtitle || data.settings?.heroSubtitle || 'Clear market context, licensing guidance, and practical execution for founders, investors, and enterprise teams expanding into Saudi Arabia.'),
       input('Favicon URL or Path', 'faviconUrl', b.faviconUrl || data.settings?.favicon || 'favicon.svg', 'text', 'Default is favicon.svg. Can be set to custom SVG, PNG, or ICO URL/path'),
       input('Custom Logo Image URL', 'logoUrl', b.logoUrl || '', 'text', 'Optional URL or asset path for custom header logo'),
       input('Primary Brand Color', 'primaryColor', b.primaryColor || '#07152f', 'text', 'Hex color code, e.g. #07152f'),
@@ -1518,9 +1574,9 @@
   function contactView(data) {
     const c = data.cms.contact || {};
     return shell('Contact Settings', 'Official communication channels, office headquarters, and business hours.', form('save-contact', [
-      input('Public Enquiries Email', 'email', c.email || data.settings?.email || 'hello@apexbusinessksa.com', 'email'),
-      input('Office Phone Number', 'phone', c.phone || '+966 11 555 0142'),
-      input('WhatsApp Direct Number', 'whatsapp', c.whatsapp || data.settings?.whatsapp || '966115550142'),
+      input('Public Enquiries Email', 'email', c.email || data.settings?.email || 'info@apexbusinessksa.com', 'email'),
+      input('Office Phone Number', 'phone', c.phone || '+966 57 008 2565'),
+      input('WhatsApp Direct Number', 'whatsapp', c.whatsapp || data.settings?.whatsapp || '966570082565'),
       input('Office Location / Address', 'address', c.address || 'King Abdullah Financial District, Riyadh'),
       input('Business Operating Hours', 'hours', c.hours || 'Sunday – Thursday: 9:00 AM – 6:00 PM (AST)')
     ], 'Save Contact Details'));
@@ -1790,23 +1846,56 @@
         } else if (type === 'delete-category') {
           const idx = Number(val1);
           const name = data.cms.categories[idx]?.name || 'Category';
-          data.cms.categories.splice(idx, 1);
-          persist(data, `Deleted category: ${name}`, 'Categories');
-          showToast('Category deleted');
-          renderCurrentView();
+          const [removedCategory] = data.cms.categories.splice(idx, 1);
+          try {
+            await saveCmsSettings(data);
+            persist(data, `Deleted category: ${name}`, 'Categories');
+            showToast('Category deleted');
+            renderCurrentView();
+          } catch (error) {
+            if (removedCategory) data.cms.categories.splice(idx, 0, removedCategory);
+            showToast(error?.message || 'The category could not be deleted.', 'error');
+          }
+        } else if (type === 'delete-page') {
+          const idx = Number(val1);
+          const title = data.cms.pages[idx]?.title || 'Page';
+          const [removedPage] = data.cms.pages.splice(idx, 1);
+          try {
+            await saveCmsSettings(data);
+            persist(data, `Deleted page: ${title}`, 'Pages');
+            showToast('Page deleted');
+            renderCurrentView();
+          } catch (error) {
+            if (removedPage) data.cms.pages.splice(idx, 0, removedPage);
+            showToast(error?.message || 'The page could not be deleted.', 'error');
+          }
         } else if (type === 'delete-media') {
-          data.cms.media.splice(Number(val1), 1);
-          persist(data, 'Deleted media asset', 'Media');
-          showToast('Media deleted');
-          renderCurrentView();
+          const idx = Number(val1);
+          const [removedMedia] = data.cms.media.splice(idx, 1);
+          try {
+            await saveCmsSettings(data);
+            persist(data, 'Deleted media asset', 'Media');
+            showToast('Media deleted');
+            renderCurrentView();
+          } catch (error) {
+            if (removedMedia) data.cms.media.splice(idx, 0, removedMedia);
+            showToast(error?.message || 'The media asset could not be deleted.', 'error');
+          }
         } else if (type === 'copy-media') {
           navigator.clipboard?.writeText(data.cms.media[Number(val1)]?.url || '');
           showToast('Media URL copied to clipboard');
         } else if (type === 'delete-nav') {
-          data.cms.navigation[val1].splice(Number(val2), 1);
-          persist(data, `Deleted navigation link from ${val1}`, 'Navigation');
-          showToast('Navigation link deleted');
-          renderCurrentView();
+          const index = Number(val2);
+          const [removedItem] = data.cms.navigation[val1].splice(index, 1);
+          try {
+            await saveCmsSettings(data);
+            persist(data, `Deleted navigation link from ${val1}`, 'Navigation');
+            showToast('Navigation link deleted');
+            renderCurrentView();
+          } catch (error) {
+            if (removedItem) data.cms.navigation[val1].splice(index, 0, removedItem);
+            showToast(error?.message || 'The navigation link could not be deleted.', 'error');
+          }
         } else if (type === 'clear-logs') {
           data.cms.activity = [];
           persist(data, 'Activity logs cleared', 'System');
@@ -1832,7 +1921,7 @@
     });
 
     root.querySelectorAll('form[data-form]').forEach(formEl => {
-      formEl.addEventListener('submit', (e) => {
+      formEl.addEventListener('submit', async (e) => {
         e.preventDefault();
         const action = formEl.dataset.form;
         const formData = new FormData(formEl);
@@ -1844,41 +1933,88 @@
             return;
           }
           data.cms.categories.push({ name: values.name, slug: values.slug || slugify(values.name) });
-          persist(data, `Created category: ${values.name}`, 'Categories');
-          showToast('Category added');
-          formEl.reset();
-          renderCurrentView();
+          try {
+            await saveCmsSettings(data);
+            persist(data, `Created category: ${values.name}`, 'Categories');
+            showToast('Category added');
+            formEl.reset();
+            renderCurrentView();
+          } catch (error) {
+            data.cms.categories.pop();
+            showToast(error?.message || 'The category could not be saved.', 'error');
+          }
         } else if (action === 'add-page') {
           if (!values.title) {
             showToast('Page title is required', 'error');
             return;
           }
           data.cms.pages.push({ title: values.title, slug: values.slug || slugify(values.title), status: 'published', description: values.description || '' });
-          persist(data, `Created page: ${values.title}`, 'Pages');
-          showToast('Page created');
-          formEl.reset();
-          renderCurrentView();
+          try {
+            await saveCmsSettings(data);
+            persist(data, `Created page: ${values.title}`, 'Pages');
+            showToast('Page created');
+            formEl.reset();
+            renderCurrentView();
+          } catch (error) {
+            data.cms.pages.pop();
+            showToast(error?.message || 'The page could not be saved.', 'error');
+          }
         } else if (action === 'add-media') {
-          if (!values.url) {
-            showToast('Image URL is required', 'error');
+          const fileInput = formEl.querySelector('input[type="file"]');
+          let url = values.url;
+          let alt = values.alt || 'Media asset';
+          if (fileInput && fileInput.files && fileInput.files[0]) {
+            try {
+              const formData = new FormData();
+              formData.append('file', fileInput.files[0]);
+              formData.append('alt_text', alt);
+              const response = await cmsApiFetch('public/api/media.php', {
+                method: 'POST',
+                body: formData
+              });
+              const payload = await response.json().catch(() => ({}));
+              if (!response.ok || !payload.url) {
+                throw new Error(payload.error || 'Media upload failed.');
+              }
+              url = payload.url;
+            } catch (err) {
+              showToast(err.message || 'Failed to upload media file.', 'error');
+              return;
+            }
+          }
+          if (!url) {
+            showToast('Image file or URL is required', 'error');
             return;
           }
-          data.cms.media.push({ url: values.url, alt: values.alt || 'Media asset' });
-          persist(data, 'Added media asset', 'Media');
-          showToast('Media added to library');
-          formEl.reset();
-          renderCurrentView();
+          data.cms.media.push({ url, alt });
+          try {
+            await saveCmsSettings(data);
+            persist(data, 'Added media asset', 'Media');
+            showToast('Media added to library');
+            formEl.reset();
+            renderCurrentView();
+          } catch (error) {
+            data.cms.media.pop();
+            showToast(error?.message || 'The media asset could not be saved.', 'error');
+          }
         } else if (action.startsWith('add-nav-')) {
           const loc = action.replace('add-nav-', '');
           if (!values.label || !values.href) {
             showToast('Label and URL are required', 'error');
             return;
           }
-          data.cms.navigation[loc].push({ label: values.label, href: values.href, visible: values.visible === 'true' });
-          persist(data, `Added ${loc} menu link: ${values.label}`, 'Navigation');
-          showToast('Menu link added');
-          formEl.reset();
-          renderCurrentView();
+          const newItem = { label: values.label, href: values.href, visible: values.visible === 'true' };
+          data.cms.navigation[loc].push(newItem);
+          try {
+            await saveCmsSettings(data);
+            persist(data, `Added ${loc} menu link: ${values.label}`, 'Navigation');
+            showToast('Menu link added');
+            formEl.reset();
+            renderCurrentView();
+          } catch (error) {
+            data.cms.navigation[loc].pop();
+            showToast(error?.message || 'The navigation link could not be added.', 'error');
+          }
         } else if (action === 'add-user') {
           if (!values.name || !values.email) {
             showToast('Name and email are required', 'error');
@@ -1904,15 +2040,47 @@
           if (data.cms[sec]) Object.assign(data.cms[sec], values);
           if (values.brandName) data.settings.name = values.brandName;
           if (values.tagline) data.settings.tagline = values.tagline;
+          if (values.heroSubtitle && sec === 'branding') data.settings.heroSubtitle = values.heroSubtitle;
           if (values.faviconUrl) data.settings.favicon = values.faviconUrl;
           if (values.email) data.settings.email = values.email;
+          if (values.phone && (sec === 'contact' || sec === 'footer')) data.settings.phone = values.phone;
           if (values.whatsapp) data.settings.whatsapp = values.whatsapp;
           if (values.description && sec === 'footer') data.settings.footer = values.description;
-          persist(data, `Updated ${sec.toUpperCase()} settings`, sec.toUpperCase());
-          showToast(`${sec.toUpperCase()} settings saved successfully`);
+          try {
+            await saveCmsSettings(data);
+            persist(data, `Updated ${sec.toUpperCase()} settings`, sec.toUpperCase());
+            showToast(`${sec.toUpperCase()} settings saved successfully`);
+          } catch (error) {
+            showToast(error?.message || 'The settings could not be saved.', 'error');
+          }
         }
       });
     });
+  }
+
+  async function hydrateCmsSettings() {
+    try {
+      const response = await cmsApiFetch('public/api/settings.php');
+      if (!response.ok) return;
+      const payload = await response.json();
+      const remote = payload.site_settings;
+      if (!remote || typeof remote !== 'object') return;
+      const data = read();
+      data.settings = { ...legacyDefaults.settings, ...(remote.settings || {}) };
+      data.cms = { ...(data.cms || {}), ...(remote.cms && typeof remote.cms === 'object' ? remote.cms : {}) };
+      publicCmsSections.forEach((section) => {
+        const remoteSection = remote.cms?.[section];
+        if (Array.isArray(remoteSection)) {
+          data.cms[section] = remoteSection;
+        } else if (remoteSection && typeof remoteSection === 'object') {
+          data.cms[section] = { ...(data.cms[section] || {}), ...remoteSection };
+        }
+      });
+      localStorage.setItem(STORE_KEY, JSON.stringify(data));
+      renderCurrentView();
+    } catch {
+      // Keep local CMS data available when the database is unavailable.
+    }
   }
 
   async function hydrateCmsPosts() {
@@ -1920,7 +2088,7 @@
       const response = await cmsApiFetch('public/api/posts.php?scope=admin&limit=100');
       if (!response.ok) return;
       const payload = await response.json();
-      if (!Array.isArray(payload.data) || payload.data.length === 0) return;
+      if (!Array.isArray(payload.data)) return;
       const data = read();
       data.articles = payload.data.map((row) => ({
         id: Number(row.id), title: row.title || '', slug: row.slug || '', category: row.category_name || 'Insights',
@@ -1942,9 +2110,10 @@
   window.addEventListener('apex-content-sync', renderCurrentView);
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => { renderCurrentView(); hydrateCmsPosts(); });
+    document.addEventListener('DOMContentLoaded', () => { renderCurrentView(); hydrateCmsSettings(); hydrateCmsPosts(); });
   } else {
     renderCurrentView();
+    hydrateCmsSettings();
     hydrateCmsPosts();
   }
 })();

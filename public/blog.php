@@ -4,6 +4,12 @@ declare(strict_types=1);
 require dirname(__DIR__) . '/app/bootstrap.php';
 $pdo = db($config);
 $slug = trim((string) ($_GET['slug'] ?? ''));
+$lookupSlug = $slug === 'company-formation-in-saudi-arabia'
+  ? 'a-practical-guide-to-entering-the-saudi-market'
+  : $slug;
+$canonicalSlug = $lookupSlug === 'a-practical-guide-to-entering-the-saudi-market'
+  ? 'company-formation-in-saudi-arabia'
+  : $slug;
 
 $query = $pdo->prepare('
     SELECT p.*, 
@@ -19,7 +25,7 @@ $query = $pdo->prepare('
     WHERE p.slug = ? AND p.status = \'published\' AND (p.published_at IS NULL OR p.published_at <= NOW())
     LIMIT 1
 ');
-$query->execute([$slug]);
+$query->execute([$lookupSlug]);
 $post = $query->fetch();
 
 $is404 = false;
@@ -67,7 +73,10 @@ $pageTitle = stripos($title, 'Apex Business Consultancy') !== false ? $title : $
 $description = !empty($post['seo_description']) ? $post['seo_description'] : $post['description'];
 $author = $post['author_name'] ?? 'Apex Administrator';
 $category = $post['category_name'] ?? 'Market Entry';
-$image = $post['featured_image'] ?? '';
+$image = '';
+$articleContent = sanitize_rich_html((string) $post['content']);
+$articleContent = preg_replace('/<figure\b[^>]*>[\s\S]*?<img\b[^>]*>[\s\S]*?<\/figure>/i', '', $articleContent) ?? $articleContent;
+$articleContent = preg_replace('/<img\b[^>]*>/i', '', $articleContent) ?? $articleContent;
 $dateFormatted = date('F j, Y', strtotime((string) $post['published_at']));
 $readTime = max(1, (int) ceil(str_word_count(strip_tags((string) $post['content'])) / 200));
 ?><!doctype html>
@@ -87,7 +96,7 @@ $readTime = max(1, (int) ceil(str_word_count(strip_tags((string) $post['content'
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title><?= e($pageTitle) ?></title>
     <meta name="description" content="<?= e($description) ?>" />
-    <link rel="canonical" href="<?= e(!empty($post['canonical_url']) ? $post['canonical_url'] : rtrim((string) $config['app_url'], '/') . '/blog/' . rawurlencode($slug)) ?>" />
+    <link rel="canonical" href="<?= e(!empty($post['canonical_url']) ? $post['canonical_url'] : rtrim((string) $config['app_url'], '/') . '/insights/' . rawurlencode($canonicalSlug)) ?>" />
     <meta name="robots" content="<?= ((int) ($post['robots_index'] ?? 1) === 0 || $is404) ? 'noindex' : 'index' ?>,<?= ((int) ($post['robots_follow'] ?? 1) === 0 || $is404) ? 'nofollow' : 'follow' ?>,max-image-preview:large" />
     <meta name="application-name" content="Apex Business Consultancy" />
     <meta property="og:site_name" content="Apex Business Consultancy" />
@@ -97,14 +106,17 @@ $readTime = max(1, (int) ceil(str_word_count(strip_tags((string) $post['content'
     <?php if (!empty($image)): ?>
       <meta property="og:image" content="<?= e($image) ?>" />
     <?php endif; ?>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "Apex Business Consultancy",
-      "alternateName": ["Apex Business", "Apex Business Consultancy KSA"],
-      "url": "https://apexbusinessksa.com/"
-    }
+    <script type="application/ld+json"><?= json_encode([
+      '@context' => 'https://schema.org',
+      '@type' => 'Article',
+      'headline' => $post['title'],
+      'description' => $description,
+      'author' => ['@type' => 'Person', 'name' => $author],
+      'publisher' => ['@type' => 'Organization', 'name' => 'Apex Business Consultancy', 'url' => rtrim((string) $config['app_url'], '/')],
+      'datePublished' => date(DATE_ATOM, strtotime((string) $post['published_at'])),
+      'dateModified' => date(DATE_ATOM, strtotime((string) ($post['updated_at'] ?? $post['published_at']))),
+      'mainEntityOfPage' => ['@type' => 'WebPage', '@id' => rtrim((string) $config['app_url'], '/') . '/insights/' . rawurlencode($canonicalSlug)]
+    ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP) ?>
     </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -207,7 +219,7 @@ $readTime = max(1, (int) ceil(str_word_count(strip_tags((string) $post['content'
       <?php endif; ?>
 
       <div class="article-body">
-        <?= sanitize_rich_html((string) $post['content']) ?>
+        <?= $articleContent ?>
       </div>
 
       <?php if (!empty($post['tags'])): ?>
@@ -233,9 +245,6 @@ $readTime = max(1, (int) ceil(str_word_count(strip_tags((string) $post['content'
           <div class="related-grid">
             <?php foreach ($relatedPosts as $rel): ?>
               <a class="related-card" href="/insights/<?= urlencode($rel['slug']) ?>">
-                <?php if (!empty($rel['featured_image'])): ?>
-                  <img src="<?= e($rel['featured_image']) ?>" alt="<?= e($rel['title']) ?>" />
-                <?php endif; ?>
                 <div class="related-card-body">
                   <span style="font-size:10px; font-weight:800; color:#58c748; text-transform:uppercase; display:block; margin-bottom:4px;"><?= e($rel['category_name'] ?? 'Insights') ?></span>
                   <strong><?= e($rel['title']) ?></strong>

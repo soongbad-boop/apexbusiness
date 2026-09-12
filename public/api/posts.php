@@ -84,7 +84,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     $query = $pdo->prepare($sql);
     $query->execute($params);
-    json_response(['data' => $query->fetchAll()]);
+    $rows = $query->fetchAll();
+    foreach ($rows as &$row) {
+        if (($row['slug'] ?? '') === 'a-practical-guide-to-entering-the-saudi-market') {
+            $row['slug'] = 'company-formation-in-saudi-arabia';
+        }
+    }
+    unset($row);
+    json_response(['data' => $rows]);
 }
 
 if (!in_array($_SERVER['REQUEST_METHOD'], ['POST', 'PATCH', 'DELETE'], true)) {
@@ -117,14 +124,16 @@ if ($title === '' || !in_array($status, ['draft', 'published', 'scheduled', 'arc
 }
 
 $content = sanitize_rich_html((string) ($payload['content'] ?? ''));
+$content = preg_replace('/<figure\b[^>]*>[\s\S]*?<img\b[^>]*>[\s\S]*?<\/figure>/i', '', $content) ?? $content;
+$content = preg_replace('/<img\b[^>]*>/i', '', $content) ?? $content;
 if (in_array($status, ['published', 'scheduled'], true) && trim(strip_tags($content)) === '') {
     json_response(['error' => 'Published and scheduled posts require article content.'], 422);
 }
 
 $description = normalized_text($payload['excerpt'] ?? ($payload['description'] ?? ''), 2000);
-$imageUrl = valid_http_url_or_path($payload['image'] ?? ($payload['image_url'] ?? null));
-$imageAlt = normalized_text($payload['image_alt'] ?? '', 255);
-$imageCaption = normalized_text($payload['image_caption'] ?? '', 500);
+$imageUrl = null;
+$imageAlt = '';
+$imageCaption = '';
 $tags = normalized_text($payload['tags'] ?? '', 500);
 $isFeatured = !empty($payload['is_featured']) ? 1 : 0;
 $allowComments = isset($payload['allow_comments']) ? (!empty($payload['allow_comments']) ? 1 : 0) : 1;

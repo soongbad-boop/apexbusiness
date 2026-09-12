@@ -87,7 +87,7 @@
       {
         id: 5,
         title: "Entering the Saudi Market: Investment Registration, Entity Setup & Operating Realities",
-        slug: 'a-practical-guide-to-entering-the-saudi-market',
+        slug: 'company-formation-in-saudi-arabia',
         category: 'Market Entry',
         author: 'Maya Nasser',
         status: 'published',
@@ -328,9 +328,10 @@
   const sanitizeRichHtml = (html = '') => {
     const template = document.createElement('template');
     template.innerHTML = String(html || '');
-    const allowedTags = new Set(['P','BR','STRONG','B','EM','I','U','H2','H3','H4','UL','OL','LI','BLOCKQUOTE','A','CODE','PRE','HR','TABLE','THEAD','TBODY','TR','TH','TD','FIGURE','FIGCAPTION','IMG']);
-    const allowedAttrs = { A: new Set(['href','title','target','rel']), IMG: new Set(['src','alt','title','width','height','loading']), TH: new Set(['colspan','rowspan','scope']), TD: new Set(['colspan','rowspan']) };
+    const allowedTags = new Set(['P','BR','STRONG','B','EM','I','U','H2','H3','H4','UL','OL','LI','BLOCKQUOTE','A','CODE','PRE','HR','TABLE','THEAD','TBODY','TR','TH','TD','FIGURE','FIGCAPTION']);
+    const allowedAttrs = { A: new Set(['href','title','target','rel']), TH: new Set(['colspan','rowspan','scope']), TD: new Set(['colspan','rowspan']) };
     [...template.content.querySelectorAll('*')].forEach((node) => {
+      if (node.tagName === 'FIGURE' && node.querySelector('img')) { node.remove(); return; }
       if (!allowedTags.has(node.tagName)) { node.replaceWith(...node.childNodes); return; }
       [...node.attributes].forEach((attr) => { if (!allowedAttrs[node.tagName]?.has(attr.name.toLowerCase())) node.removeAttribute(attr.name); });
       if (node.tagName === 'A') {
@@ -501,7 +502,7 @@
             ${(data.articles || data.cms.articles || []).slice(0, 4).map((art, idx) => `
               <article class="cms-row" style="display:flex; justify-content:space-between; align-items:center; padding:12px 14px;">
                 <div style="display:flex; align-items:center; gap:12px;">
-                  <img src="${esc(art.image || 'https://images.unsplash.com/photo-1580674684081-7617fbf3d745?auto=format&fit=crop&w=100&q=80')}" alt="" style="width:48px; height:40px; border-radius:6px; object-fit:cover;" />
+                  <span style="width:42px; height:42px; border-radius:8px; background:#eaf9fb; display:flex; align-items:center; justify-content:center; font-size:20px; color:var(--navy); flex-shrink:0;">📝</span>
                   <div>
                     <strong style="display:block; color:var(--navy); font-size:13px;">${esc(art.title)}</strong>
                     <span style="font-size:11px; color:var(--muted);">${esc(art.category || 'General')} · ${esc(art.author || 'Admin')} · <strong style="color:var(--green);">${esc(art.status || 'Published')}</strong></span>
@@ -573,7 +574,7 @@
                 <tr style="border-bottom:1px solid #edf4f6; transition:background .15s ease;">
                   <td style="padding:16px 20px;">
                     <div style="display:flex; align-items:center; gap:14px;">
-                      ${art.image ? `<img src="${esc(art.image)}" alt="" style="width:54px; height:42px; border-radius:8px; object-fit:cover; border:1px solid var(--line);" />` : `<div style="width:42px; height:42px; border-radius:8px; background:#eaf9fb; display:flex; align-items:center; justify-content:center; font-size:20px; color:var(--navy); flex-shrink:0;">📝</div>`}
+                      <div style="width:42px; height:42px; border-radius:8px; background:#eaf9fb; display:flex; align-items:center; justify-content:center; font-size:20px; color:var(--navy); flex-shrink:0;">📝</div>
                       <div>
                         <strong style="display:block; color:var(--navy); font-size:14px; margin-bottom:3px;">${esc(art.title)}</strong>
                         <span style="font-size:11px; color:var(--muted); font-family:monospace;">/insights/${esc(art.slug || slugify(art.title))}</span>
@@ -715,7 +716,6 @@
                 <button type="button" class="wysiwyg-btn" data-cmd="insertOrderedList" title="Numbered List">1. List</button>
                 <span style="width:1px; height:20px; background:var(--line); margin:0 4px;"></span>
                 <button type="button" class="wysiwyg-btn" id="btn-insert-link" title="Insert Link">🔗 Link</button>
-                <button type="button" class="wysiwyg-btn" id="btn-insert-image" title="Insert Image">🖼 Image</button>
                 <button type="button" class="wysiwyg-btn" id="btn-insert-table" title="Insert Table">📊 Table</button>
                 <span style="flex:1;"></span>
                 <button type="button" class="wysiwyg-btn" id="btn-toggle-html" title="HTML Source Mode">&lt;/&gt; HTML</button>
@@ -896,14 +896,6 @@
 
     const focusKeywordInput = root.querySelector('#focus-keyword');
 
-    const dropzone = root.querySelector('#image-dropzone');
-    const fileInput = root.querySelector('#image-file-input');
-    const previewContainer = root.querySelector('#image-preview-container');
-    const previewImg = root.querySelector('#image-preview-img');
-    const imageUrlInput = root.querySelector('#article-image-url');
-    const replaceImageBtn = root.querySelector('#btn-replace-image');
-    const removeImageBtn = root.querySelector('#btn-remove-image');
-
     const tagsInput = root.querySelector('#article-tags-input');
     const tagChipsContainer = root.querySelector('#tag-chips-container');
 
@@ -1019,15 +1011,6 @@
       }
     });
 
-    root.querySelector('#btn-insert-image')?.addEventListener('click', () => {
-      const url = prompt('Enter Image URL:');
-      if (url) {
-        wysiwygEditor.focus();
-        document.execCommand('insertHTML', false, `<figure><img src="${esc(url)}" alt="" /><figcaption>Image caption</figcaption></figure><p></p>`);
-        updateWordCount();
-      }
-    });
-
     root.querySelector('#btn-insert-table')?.addEventListener('click', () => {
       const tableHtml = `<table style="width:100%; border:1px solid #ccc; margin:16px 0;"><thead><tr><th style="border:1px solid #ccc; padding:8px;">Header 1</th><th style="border:1px solid #ccc; padding:8px;">Header 2</th></tr></thead><tbody><tr><td style="border:1px solid #ccc; padding:8px;">Data 1</td><td style="border:1px solid #ccc; padding:8px;">Data 2</td></tr></tbody></table><p></p>`;
       wysiwygEditor.focus();
@@ -1059,68 +1042,6 @@
     seoTitleInput?.addEventListener('input', updateSeoPreview);
     seoDescInput?.addEventListener('input', updateSeoPreview);
     focusKeywordInput?.addEventListener('input', updateKeywordCheck);
-
-    // Featured Image Handling
-    const setFeaturedImage = (url) => {
-      if (!imageUrlInput) return;
-      if (!url) {
-        if (previewContainer) previewContainer.style.display = 'none';
-        if (dropzone) dropzone.style.display = 'block';
-        imageUrlInput.value = '';
-        return;
-      }
-      imageUrlInput.value = url;
-      if (previewImg) previewImg.src = url;
-      if (dropzone) dropzone.style.display = 'none';
-      if (previewContainer) previewContainer.style.display = 'block';
-    };
-
-    const handleFeaturedImageFile = async (file) => {
-      if (!file) return;
-      try {
-        const formData = new FormData();
-        formData.append('file', file);
-        formData.append('alt_text', root.querySelector('#article-image-alt')?.value?.trim() || '');
-        const response = await cmsApiFetch('public/api/media.php', {
-          method: 'POST',
-          body: formData
-        });
-        const payload = await response.json().catch(() => ({}));
-        if (response.ok && payload.url) {
-          setFeaturedImage(payload.url);
-          showToast('Image uploaded successfully! 🖼️');
-          return;
-        }
-      } catch (err) {
-        // Fall back to local DataURL preview
-      }
-      const reader = new FileReader();
-      reader.onload = (re) => setFeaturedImage(re.target?.result);
-      reader.readAsDataURL(file);
-    };
-
-    dropzone?.addEventListener('click', () => fileInput?.click());
-    dropzone?.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('dragover'); });
-    dropzone?.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
-    dropzone?.addEventListener('drop', (e) => {
-      e.preventDefault();
-      dropzone.classList.remove('dragover');
-      const file = e.dataTransfer?.files?.[0];
-      if (file) handleFeaturedImageFile(file);
-    });
-
-    fileInput?.addEventListener('change', (e) => {
-      const file = e.target.files?.[0];
-      if (file) handleFeaturedImageFile(file);
-    });
-
-    imageUrlInput?.addEventListener('input', (e) => {
-      const url = e.target.value.trim();
-      if (url) setFeaturedImage(url);
-    });
-
-    replaceImageBtn?.addEventListener('click', () => fileInput?.click());
-    removeImageBtn?.addEventListener('click', () => setFeaturedImage(''));
 
     // Tags Chips
     function renderTagChips() {
@@ -1165,10 +1086,6 @@
       const isFeatured = root.querySelector('#article-featured').checked;
       const allowComments = root.querySelector('#article-comments').checked;
 
-      const image = root.querySelector('#article-image-url')?.value?.trim() || '';
-      const imageAlt = root.querySelector('#article-image-alt')?.value?.trim() || '';
-      const imageCaption = root.querySelector('#article-image-caption')?.value?.trim() || '';
-
       const tags = tagsInput.value.trim();
       const excerpt = excerptInput.value.trim();
       const seoTitle = seoTitleInput.value.trim();
@@ -1181,9 +1098,9 @@
         category,
         author,
         status,
-        image,
-        image_alt: imageAlt,
-        image_caption: imageCaption,
+        image: '',
+        image_alt: '',
+        image_caption: '',
         tags,
         excerpt,
         content,
@@ -1263,13 +1180,6 @@
               <span>${readTime} min read</span>
             </div>
           </header>
-
-          ${postData.image ? `
-            <figure style="margin:0 0 28px;">
-              <img src="${esc(postData.image)}" alt="${esc(postData.image_alt || postData.title)}" style="width:100%; max-height:420px; object-fit:cover; border-radius:16px;" />
-              ${postData.image_caption ? `<figcaption style="margin-top:6px; font-size:12px; color:var(--muted); font-style:italic;">${esc(postData.image_caption)}</figcaption>` : ''}
-            </figure>
-          ` : ''}
 
           ${postData.excerpt ? `
             <p style="font-size:18px; font-weight:600; line-height:1.6; color:#3a4f59; margin-bottom:24px;">
@@ -1373,11 +1283,6 @@
           </article>
         `).join('') || '<p class="cms-empty">No media assets in library yet.</p>'}
       </div>
-      ${form('add-media', [
-        input('Upload Image File', 'media_file', '', 'file', 'Select JPEG, PNG, WebP, or GIF file'),
-        input('Or Image URL', 'url', ''),
-        input('Alt text', 'alt', '')
-      ], 'Add Media Asset')}
     `);
   }
 
@@ -1770,7 +1675,6 @@
               <div style="font-size:12px; color:var(--muted); font-weight:700; margin-bottom:20px;">
                 By ${esc(post.author || 'Admin')} · ${esc(post.publishedAt || '2026-08-15')} · ${readTime} min read
               </div>
-              ${post.image ? `<img src="${esc(post.image)}" alt="" style="width:100%; max-height:360px; object-fit:cover; border-radius:14px; margin-bottom:20px;" />` : ''}
               ${post.excerpt ? `<p style="font-size:16px; font-weight:600; color:#3a4f59; line-height:1.6; margin-bottom:20px;">${esc(post.excerpt)}</p>` : ''}
               <div style="font-size:15px; line-height:1.8; color:#1a2830;">${sanitizeRichHtml(post.content || '')}</div>
             </div>
@@ -1927,44 +1831,6 @@
             data.cms.pages.pop();
             showToast(error?.message || 'The page could not be saved.', 'error');
           }
-        } else if (action === 'add-media') {
-          const fileInput = formEl.querySelector('input[type="file"]');
-          let url = values.url;
-          let alt = values.alt || 'Media asset';
-          if (fileInput && fileInput.files && fileInput.files[0]) {
-            try {
-              const formData = new FormData();
-              formData.append('file', fileInput.files[0]);
-              formData.append('alt_text', alt);
-              const response = await cmsApiFetch('public/api/media.php', {
-                method: 'POST',
-                body: formData
-              });
-              const payload = await response.json().catch(() => ({}));
-              if (!response.ok || !payload.url) {
-                throw new Error(payload.error || 'Media upload failed.');
-              }
-              url = payload.url;
-            } catch (err) {
-              showToast(err.message || 'Failed to upload media file.', 'error');
-              return;
-            }
-          }
-          if (!url) {
-            showToast('Image file or URL is required', 'error');
-            return;
-          }
-          data.cms.media.push({ url, alt });
-          try {
-            await saveCmsSettings(data);
-            persist(data, 'Added media asset', 'Media');
-            showToast('Media added to library');
-            formEl.reset();
-            renderCurrentView();
-          } catch (error) {
-            data.cms.media.pop();
-            showToast(error?.message || 'The media asset could not be saved.', 'error');
-          }
         } else if (action.startsWith('add-nav-')) {
           const loc = action.replace('add-nav-', '');
           if (!values.label || !values.href) {
@@ -2058,7 +1924,7 @@
       const payload = await response.json();
       if (!Array.isArray(payload.data)) return;
       const data = read();
-      data.articles = payload.data.map((row) => ({
+      const remoteArticles = payload.data.map((row) => ({
         id: Number(row.id), title: row.title || '', slug: row.slug || '', category: row.category_name || 'Insights',
         author: row.author_name || 'Apex Administrator', status: row.status || 'draft', image: row.featured_image || row.image_url || '',
         image_alt: row.image_alt || '', image_caption: row.image_caption || '', tags: row.tags || '', excerpt: row.description || '',
@@ -2066,6 +1932,11 @@
         is_featured: Boolean(Number(row.is_featured || 0)), allow_comments: Boolean(Number(row.allow_comments || 0)),
         seo_title: row.seo_title || '', seo_description: row.seo_description || '', focus_keyword: row.focus_keyword || ''
       }));
+      const remoteIds = new Set(remoteArticles.map((article) => article.id).filter(Boolean));
+      const remoteSlugs = new Set(remoteArticles.map((article) => article.slug).filter(Boolean));
+      data.articles = [...remoteArticles, ...(data.articles || []).filter((article) => (
+        (!article.id || !remoteIds.has(Number(article.id))) && (!article.slug || !remoteSlugs.has(article.slug))
+      ))];
       localStorage.setItem(STORE_KEY, JSON.stringify(data));
       renderCurrentView();
     } catch {

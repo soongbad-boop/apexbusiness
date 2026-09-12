@@ -28,6 +28,9 @@ DirectoryIndex index.html index.php
   RewriteCond %{THE_REQUEST} \s/home/?[?\s] [NC]
   RewriteRule ^home/?$ / [R=301,L]
 
+  RewriteRule ^blog/?$ /insights [R=301,L,NE]
+  RewriteRule ^insights/a-practical-guide-to-entering-the-saudi-market/?$ /insights/company-formation-in-saudi-arabia [R=301,L,NE]
+
   # API endpoints.
   RewriteRule ^api/(.*)$ public/api/$1 [L,QSA,NC]
 

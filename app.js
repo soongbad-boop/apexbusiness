@@ -113,7 +113,7 @@ const initialContent = {
     {
       id: 5,
       title: "Entering the Saudi Market: Investment Registration, Entity Setup & Operating Realities",
-      slug: 'a-practical-guide-to-entering-the-saudi-market',
+      slug: 'company-formation-in-saudi-arabia',
       category: 'Market Entry',
       author: 'Maya Nasser',
       status: 'published',
@@ -242,6 +242,13 @@ function sanitizeRichHtml(html = '') {
     }
   });
   return template.innerHTML;
+}
+
+function sanitizeArticleContent(html = '') {
+  return sanitizeRichHtml(html)
+    .replace(/<figure\b[^>]*>[\s\S]*?<img\b[^>]*>[\s\S]*?<\/figure>/gi, '')
+    .replace(/<img\b[^>]*>/gi, '')
+    .replace(/\/insights\/a-practical-guide-to-entering-the-saudi-market/g, '/insights/company-formation-in-saudi-arabia');
 }
 
 const INITIAL_SCRIPT_HREF = document.currentScript?.src || location.href;
@@ -1190,7 +1197,8 @@ function insightsPage() {
 
 function singleArticlePage(slug) {
   const articles = content.articles || [];
-  const article = articles.find(a => (a.slug === slug) || (slugify(a.title) === slug));
+  const normalizedSlug = slug === 'a-practical-guide-to-entering-the-saudi-market' ? 'company-formation-in-saudi-arabia' : slug;
+  const article = articles.find(a => (a.slug === normalizedSlug) || (slugify(a.title) === normalizedSlug));
 
   if (!article) {
     return notFoundPage();
@@ -1204,13 +1212,11 @@ function singleArticlePage(slug) {
   const tags = String(article.tags || '').split(',').map(tag => tag.trim()).filter(Boolean);
   const categories = [...new Set(articles.filter(item => item.status === 'published' || !item.status).map(item => item.category || 'Insights'))];
   const related = articles.filter(item => item.slug !== article.slug && (item.status === 'published' || !item.status)).sort((first, second) => Number((second.category || '') === category) - Number((first.category || '') === category)).slice(0, 3);
-  const image = safeUrl(article.image || article.featured_image, '');
   const publishedAt = /^\d{4}-\d{2}-\d{2}/.test(String(article.publishedAt || '')) ? String(article.publishedAt).slice(0, 10) : '';
 
   return `<article class="article-detail">
     <header class="article-detail-header"><nav class="article-detail-breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/insights">Insights</a><span>/</span><span>${escapeHtml(category)}</span></nav><span class="article-detail-category">${escapeHtml(category)}</span><h1>${escapeHtml(article.title)}</h1><div class="article-detail-meta"><span>By <strong>${escapeHtml(author)}</strong></span><time datetime="${escapeHtml(publishedAt)}">${escapeHtml(dateFormatted)}</time><span>${readTime} min read</span>${article.views ? `<span>${Number(article.views).toLocaleString()} views</span>` : ''}</div></header>
-    ${image ? `<figure class="article-detail-figure"><img src="${escapeHtml(image)}" alt="${escapeHtml(article.image_alt || article.title)}" fetchpriority="high" />${article.image_caption ? `<figcaption>${escapeHtml(article.image_caption)}</figcaption>` : ''}</figure>` : ''}
-    <div class="article-detail-layout"><main class="article-detail-content"><p class="article-detail-lead">${escapeHtml(article.excerpt || article.description || '')}</p><div class="article-detail-body">${sanitizeRichHtml(article.content || '<p>No content available.</p>')}</div><footer class="article-detail-footer"><div class="article-detail-tags"><strong>Tags</strong>${tags.map(tag => `<span>${escapeHtml(tag)}</span>`).join('')}</div><div class="article-detail-share" aria-label="Share this article"><strong>Share</strong><button type="button" data-share="facebook">Facebook</button><button type="button" data-share="twitter">X</button><button type="button" data-share="linkedin">LinkedIn</button></div></footer><aside class="article-detail-author" aria-label="Article author"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=96&q=80" alt="${escapeHtml(author)}" /><div><small>Written by</small><strong>${escapeHtml(author)}</strong><span>Strategic Advisory &amp; Market Insights</span></div></aside></main>
+    <div class="article-detail-layout"><main class="article-detail-content"><p class="article-detail-lead">${escapeHtml(article.excerpt || article.description || '')}</p><div class="article-detail-body">${sanitizeArticleContent(article.content || '<p>No content available.</p>')}</div><footer class="article-detail-footer"><div class="article-detail-tags"><strong>Tags</strong>${tags.map(tag => `<span>${escapeHtml(tag)}</span>`).join('')}</div><div class="article-detail-share" aria-label="Share this article"><strong>Share</strong><button type="button" data-share="facebook">Facebook</button><button type="button" data-share="twitter">X</button><button type="button" data-share="linkedin">LinkedIn</button></div></footer><aside class="article-detail-author" aria-label="Article author"><div><small>Written by</small><strong>${escapeHtml(author)}</strong><span>Strategic Advisory &amp; Market Insights</span></div></aside></main>
       <aside class="article-detail-sidebar" aria-label="Article navigation"><section><p class="fresh-insights-label">Related reading</p><h2>More insights</h2><ol>${related.map(item => `<li><a href="/insights/${encodeURIComponent(item.slug || slugify(item.title))}"><span>${escapeHtml(item.category || 'Insights')}</span>${escapeHtml(item.title)}</a></li>`).join('') || '<li>No related articles yet.</li>'}</ol></section><section><p class="fresh-insights-label">Browse category</p><h2>Topics</h2><ul>${categories.map(item => `<li><a href="/insights">${escapeHtml(item)}</a></li>`).join('')}</ul></section><section><p class="fresh-insights-label">Article tags</p><div class="article-sidebar-tags">${tags.map(tag => `<span>${escapeHtml(tag)}</span>`).join('')}</div></section></aside>
     </div>
   </article>`;
@@ -1225,9 +1231,7 @@ function freshInsightsPage() {
   const card = (article, index) => {
     const slug = encodeURIComponent(article.slug || slugify(article.title));
     const articleTags = String(article.tags || '').split(',').map(tag => tag.trim()).filter(Boolean).slice(0, 3);
-    const image = safeUrl(article.image || article.featured_image, 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=900&q=85');
     return `<article class="insights-listing-card" data-category="${escapeHtml(article.category || 'Insights')}" data-tags="${escapeHtml(articleTags.join('|'))}"${index >= 6 ? ' hidden' : ''}>
-      <a class="insights-card-image" href="/insights/${slug}" aria-label="Read ${escapeHtml(article.title)}"><img src="${escapeHtml(image)}" alt="${escapeHtml(article.image_alt || article.title)}" loading="lazy" /></a>
       <div class="insights-card-content"><div class="insights-card-meta"><span>${escapeHtml(article.category || 'Insights')}</span><time>${escapeHtml(date(article))}</time></div><h2><a href="/insights/${slug}">${escapeHtml(article.title)}</a></h2><p>${escapeHtml(article.excerpt || article.description || 'Practical guidance for leaders building and operating in Saudi Arabia.')}</p><div class="insights-card-footer"><div class="insights-tag-list">${articleTags.map(tag => `<span>${escapeHtml(tag)}</span>`).join('')}</div><a href="/insights/${slug}" class="insights-read-more">Read more <span aria-hidden="true">&rarr;</span></a></div></div>
     </article>`;
   };

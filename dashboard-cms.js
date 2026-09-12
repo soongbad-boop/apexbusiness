@@ -573,7 +573,7 @@
                 <tr style="border-bottom:1px solid #edf4f6; transition:background .15s ease;">
                   <td style="padding:16px 20px;">
                     <div style="display:flex; align-items:center; gap:14px;">
-                      <img src="${esc(art.image || 'https://images.unsplash.com/photo-1580674684081-7617fbf3d745?auto=format&fit=crop&w=100&q=80')}" alt="" style="width:54px; height:42px; border-radius:8px; object-fit:cover; border:1px solid var(--line);" />
+                      ${art.image ? `<img src="${esc(art.image)}" alt="" style="width:54px; height:42px; border-radius:8px; object-fit:cover; border:1px solid var(--line);" />` : `<div style="width:42px; height:42px; border-radius:8px; background:#eaf9fb; display:flex; align-items:center; justify-content:center; font-size:20px; color:var(--navy); flex-shrink:0;">📝</div>`}
                       <div>
                         <strong style="display:block; color:var(--navy); font-size:14px; margin-bottom:3px;">${esc(art.title)}</strong>
                         <span style="font-size:11px; color:var(--muted); font-family:monospace;">/insights/${esc(art.slug || slugify(art.title))}</span>
@@ -833,39 +833,7 @@
             </div>
           </div>
 
-          <!-- Featured Image Upload -->
-          <div class="editor-side-card">
-            <h3>Featured Image *</h3>
-            <div id="image-preview-container" class="image-preview-box" style="${post.image ? '' : 'display:none;'}">
-              <img id="image-preview-img" src="${esc(post.image || '')}" alt="Preview" />
-              <div class="image-preview-actions">
-                <button type="button" class="cms-button cms-button-soft cms-button-sm" id="btn-replace-image">Replace</button>
-                <button type="button" class="cms-button cms-button-danger cms-button-sm" id="btn-remove-image">Remove</button>
-              </div>
-            </div>
 
-            <div id="image-dropzone" class="image-dropzone" style="${post.image ? 'display:none;' : ''}">
-              <span style="font-size:28px; display:block; margin-bottom:4px;">🖼</span>
-              <strong style="display:block; font-size:13px; color:var(--navy);">Upload Featured Image</strong>
-              <small style="color:var(--muted);">Drag &amp; drop, browse file, or paste URL below</small>
-              <input type="file" id="image-file-input" accept="image/*" style="display:none;" />
-            </div>
-
-            <div style="margin-top:12px;">
-              <label style="font-size:10px; font-weight:800; color:var(--muted); text-transform:uppercase;">Or Image URL:</label>
-              <input type="text" id="article-image-url" value="${esc(post.image || '')}" placeholder="https://images.unsplash.com/..." style="margin-top:4px;" />
-            </div>
-
-            <div style="margin-top:10px;">
-              <label style="font-size:10px; font-weight:800; color:var(--muted); text-transform:uppercase;">Image Alt Text:</label>
-              <input type="text" id="article-image-alt" value="${esc(post.image_alt || '')}" placeholder="Descriptive alt text for SEO & accessibility" style="margin-top:4px;" />
-            </div>
-
-            <div style="margin-top:10px;">
-              <label style="font-size:10px; font-weight:800; color:var(--muted); text-transform:uppercase;">Image Caption:</label>
-              <input type="text" id="article-image-caption" value="${esc(post.image_caption || '')}" placeholder="Optional caption displayed under image" style="margin-top:4px;" />
-            </div>
-          </div>
 
           <!-- Tags Card -->
           <div class="editor-side-card">
@@ -1197,9 +1165,9 @@
       const isFeatured = root.querySelector('#article-featured').checked;
       const allowComments = root.querySelector('#article-comments').checked;
 
-      const image = imageUrlInput.value.trim() || 'https://images.unsplash.com/photo-1580674684081-7617fbf3d745?auto=format&fit=crop&w=1200&q=85';
-      const imageAlt = root.querySelector('#article-image-alt').value.trim();
-      const imageCaption = root.querySelector('#article-image-caption').value.trim();
+      const image = root.querySelector('#article-image-url')?.value?.trim() || '';
+      const imageAlt = root.querySelector('#article-image-alt')?.value?.trim() || '';
+      const imageCaption = root.querySelector('#article-image-caption')?.value?.trim() || '';
 
       const tags = tagsInput.value.trim();
       const excerpt = excerptInput.value.trim();

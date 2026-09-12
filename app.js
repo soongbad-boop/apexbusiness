@@ -301,12 +301,15 @@ function routeInfo() {
   const recognizedPages = ['home', 'about', 'services', 'insights', 'blog', 'contact', 'privacy-policy', 'terms-and-conditions', 'conversation', 'visa-assistance', 'automation', 'advisory-session', 'advisors'];
 
   if (location.hash) {
-    const rawHash = location.hash.replace(/^#\/?/, '').trim();
-    let targetPath = location.pathname;
-
-    if (recognizedPages.includes(rawHash)) {
-      targetPath = rawHash === 'home' ? '/' : `/${rawHash}`;
-      history.replaceState(null, '', `${SITE_BASE_PATH}${targetPath}${location.search}`);
+    const rawHash = location.hash.replace(/^#\/?/, '').split('?')[0].trim();
+    if (rawHash.startsWith('insights/')) {
+      return { view: 'article', slug: rawHash.slice('insights/'.length) };
+    }
+    if (rawHash.startsWith('blog/')) {
+      return { view: 'article', slug: rawHash.slice('blog/'.length) };
+    }
+    if (recognizedPages.includes(rawHash) && rawHash !== 'home') {
+      return { view: rawHash, slug: '' };
     }
   }
 
@@ -315,7 +318,7 @@ function routeInfo() {
     pathname = pathname.slice(SITE_BASE_PATH.length) || '/';
   }
   const segment = pathname.replace(/^\/+/, '').replace(/\/+$/, '').replace(/\.html$/, '').trim();
-  if (!segment || segment === 'home') return { view: 'home', slug: '' };
+  if (!segment || segment === 'home' || segment === 'index') return { view: 'home', slug: '' };
   if (segment === 'insights' || segment === 'blog') return { view: 'insights', slug: '' };
   if (segment.startsWith('insights/')) {
     return { view: 'article', slug: segment.slice('insights/'.length) };
@@ -326,7 +329,7 @@ function routeInfo() {
   if (segment.startsWith('article/')) {
     return { view: 'article', slug: segment.slice('article/'.length) };
   }
-  if (['about', 'services', 'contact', 'privacy-policy', 'terms-and-conditions', 'conversation', 'visa-assistance', 'automation', 'advisory-session', 'advisors'].includes(segment)) {
+  if (recognizedPages.includes(segment)) {
     return { view: segment, slug: '' };
   }
 

@@ -8,7 +8,6 @@ DirectoryIndex index.html index.php
 # Block sensitive paths and operational tooling before routing.
 <IfModule mod_rewrite.c>
   RewriteEngine On
-  RewriteBase /
   # Canonical production host only; localhost and other development hosts are untouched.
   RewriteCond %{HTTP_HOST} ^(?:www\.)?apexbusinessksa\.com$ [NC]
   RewriteCond %{HTTPS} !=on [OR]
@@ -18,11 +17,9 @@ DirectoryIndex index.html index.php
   RewriteRule ^(?:\.git|app|config|database|scripts|storage/(?:logs|rate_limits))(?:/|$) - [F,L,NC]
   RewriteRule ^deploy\.php$ - [F,L,NC]
 
-  # Authenticated CMS routes must never fall through to the public SPA.
-  RewriteCond %{REQUEST_URI} ^(.*/)?dashboard(?:\.html)?/?$ [NC]
-  RewriteRule ^dashboard(?:\.html)?$ %1dashboard.php [L,NC]
-  RewriteCond %{REQUEST_URI} ^(.*/)?login/?$ [NC]
-  RewriteRule ^login/?$ %1login.php [L,NC]
+  # Authenticated CMS routes.
+  RewriteRule ^dashboard(?:\.html)?$ dashboard.php [L,NC]
+  RewriteRule ^login/?$ login.php [L,NC]
 
   # Canonicalize legacy file URLs.
   RewriteCond %{THE_REQUEST} \s/index\.(html|php)[?\s] [NC]
@@ -32,28 +29,19 @@ DirectoryIndex index.html index.php
   RewriteRule ^home/?$ / [R=301,L]
 
   # API endpoints.
-  RewriteCond %{REQUEST_URI} ^(.*/)?api/ [NC]
-  RewriteRule ^api/(.*)$ %1public/api/$1 [L,QSA,NC]
+  RewriteRule ^api/(.*)$ public/api/$1 [L,QSA,NC]
 
   # Server-rendered article/page routes.
-  RewriteCond %{REQUEST_URI} ^(.*/)?blog/ [NC]
-  RewriteRule ^blog/([a-z0-9-]+)/?$ %1public/blog.php?slug=$1 [L,QSA,NC]
-  RewriteCond %{REQUEST_URI} ^(.*/)?insights/ [NC]
-  RewriteRule ^insights/([a-z0-9-]+)/?$ %1public/blog.php?slug=$1 [L,QSA,NC]
-  RewriteCond %{REQUEST_URI} ^(.*/)?page/ [NC]
-  RewriteRule ^page/([a-z0-9-]+)/?$ %1public/page.php?slug=$1 [L,QSA,NC]
+  RewriteRule ^blog/([a-z0-9-]+)/?$ public/blog.php?slug=$1 [L,QSA,NC]
+  RewriteRule ^insights/([a-z0-9-]+)/?$ public/blog.php?slug=$1 [L,QSA,NC]
+  RewriteRule ^page/([a-z0-9-]+)/?$ public/page.php?slug=$1 [L,QSA,NC]
 
-  # SPA shell for known public clean routes only. Unknown paths must reach the
-  # branded 404 endpoint instead of being rendered as the homepage.
-  RewriteCond %{REQUEST_URI} ^(.*/)?about/?$ [NC]
-  RewriteRule ^about/?$ %1index.html [L,NC]
-  RewriteCond %{REQUEST_URI} ^(.*/)?(?:services|insights|contact|conversation|visa-assistance|privacy-policy|terms-and-conditions|automation|advisory-session|advisors)/?$ [NC]
-  RewriteRule ^(?:services|insights|contact|conversation|visa-assistance|privacy-policy|terms-and-conditions|automation|advisory-session|advisors)/?$ %1index.html [L,NC]
+  # SPA shell for known public clean routes.
+  RewriteRule ^(about|services|insights|contact|conversation|visa-assistance|privacy-policy|terms-and-conditions|automation|advisory-session|advisors)/?$ index.html [L,NC]
 
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteCond %{REQUEST_URI} ^(.*/)?[^/]+/?$ [NC]
-  RewriteRule ^ %1public/404.php [L,NC]
+  RewriteRule ^ public/404.php [L,NC]
 </IfModule>
 
 # Deny direct access to secrets, source/config artifacts and backups.

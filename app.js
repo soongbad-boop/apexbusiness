@@ -244,7 +244,8 @@ function sanitizeRichHtml(html = '') {
   return template.innerHTML;
 }
 
-const APP_BASE_URL = new URL('.', location.href);
+const INITIAL_SCRIPT_HREF = document.currentScript?.src || location.href;
+const APP_BASE_URL = new URL('.', INITIAL_SCRIPT_HREF);
 const SITE_BASE_PATH = APP_BASE_URL.pathname.replace(/\/+$/, '');
 const apiUrl = (path) => new URL(String(path).replace(/^\/+/, ''), APP_BASE_URL).toString();
 

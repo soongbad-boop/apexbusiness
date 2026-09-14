@@ -5,7 +5,7 @@ require __DIR__ . '/app/bootstrap.php';
 start_secure_session($config);
 
 if (current_user()) {
-    header('Location: dashboard.php', true, 302);
+    header('Location: /dashboard', true, 302);
     exit;
 }
 header('Cache-Control: no-store, private');
@@ -62,9 +62,9 @@ header('X-Robots-Tag: noindex, nofollow, noarchive');
         message.textContent = '';
         submitButton.disabled = true;
         try {
-          const csrfResponse = await fetch('public/api/auth/csrf.php', { credentials: 'same-origin' });
+          const csrfResponse = await fetch('/api/auth/csrf.php', { credentials: 'same-origin' });
           const csrf = await csrfResponse.json();
-          const response = await fetch('public/api/auth/login.php', {
+          const response = await fetch('/api/auth/login.php', {
             method: 'POST',
             credentials: 'same-origin',
             headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrf.csrf_token },
@@ -72,7 +72,7 @@ header('X-Robots-Tag: noindex, nofollow, noarchive');
           });
           const result = await response.json();
           if (!response.ok) throw new Error(result.error || 'Unable to sign in.');
-          location.assign('dashboard.php');
+          location.assign('/dashboard');
         } catch (error) {
           message.textContent = error.message || 'Unable to sign in. Please try again.';
         } finally {

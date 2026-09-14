@@ -35,6 +35,18 @@ if ($blogImage !== 'https://example.com/demo/storage/media/example.jpg') {
     exit(1);
 }
 
+$blogAbsoluteImage = blog_featured_image_url($config, ['featured_image' => 'https://images.example.com/example.jpg']);
+if ($blogAbsoluteImage !== 'https://images.example.com/example.jpg') {
+    fwrite(STDERR, "Absolute blog featured image passthrough assertion failed.\n");
+    exit(1);
+}
+
+$blogMissingImage = blog_featured_image_url($config, []);
+if ($blogMissingImage !== '') {
+    fwrite(STDERR, "Missing blog featured image assertion failed.\n");
+    exit(1);
+}
+
 $externalImage = absolute_url_for_path($config, 'https://images.example.com/example.jpg');
 if ($externalImage !== 'https://images.example.com/example.jpg') {
     fwrite(STDERR, "External media URL passthrough assertion failed.\n");

@@ -119,9 +119,6 @@ function import_schema(PDO $pdo, string $schemaPath): void
         if ($statement === '') {
             continue;
         }
-        if (preg_match('/^CREATE TABLE\b/i', $statement) === 1) {
-            $statement = preg_replace('/^CREATE TABLE\b/i', 'CREATE TABLE IF NOT EXISTS', $statement, 1) ?? $statement;
-        }
         $pdo->exec($statement);
     }
 }

@@ -32,7 +32,17 @@ if ($width < 1 || $height < 1 || $width > 12000 || $height > 12000 || ($width * 
 }
 
 $directory = rtrim((string) $config['uploads']['directory'], DIRECTORY_SEPARATOR);
-if (!ensure_directory($directory)) {
+$directoryReady = is_dir($directory);
+if (!$directoryReady) {
+    foreach ([0750, 0755] as $mode) {
+        if ((@mkdir($directory, $mode, true) || is_dir($directory)) && is_dir($directory)) {
+            @chmod($directory, $mode);
+            $directoryReady = true;
+            break;
+        }
+    }
+}
+if (!$directoryReady) {
     json_response(['error' => 'Upload storage is unavailable.'], 500);
 }
 

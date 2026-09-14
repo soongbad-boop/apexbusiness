@@ -29,6 +29,12 @@ if ($customCanonical !== 'https://cdn.example.com/custom-page') {
     exit(1);
 }
 
+$relativeCanonical = page_canonical_url($config, ['canonical_url' => '/custom-page'], 'privacy-policy');
+if ($relativeCanonical !== 'https://example.com/demo/custom-page') {
+    fwrite(STDERR, "Relative page canonical URL assertion failed.\n");
+    exit(1);
+}
+
 $absoluteImage = absolute_url_for_path($config, '/storage/media/example.jpg');
 if ($absoluteImage !== 'https://example.com/demo/storage/media/example.jpg') {
     fwrite(STDERR, "Media URL normalization assertion failed.\n");

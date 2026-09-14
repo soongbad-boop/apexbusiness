@@ -76,6 +76,17 @@ function activity_log_ip_column_is_compatible(PDO $pdo): bool
     return $dataType === 'varbinary' && str_contains($columnType, '16');
 }
 
+function validate_runtime_schema(PDO $pdo): void
+{
+    $missingTables = missing_required_tables($pdo);
+    if ($missingTables !== []) {
+        throw new RuntimeException('Database is partially initialized. Missing required tables: ' . implode(', ', $missingTables) . '. Import database/mysql-schema.sql or restore the missing tables before rerunning deploy.php.');
+    }
+    if (!activity_log_ip_column_is_compatible($pdo)) {
+        throw new RuntimeException('Database schema is incompatible: activity_logs.ip_address must be VARBINARY(16) for the current runtime. Update the column definition before rerunning deploy.php.');
+    }
+}
+
 function import_schema(PDO $pdo, string $schemaPath): void
 {
     $sql = file_get_contents($schemaPath);
@@ -211,15 +222,8 @@ try {
         }
         import_schema($pdo, $schemaPath);
         echo "  ✓ Imported base database schema.\n";
-    } else {
-        $missingTables = missing_required_tables($pdo);
-        if ($missingTables !== []) {
-            throw new RuntimeException('Database is partially initialized. Missing required tables: ' . implode(', ', $missingTables) . '. Import database/mysql-schema.sql or restore the missing tables before rerunning deploy.php.');
-        }
-        if (!activity_log_ip_column_is_compatible($pdo)) {
-            throw new RuntimeException('Database schema is incompatible: activity_logs.ip_address must be VARBINARY(16) for the current runtime. Update the column definition before rerunning deploy.php.');
-        }
     }
+    validate_runtime_schema($pdo);
 
     $seedFile = __DIR__ . '/database/seed.php';
     if (is_file($seedFile)) {

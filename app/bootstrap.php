@@ -372,7 +372,7 @@ function page_public_path(string $slug): string
 function page_canonical_url(array $config, array $page, string $slug): string
 {
     if (!empty($page['canonical_url'])) {
-        return (string) $page['canonical_url'];
+        return absolute_url_for_path($config, (string) $page['canonical_url']) ?? '';
     }
 
     $baseUrl = app_base_url($config);

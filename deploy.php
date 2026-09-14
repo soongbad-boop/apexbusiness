@@ -65,9 +65,7 @@ function import_schema(PDO $pdo, string $schemaPath): void
         $char = $sql[$i];
 
         if ($inBlockComment) {
-            $statement .= $char;
             if ($char === '*' && ($sql[$i + 1] ?? '') === '/') {
-                $statement .= '/';
                 $i++;
                 $inBlockComment = false;
             }
@@ -75,7 +73,9 @@ function import_schema(PDO $pdo, string $schemaPath): void
         }
 
         if ($quote === null && $char === '/' && ($sql[$i + 1] ?? '') === '*') {
-            $statement .= '/*';
+            if (($sql[$i + 2] ?? '') === '!') {
+                throw new RuntimeException('database/mysql-schema.sql cannot contain executable MySQL comments when used by deploy.php.');
+            }
             $i++;
             $inBlockComment = true;
             continue;

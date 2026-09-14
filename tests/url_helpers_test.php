@@ -23,6 +23,12 @@ if ($absoluteImage !== 'https://example.com/demo/storage/media/example.jpg') {
     exit(1);
 }
 
+$relativeImage = absolute_url_for_path($config, 'storage/media/example.jpg');
+if ($relativeImage !== 'https://example.com/demo/storage/media/example.jpg') {
+    fwrite(STDERR, "Relative media URL normalization assertion failed.\n");
+    exit(1);
+}
+
 $externalImage = absolute_url_for_path($config, 'https://images.example.com/example.jpg');
 if ($externalImage !== 'https://images.example.com/example.jpg') {
     fwrite(STDERR, "External media URL passthrough assertion failed.\n");

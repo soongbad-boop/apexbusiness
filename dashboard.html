@@ -16,12 +16,12 @@
   <meta name="description" content="Apex Business Consultancy CMS &amp; Dashboard." />
   <meta name="robots" content="noindex,nofollow,noarchive" />
   <title>Apex Business Consultancy | CMS &amp; Dashboard</title>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="dashboard-cms.css" />
+  <link rel="stylesheet" href="/dashboard-cms.css" />
   <style>
     :root {
       --navy: #07152f;
@@ -259,21 +259,21 @@
     </main>
   </div>
 
-  <script src="dashboard-cms.js?v=20260911-4"></script>
+  <script src="/dashboard-cms.js?v=20260911-4"></script>
   <script>
     document.getElementById('logout-button').addEventListener('click', async event => {
       const button = event.currentTarget;
       button.disabled = true;
       try {
-        const csrfResponse = await fetch('public/api/auth/csrf.php', { credentials: 'same-origin' });
+        const csrfResponse = await fetch('/api/auth/csrf.php', { credentials: 'same-origin' });
         const csrf = await csrfResponse.json();
-        const response = await fetch('public/api/auth/logout.php', {
+        const response = await fetch('/api/auth/logout.php', {
           method: 'POST',
           credentials: 'same-origin',
           headers: { 'X-CSRF-Token': csrf.csrf_token }
         });
         if (!response.ok) throw new Error('Unable to sign out.');
-        location.assign('login.php');
+        location.assign('/login');
       } catch (error) {
         button.disabled = false;
         alert(error.message || 'Unable to sign out. Please try again.');

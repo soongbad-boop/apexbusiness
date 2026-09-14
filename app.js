@@ -1611,7 +1611,7 @@ async function hydrateSiteSettings() {
 
 function renderSite() {
   if (location.hash.startsWith('#/dashboard') || location.pathname.replace(/\/+$/, '') === '/dashboard') {
-    location.replace('dashboard.html');
+    location.replace('/dashboard.php');
     return;
   }
   const isHome = route() === 'home';

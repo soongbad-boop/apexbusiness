@@ -6,7 +6,7 @@ start_secure_session($config);
 
 $user = current_user();
 if (!$user) {
-    header('Location: login.php', true, 302);
+    header('Location: /login', true, 302);
     exit;
 }
 

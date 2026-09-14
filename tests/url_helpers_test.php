@@ -5,6 +5,12 @@ require dirname(__DIR__) . '/app/bootstrap.php';
 
 $config = ['app_url' => 'https://example.com/demo'];
 
+$pagePath = page_public_path('privacy-policy');
+if ($pagePath !== '/page/privacy-policy') {
+    fwrite(STDERR, "Page public path assertion failed.\n");
+    exit(1);
+}
+
 $defaultCanonical = page_canonical_url($config, ['title' => 'Example'], 'privacy-policy');
 if ($defaultCanonical !== 'https://example.com/demo/page/privacy-policy') {
     fwrite(STDERR, "Default page canonical URL assertion failed.\n");

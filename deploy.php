@@ -53,6 +53,7 @@ function import_schema(PDO $pdo, string $schemaPath): void
     $sql = preg_replace('/^\s*CREATE DATABASE\b.*?;\s*/mi', '', $sql) ?? $sql;
     $sql = preg_replace('/^\s*USE\b.*?;\s*/mi', '', $sql) ?? $sql;
     $sql = preg_replace('/^\s*--.*$/m', '', $sql) ?? $sql;
+    $sql = preg_replace('/^\s*#.*$/m', '', $sql) ?? $sql;
     $statements = [];
     $statement = '';
     $quote = null;

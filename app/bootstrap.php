@@ -364,6 +364,11 @@ function blog_featured_image_url(array $config, array $post): string
     return absolute_url_for_path($config, $post['featured_image'] ?? '') ?? '';
 }
 
+function page_public_path(string $slug): string
+{
+    return '/page/' . rawurlencode($slug);
+}
+
 function page_canonical_url(array $config, array $page, string $slug): string
 {
     if (!empty($page['canonical_url'])) {
@@ -371,7 +376,7 @@ function page_canonical_url(array $config, array $page, string $slug): string
     }
 
     $baseUrl = app_base_url($config);
-    return ($baseUrl !== '' && $slug !== '') ? $baseUrl . '/page/' . rawurlencode($slug) : '';
+    return ($baseUrl !== '' && $slug !== '') ? $baseUrl . page_public_path($slug) : '';
 }
 
 /**

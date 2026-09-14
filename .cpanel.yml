@@ -8,6 +8,8 @@ deployment:
     #    This preserves untracked production files such as .env and uploaded media.
     - /usr/bin/git archive --format=tar HEAD | /bin/tar -x -C $DEPLOYPATH
 
-    # 3. SECURITY: Remove seeding scripts after first deployment (uncomment after first deploy)
-    # - /bin/rm -f $DEPLOYPATH/database/seed.php
-    # - /bin/rm -f $DEPLOYPATH/database/create-admin.php
+    # 3. Run the safe CLI deployment check/import runner when PHP is available.
+    - command -v php >/dev/null 2>&1 || { echo "php CLI is required for deployment" >&2; exit 1; }; php $DEPLOYPATH/deploy.php
+
+    # 4. SECURITY: remove the one-time manual admin bootstrap helper after deployment completes.
+    - /bin/rm -f $DEPLOYPATH/database/create-admin.php

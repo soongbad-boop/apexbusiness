@@ -35,15 +35,73 @@ if (!function_exists('env_value')) {
     }
 }
 
+if (!function_exists('default_app_url')) {
+    function default_app_url(): string
+    {
+        $scheme = (!empty($_SERVER['HTTPS']) && strtolower((string) $_SERVER['HTTPS']) !== 'off')
+            || strtolower((string) ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '')) === 'https'
+            ? 'https'
+            : 'http';
+        $host = trim((string) ($_SERVER['HTTP_HOST'] ?? ''));
+        if ($host === '') {
+            return 'http://localhost';
+        }
+
+        $scriptName = str_replace('\\', '/', (string) ($_SERVER['SCRIPT_NAME'] ?? ''));
+        $basePath = trim(dirname($scriptName), '/');
+        if ($basePath === '.' || $basePath === '/') {
+            $basePath = '';
+        }
+        if ($basePath === 'public') {
+            $basePath = '';
+        } elseif (str_ends_with($basePath, '/public')) {
+            $basePath = substr($basePath, 0, -7);
+        }
+
+        return $scheme . '://' . $host . ($basePath !== '' ? '/' . $basePath : '');
+    }
+}
+
+if (!function_exists('default_upload_public_path')) {
+    function default_upload_public_path(string $appUrl): string
+    {
+        $path = (string) parse_url($appUrl, PHP_URL_PATH);
+        $path = rtrim($path, '/');
+        return ($path !== '' ? $path : '') . '/storage/media';
+    }
+}
+
+if (!function_exists('upload_directory_path')) {
+    function upload_directory_path(): string
+    {
+        $configured = env_value('UPLOAD_DIRECTORY');
+        if ($configured === null || trim($configured) === '') {
+            return dirname(__DIR__) . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . 'media';
+        }
+
+        $configured = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, trim($configured));
+        $isAbsolute = DIRECTORY_SEPARATOR === '\\'
+            ? preg_match('/^[A-Za-z]:\\\\/', $configured) === 1
+            : str_starts_with($configured, DIRECTORY_SEPARATOR);
+
+        if ($isAbsolute) {
+            return $configured;
+        }
+
+        return dirname(__DIR__) . DIRECTORY_SEPARATOR . ltrim($configured, DIRECTORY_SEPARATOR);
+    }
+}
+
 $appEnv = strtolower((string) env_value('APP_ENV', 'development'));
 $appDebugRequested = env_value('APP_DEBUG', 'false') === 'true' || env_value('APP_DEBUG', '0') === '1';
+$defaultAppUrl = default_app_url();
 
 return [
     'app_name' => env_value('APP_NAME', 'Apex Business Consultancy'),
     'app_env' => $appEnv,
     // Never expose PHP error details in production even if APP_DEBUG is accidentally enabled.
     'app_debug' => $appEnv !== 'production' && $appDebugRequested,
-    'app_url' => rtrim((string) env_value('APP_URL', 'http://localhost/Apexco'), '/'),
+    'app_url' => rtrim((string) env_value('APP_URL', $defaultAppUrl), '/'),
     'database' => [
         'host' => env_value('DB_HOST', '127.0.0.1'),
         'port' => env_value('DB_PORT', '3306'),
@@ -57,8 +115,8 @@ return [
         'lifetime' => (int) env_value('SESSION_LIFETIME', '7200'),
     ],
     'uploads' => [
-        'directory' => env_value('UPLOAD_DIRECTORY', dirname(__DIR__) . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . 'media'),
-        'public_path' => env_value('UPLOAD_PUBLIC_PATH', '/Apexco/storage/media'),
+        'directory' => upload_directory_path(),
+        'public_path' => env_value('UPLOAD_PUBLIC_PATH', default_upload_public_path($defaultAppUrl)),
         'max_bytes' => (int) env_value('UPLOAD_MAX_BYTES', '5242880'),
     ],
     'mail' => [

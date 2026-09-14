@@ -88,9 +88,9 @@ Push your repository to GitHub (ensure `.env` is ignored by `.gitignore`).
 1. In cPanel, navigate to **Git™ Version Control** (under Files).
 2. Click **Create**.
 3. Toggle **Clone a Repository**.
-4. Enter Clone URL: `https://github.com/your-org/your-repo.git` (or SSH `git@github.com:...`).
-5. Set Repository Path: `/home/username/repositories/apexco`
-6. Set Repository Name: `apexco`
+4. Enter Clone URL: `git@github.com:emran285-wq/Apexbusiness.git` (preferred) or the equivalent HTTPS URL.
+5. Set Repository Path to a non-public working tree such as `/home/username/repositories/Apexbusiness`
+6. Set Repository Name: `Apexbusiness`
 7. Click **Create**.
 
 ### Step 3: Verify `.cpanel.yml`
@@ -100,15 +100,15 @@ The project root includes `.cpanel.yml`:
 deployment:
   tasks:
     - export DEPLOYPATH=/home/username/public_html
-    - /bin/cp -R * $DEPLOYPATH
-    - /bin/chmod 755 $DEPLOYPATH
-    - /bin/chmod 644 $DEPLOYPATH/.htaccess
-    - /bin/chmod -R 755 $DEPLOYPATH/storage
+    - /usr/bin/git archive --format=tar HEAD | /bin/tar -x -C $DEPLOYPATH
+    - if command -v php >/dev/null 2>&1; then php $DEPLOYPATH/deploy.php; fi
+    - /bin/rm -f $DEPLOYPATH/database/seed.php
+    - /bin/rm -f $DEPLOYPATH/database/create-admin.php
 ```
-*(Make sure to adjust `/home/username/public_html` to your exact cPanel path if using an addon domain or subfolder).*
+This flow preserves untracked files already present in production, such as `.env` and uploaded media, while still refreshing tracked application files from Git. Adjust `DEPLOYPATH` if the site is deployed to an addon-domain document root instead of `public_html`.
 
 ### Step 4: Deploy
-Click **Manage** in cPanel Git Version Control → Go to the **Pull or Deploy** tab → Click **Deploy HEAD Commit**.
+Click **Manage** in cPanel Git Version Control → Go to the **Pull or Deploy** tab → Click **Update from Remote** first, then **Deploy HEAD Commit**.
 
 *(Optional Webhook)*: In GitHub repository settings → Webhooks, add `https://cpanel.yourdomain.com:2083/cpsess.../git/deploy.cgi` to trigger automatic deploys upon push.
 
@@ -142,6 +142,7 @@ In cPanel **Terminal** (or SSH):
 cd ~/public_html
 php deploy.php
 ```
+If you use Git Version Control deployment with the bundled `.cpanel.yml`, this command is already attempted automatically during deploy.
 
 ---
 
@@ -155,7 +156,7 @@ php deploy.php
   - `https://apexbusinessksa.com/automation`
   - `https://apexbusinessksa.com/advisory-session`
   - `https://apexbusinessksa.com/advisors`
-- [ ] **CMS Dashboard**: Access `https://apexbusinessksa.com/dashboard.html` — test branding controls, article editor, and settings synchronization.
+- [ ] **CMS Dashboard**: Access `https://apexbusinessksa.com/dashboard` (or `dashboard.php`) — test branding controls, article editor, and settings synchronization.
 - [ ] **PHP API Endpoints**:
   - `GET /api/settings.php` → Returns production JSON settings.
   - `POST /api/auth/login.php` → Authenticates authorized users.

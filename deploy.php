@@ -15,6 +15,46 @@ if (PHP_SAPI !== 'cli') {
     exit;
 }
 
+function ensure_directory(string $path): bool
+{
+    foreach ([0750, 0755] as $mode) {
+        if ((is_dir($path) || @mkdir($path, $mode, true)) && is_dir($path)) {
+            @chmod($path, $mode);
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function schema_table_exists(PDO $pdo, string $table): bool
+{
+    $query = $pdo->prepare('SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = ?');
+    $query->execute([$table]);
+    return (int) $query->fetchColumn() > 0;
+}
+
+function import_schema(PDO $pdo, string $schemaPath): void
+{
+    $sql = file_get_contents($schemaPath);
+    if ($sql === false) {
+        throw new RuntimeException('Unable to read database/mysql-schema.sql.');
+    }
+
+    $sql = preg_replace('/^\s*CREATE DATABASE\b.*?;\s*/mi', '', $sql) ?? $sql;
+    $sql = preg_replace('/^\s*USE\b.*?;\s*/mi', '', $sql) ?? $sql;
+    $sql = preg_replace('/^\s*--.*$/m', '', $sql) ?? $sql;
+    $statements = preg_split('/;\s*(?:\R|$)/', $sql) ?: [];
+
+    foreach ($statements as $statement) {
+        $statement = trim($statement);
+        if ($statement === '') {
+            continue;
+        }
+        $pdo->exec($statement);
+    }
+}
+
 echo "========================================================\n";
 echo "  APEX BUSINESS CONSULTANCY — DEPLOYMENT & SYNC RUNNER  \n";
 echo "========================================================\n\n";
@@ -39,11 +79,10 @@ $storageDir = __DIR__ . '/storage';
 $directories = [$storageDir, $storageDir . '/media', $storageDir . '/logs', $storageDir . '/rate_limits'];
 echo "\n[2/4] Preparing storage...\n";
 foreach ($directories as $dir) {
-    if (!is_dir($dir) && !mkdir($dir, 0750, true) && !is_dir($dir)) {
+    if (!ensure_directory($dir)) {
         fwrite(STDERR, "[ERROR] Could not create {$dir}.\n");
         exit(1);
     }
-    @chmod($dir, 0750);
     echo "  ✓ " . basename($dir) . "\n";
 }
 
@@ -58,6 +97,15 @@ try {
     ]);
     $pdo->query('SELECT 1');
     echo "  ✓ Connected to MySQL database [{$db['name']}].\n";
+
+    $schemaPath = __DIR__ . '/database/mysql-schema.sql';
+    if (!schema_table_exists($pdo, 'roles') || !schema_table_exists($pdo, 'posts')) {
+        if (!is_file($schemaPath)) {
+            throw new RuntimeException('database/mysql-schema.sql not found.');
+        }
+        import_schema($pdo, $schemaPath);
+        echo "  ✓ Imported base database schema.\n";
+    }
 
     $seedFile = __DIR__ . '/database/seed.php';
     if (is_file($seedFile)) {

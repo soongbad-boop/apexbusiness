@@ -56,6 +56,39 @@ function json_response(mixed $payload, int $status = 200): never
     exit;
 }
 
+function ip_to_binary(?string $ip): ?string
+{
+    $ip = trim((string) $ip);
+    if ($ip === '' || filter_var($ip, FILTER_VALIDATE_IP) === false) {
+        return null;
+    }
+
+    $packed = @inet_pton($ip);
+    return $packed === false ? null : $packed;
+}
+
+function binary_ip_to_string(mixed $value): ?string
+{
+    if (!is_string($value) || $value === '') {
+        return null;
+    }
+
+    $ip = @inet_ntop($value);
+    return $ip === false ? null : $ip;
+}
+
+function ensure_directory(string $path, array $modes = [0750, 0755]): bool
+{
+    foreach ($modes as $mode) {
+        if ((is_dir($path) || @mkdir($path, $mode, true)) && is_dir($path)) {
+            @chmod($path, $mode);
+            return true;
+        }
+    }
+
+    return false;
+}
+
 function request_json(int $maxBytes = 25_000_000): array
 {
     $raw = file_get_contents('php://input') ?: '';
@@ -159,7 +192,7 @@ function log_activity(PDO $pdo, ?int $userId, string $action, ?string $entityTyp
     if (!in_array($status, ['success', 'failure'], true)) {
         $status = 'failure';
     }
-    $query = $pdo->prepare('INSERT INTO activity_logs (user_id, action, entity_type, entity_id, status, metadata, ip_address) VALUES (?, ?, ?, ?, ?, ?, INET6_ATON(?))');
+    $query = $pdo->prepare('INSERT INTO activity_logs (user_id, action, entity_type, entity_id, status, metadata, ip_address) VALUES (?, ?, ?, ?, ?, ?, ?)');
     $query->execute([
         $userId,
         mb_strimwidth($action, 0, 190, ''),
@@ -167,7 +200,7 @@ function log_activity(PDO $pdo, ?int $userId, string $action, ?string $entityTyp
         $entityId,
         $status,
         json_encode($metadata, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE),
-        $_SERVER['REMOTE_ADDR'] ?? null,
+        ip_to_binary($_SERVER['REMOTE_ADDR'] ?? null),
     ]);
 }
 
@@ -178,7 +211,7 @@ function log_activity(PDO $pdo, ?int $userId, string $action, ?string $entityTyp
 function consume_rate_limit(string $bucket, int $maxAttempts, int $windowSeconds): int
 {
     $directory = dirname(__DIR__) . '/storage/rate_limits';
-    if (!is_dir($directory) && !@mkdir($directory, 0750, true) && !is_dir($directory)) {
+    if (!ensure_directory($directory)) {
         return 0; // Fail open if storage is unavailable; auth still has password/CSRF controls.
     }
 

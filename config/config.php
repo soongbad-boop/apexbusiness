@@ -35,6 +35,24 @@ if (!function_exists('env_value')) {
     }
 }
 
+if (!function_exists('detected_base_path')) {
+    function detected_base_path(): string
+    {
+        $scriptName = str_replace('\\', '/', (string) ($_SERVER['SCRIPT_NAME'] ?? ''));
+        $basePath = trim(dirname($scriptName), '/');
+        if ($basePath === '.' || $basePath === '/') {
+            return '';
+        }
+        if ($basePath === 'public') {
+            return '';
+        } elseif (str_ends_with($basePath, '/public')) {
+            $basePath = substr($basePath, 0, -7);
+        }
+
+        return $basePath !== '' ? '/' . $basePath : '';
+    }
+}
+
 if (!function_exists('default_app_url')) {
     function default_app_url(): string
     {
@@ -47,27 +65,14 @@ if (!function_exists('default_app_url')) {
             return 'http://localhost';
         }
 
-        $scriptName = str_replace('\\', '/', (string) ($_SERVER['SCRIPT_NAME'] ?? ''));
-        $basePath = trim(dirname($scriptName), '/');
-        if ($basePath === '.' || $basePath === '/') {
-            $basePath = '';
-        }
-        if ($basePath === 'public') {
-            $basePath = '';
-        } elseif (str_ends_with($basePath, '/public')) {
-            $basePath = substr($basePath, 0, -7);
-        }
-
-        return $scheme . '://' . $host . ($basePath !== '' ? '/' . $basePath : '');
+        return $scheme . '://' . $host . detected_base_path();
     }
 }
 
 if (!function_exists('default_upload_public_path')) {
-    function default_upload_public_path(string $appUrl): string
+    function default_upload_public_path(): string
     {
-        $path = (string) parse_url($appUrl, PHP_URL_PATH);
-        $path = rtrim($path, '/');
-        return ($path !== '' ? $path : '') . '/storage/media';
+        return detected_base_path() . '/storage/media';
     }
 }
 
@@ -116,7 +121,7 @@ return [
     ],
     'uploads' => [
         'directory' => upload_directory_path(),
-        'public_path' => env_value('UPLOAD_PUBLIC_PATH', default_upload_public_path($defaultAppUrl)),
+        'public_path' => env_value('UPLOAD_PUBLIC_PATH', default_upload_public_path()),
         'max_bytes' => (int) env_value('UPLOAD_MAX_BYTES', '5242880'),
     ],
     'mail' => [

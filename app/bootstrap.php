@@ -89,6 +89,18 @@ function ensure_directory(string $path, array $modes = [0750, 0755]): bool
     return false;
 }
 
+function trusts_forwarded_proto(): bool
+{
+    $remoteAddr = trim((string) ($_SERVER['REMOTE_ADDR'] ?? ''));
+    if ($remoteAddr === '' || filter_var($remoteAddr, FILTER_VALIDATE_IP) === false) {
+        return false;
+    }
+
+    return $remoteAddr === '127.0.0.1'
+        || $remoteAddr === '::1'
+        || filter_var($remoteAddr, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false;
+}
+
 function request_json(int $maxBytes = 25_000_000): array
 {
     $raw = file_get_contents('php://input') ?: '';
@@ -107,7 +119,7 @@ function is_https_request(): bool
     if (!empty($_SERVER['HTTPS']) && strtolower((string) $_SERVER['HTTPS']) !== 'off') {
         return true;
     }
-    return strtolower((string) ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '')) === 'https';
+    return trusts_forwarded_proto() && strtolower((string) ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '')) === 'https';
 }
 
 function start_secure_session(array $config): void
@@ -272,6 +284,9 @@ function valid_http_url_or_path(mixed $value, int $maxLength = 2048): ?string
     }
     if (str_starts_with($value, '/') || str_starts_with($value, './')) {
         return $value;
+    }
+    if (!str_contains($value, ':') && !str_starts_with($value, '//')) {
+        return '/' . ltrim($value, '/');
     }
     if (str_starts_with($value, 'data:image/')) {
         return $value;

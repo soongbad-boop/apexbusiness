@@ -46,6 +46,9 @@ function import_schema(PDO $pdo, string $schemaPath): void
     if ($sql === false) {
         throw new RuntimeException('Unable to read database/mysql-schema.sql.');
     }
+    if (preg_match('/^\s*(?:DELIMITER|CREATE\s+(?:TRIGGER|PROCEDURE|FUNCTION|EVENT))\b/im', $sql) === 1) {
+        throw new RuntimeException('database/mysql-schema.sql must contain only simple DDL/DML statements when used by deploy.php.');
+    }
 
     $sql = preg_replace('/^\s*CREATE DATABASE\b.*?;\s*/mi', '', $sql) ?? $sql;
     $sql = preg_replace('/^\s*USE\b.*?;\s*/mi', '', $sql) ?? $sql;

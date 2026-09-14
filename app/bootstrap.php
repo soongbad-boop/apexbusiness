@@ -383,12 +383,7 @@ function page_canonical_url(array $config, array $page, string $slug, ?string $r
         return '';
     }
 
-    $requestPath = is_string($requestUri) ? (string) parse_url($requestUri, PHP_URL_PATH) : '';
-    if ($requestPath === '') {
-        $requestPath = page_public_path($slug);
-    }
-
-    return $baseUrl . $requestPath;
+    return $baseUrl . page_public_path($slug);
 }
 
 /**

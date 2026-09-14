@@ -103,8 +103,7 @@ deployment:
   tasks:
     - export DEPLOYPATH=/home/username/public_html
     - /usr/bin/git archive --format=tar HEAD | /bin/tar -x -C $DEPLOYPATH
-    - if command -v php >/dev/null 2>&1; then php $DEPLOYPATH/deploy.php; fi
-    - /bin/rm -f $DEPLOYPATH/database/seed.php
+    - command -v php >/dev/null 2>&1 || { echo "php CLI is required for deployment" >&2; exit 1; }; php $DEPLOYPATH/deploy.php
     - /bin/rm -f $DEPLOYPATH/database/create-admin.php
 ```
 This flow preserves untracked files already present in production, such as `.env` and uploaded media, while still refreshing tracked application files from Git. Adjust `DEPLOYPATH` if the site is deployed to an addon-domain document root instead of `public_html`.

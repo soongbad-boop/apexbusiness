@@ -17,6 +17,12 @@ if ($defaultCanonical !== 'https://example.com/demo/page/privacy-policy') {
     exit(1);
 }
 
+$legacyCanonical = page_canonical_url($config, ['title' => 'Example'], 'privacy-policy', '/legacy/privacy-policy');
+if ($legacyCanonical !== 'https://example.com/demo/page/privacy-policy') {
+    fwrite(STDERR, "Stable page canonical route assertion failed.\n");
+    exit(1);
+}
+
 $emptySlugCanonical = page_canonical_url($config, ['title' => 'Example'], '');
 if ($emptySlugCanonical !== '') {
     fwrite(STDERR, "Empty page canonical URL assertion failed.\n");

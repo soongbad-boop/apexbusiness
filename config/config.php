@@ -100,9 +100,11 @@ if (!function_exists('default_app_url')) {
 }
 
 if (!function_exists('default_upload_public_path')) {
-    function default_upload_public_path(): string
+    function default_upload_public_path(string $appUrl): string
     {
-        return detected_base_path() . '/storage/media';
+        $path = (string) parse_url($appUrl, PHP_URL_PATH);
+        $path = rtrim($path, '/');
+        return ($path !== '' ? $path : '') . '/storage/media';
     }
 }
 
@@ -151,7 +153,7 @@ return [
     ],
     'uploads' => [
         'directory' => upload_directory_path(),
-        'public_path' => env_value('UPLOAD_PUBLIC_PATH', default_upload_public_path()),
+        'public_path' => env_value('UPLOAD_PUBLIC_PATH', default_upload_public_path((string) env_value('APP_URL', $defaultAppUrl))),
         'max_bytes' => (int) env_value('UPLOAD_MAX_BYTES', '5242880'),
     ],
     'mail' => [

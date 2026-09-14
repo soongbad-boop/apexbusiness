@@ -44,6 +44,7 @@ function import_schema(PDO $pdo, string $schemaPath): void
     $sql = preg_replace('/^\s*CREATE DATABASE\b.*?;\s*/mi', '', $sql) ?? $sql;
     $sql = preg_replace('/^\s*USE\b.*?;\s*/mi', '', $sql) ?? $sql;
     $sql = preg_replace('/^\s*--.*$/m', '', $sql) ?? $sql;
+    $sql = preg_replace('/\bCREATE TABLE\s+/i', 'CREATE TABLE IF NOT EXISTS ', $sql) ?? $sql;
     $statements = preg_split('/;\s*(?:\R|$)/', $sql) ?: [];
 
     foreach ($statements as $statement) {

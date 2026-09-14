@@ -1,6 +1,11 @@
 <?php
 declare(strict_types=1);
 
+if (PHP_SAPI !== 'cli') {
+    http_response_code(404);
+    exit;
+}
+
 $config = require dirname(__DIR__) . '/config/config.php';
 
 function seed_ip_binary(string $ip): ?string

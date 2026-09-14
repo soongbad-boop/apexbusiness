@@ -50,8 +50,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $countQuery->execute($params);
     $total = (int) $countQuery->fetchColumn();
 
-    $sql = 'SELECT a.id, a.user_id, a.action, a.entity_type, a.entity_id, a.status, a.metadata, 
-            INET6_NTOA(a.ip_address) AS ip, a.created_at, 
+    $sql = 'SELECT a.id, a.user_id, a.action, a.entity_type, a.entity_id, a.status, a.metadata,
+            a.ip_address, a.created_at,
             COALESCE(u.display_name, \'Apex Administrator\') AS actor,
             u.email AS actor_email
             FROM activity_logs a 
@@ -62,6 +62,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $stmt = $pdo->prepare($sql);
     $stmt->execute($params);
     $logs = $stmt->fetchAll();
+    foreach ($logs as &$log) {
+        $log['ip'] = binary_ip_to_string($log['ip_address'] ?? null);
+        unset($log['ip_address']);
+    }
+    unset($log);
 
     json_response([
         'ok' => true,
@@ -88,9 +93,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $status = in_array($payload['status'] ?? '', ['success', 'failure'], true) ? $payload['status'] : 'success';
     $metadata = $payload['metadata'] ?? [];
     $userId = (int) $user['id'];
-    $ip = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
+    $ip = ip_to_binary(request_ip_address());
 
-    $stmt = $pdo->prepare('INSERT INTO activity_logs (user_id, action, entity_type, entity_id, status, metadata, ip_address, created_at) VALUES (?, ?, ?, ?, ?, ?, INET6_ATON(?), NOW())');
+    $stmt = $pdo->prepare('INSERT INTO activity_logs (user_id, action, entity_type, entity_id, status, metadata, ip_address, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())');
     $stmt->execute([$userId, $action, $entityType, $entityId, $status, json_encode($metadata), $ip]);
     $id = (int) $pdo->lastInsertId();
 

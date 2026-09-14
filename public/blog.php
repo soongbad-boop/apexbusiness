@@ -73,7 +73,7 @@ $pageTitle = stripos($title, 'Apex Business Consultancy') !== false ? $title : $
 $description = !empty($post['seo_description']) ? $post['seo_description'] : $post['description'];
 $author = $post['author_name'] ?? 'Apex Administrator';
 $category = $post['category_name'] ?? 'Market Entry';
-$image = '';
+$image = blog_featured_image_url($config, $post);
 $articleContent = sanitize_rich_html((string) $post['content']);
 $articleContent = preg_replace('/<figure\b[^>]*>[\s\S]*?<img\b[^>]*>[\s\S]*?<\/figure>/i', '', $articleContent) ?? $articleContent;
 $articleContent = preg_replace('/<img\b[^>]*>/i', '', $articleContent) ?? $articleContent;

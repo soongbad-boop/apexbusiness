@@ -1,7 +1,22 @@
 <?php
 declare(strict_types=1);
 
+if (PHP_SAPI !== 'cli') {
+    http_response_code(404);
+    exit;
+}
+
 $config = require dirname(__DIR__) . '/config/config.php';
+
+function seed_ip_binary(string $ip): ?string
+{
+    if (filter_var($ip, FILTER_VALIDATE_IP) === false) {
+        return null;
+    }
+
+    $packed = @inet_pton($ip);
+    return $packed === false ? null : $packed;
+}
 
 try {
     $dsn = sprintf('mysql:host=%s;port=%s;dbname=%s;charset=utf8mb4', $config['database']['host'], $config['database']['port'], $config['database']['name']);
@@ -472,7 +487,7 @@ try {
         ['action' => 'Published article: What your first 90 days in Saudi Arabia should make visible', 'entity_type' => 'article', 'entity_id' => 4, 'status' => 'success', 'metadata' => ['slug' => 'what-your-first-90-days-should-make-visible']]
     ];
 
-    $logStmt = $pdo->prepare("INSERT INTO activity_logs (user_id, action, entity_type, entity_id, status, metadata, ip_address, created_at) VALUES (?, ?, ?, ?, ?, ?, INET6_ATON('127.0.0.1'), NOW() - INTERVAL ? MINUTE)");
+    $logStmt = $pdo->prepare("INSERT INTO activity_logs (user_id, action, entity_type, entity_id, status, metadata, ip_address, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, NOW() - INTERVAL ? MINUTE)");
     $minOffset = 60;
     foreach ($initialLogs as $log) {
         $logStmt->execute([
@@ -482,6 +497,7 @@ try {
             $log['entity_id'],
             $log['status'],
             json_encode($log['metadata']),
+            seed_ip_binary('127.0.0.1'),
             $minOffset
         ]);
         $minOffset -= 10;

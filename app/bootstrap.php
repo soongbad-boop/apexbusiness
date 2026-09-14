@@ -56,6 +56,88 @@ function json_response(mixed $payload, int $status = 200): never
     exit;
 }
 
+function ip_to_binary(?string $ip): ?string
+{
+    $ip = trim((string) $ip);
+    if ($ip === '' || filter_var($ip, FILTER_VALIDATE_IP) === false) {
+        return null;
+    }
+
+    $packed = @inet_pton($ip);
+    return $packed === false ? null : $packed;
+}
+
+function binary_ip_to_string(mixed $value): ?string
+{
+    if (!is_string($value) || $value === '') {
+        return null;
+    }
+
+    $ip = @inet_ntop($value);
+    return $ip === false ? null : $ip;
+}
+
+function ensure_directory(string $path, array $modes = [0750, 0755]): bool
+{
+    foreach ($modes as $mode) {
+        if ((is_dir($path) || @mkdir($path, $mode, true)) && is_dir($path)) {
+            @chmod($path, $mode);
+            return true;
+        }
+    }
+
+    return false;
+}
+
+if (!function_exists('trusted_proxy_addresses')) {
+    function trusted_proxy_addresses(): array
+    {
+        $raw = (string) (getenv('TRUSTED_PROXY_IPS') ?: ($_ENV['TRUSTED_PROXY_IPS'] ?? ''));
+        if ($raw === '') {
+            return [];
+        }
+
+        $trusted = [];
+        foreach (explode(',', $raw) as $candidate) {
+            $candidate = trim($candidate);
+            if ($candidate !== '' && filter_var($candidate, FILTER_VALIDATE_IP) !== false) {
+                $trusted[] = $candidate;
+            }
+        }
+
+        return array_values(array_unique($trusted));
+    }
+}
+
+if (!function_exists('trusts_forwarded_proto')) {
+    function trusts_forwarded_proto(): bool
+    {
+        $remoteAddr = trim((string) ($_SERVER['REMOTE_ADDR'] ?? ''));
+        return $remoteAddr !== '' && in_array($remoteAddr, trusted_proxy_addresses(), true);
+    }
+}
+
+if (!function_exists('trusts_forwarded_client_ip')) {
+    function trusts_forwarded_client_ip(): bool
+    {
+        $remoteAddr = trim((string) ($_SERVER['REMOTE_ADDR'] ?? ''));
+        return $remoteAddr !== '' && in_array($remoteAddr, trusted_proxy_addresses(), true);
+    }
+}
+
+function request_ip_address(): ?string
+{
+    $remoteAddr = trim((string) ($_SERVER['REMOTE_ADDR'] ?? ''));
+    if (trusts_forwarded_client_ip()) {
+        $forwardedFor = trim((string) explode(',', (string) ($_SERVER['HTTP_X_FORWARDED_FOR'] ?? ''))[0]);
+        if ($forwardedFor !== '' && filter_var($forwardedFor, FILTER_VALIDATE_IP) !== false) {
+            return $forwardedFor;
+        }
+    }
+
+    return filter_var($remoteAddr, FILTER_VALIDATE_IP) !== false ? $remoteAddr : null;
+}
+
 function request_json(int $maxBytes = 25_000_000): array
 {
     $raw = file_get_contents('php://input') ?: '';
@@ -74,7 +156,7 @@ function is_https_request(): bool
     if (!empty($_SERVER['HTTPS']) && strtolower((string) $_SERVER['HTTPS']) !== 'off') {
         return true;
     }
-    return strtolower((string) ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '')) === 'https';
+    return trusts_forwarded_proto() && strtolower((string) ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '')) === 'https';
 }
 
 function start_secure_session(array $config): void
@@ -159,7 +241,7 @@ function log_activity(PDO $pdo, ?int $userId, string $action, ?string $entityTyp
     if (!in_array($status, ['success', 'failure'], true)) {
         $status = 'failure';
     }
-    $query = $pdo->prepare('INSERT INTO activity_logs (user_id, action, entity_type, entity_id, status, metadata, ip_address) VALUES (?, ?, ?, ?, ?, ?, INET6_ATON(?))');
+    $query = $pdo->prepare('INSERT INTO activity_logs (user_id, action, entity_type, entity_id, status, metadata, ip_address) VALUES (?, ?, ?, ?, ?, ?, ?)');
     $query->execute([
         $userId,
         mb_strimwidth($action, 0, 190, ''),
@@ -167,7 +249,7 @@ function log_activity(PDO $pdo, ?int $userId, string $action, ?string $entityTyp
         $entityId,
         $status,
         json_encode($metadata, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE),
-        $_SERVER['REMOTE_ADDR'] ?? null,
+        ip_to_binary(request_ip_address()),
     ]);
 }
 
@@ -178,7 +260,7 @@ function log_activity(PDO $pdo, ?int $userId, string $action, ?string $entityTyp
 function consume_rate_limit(string $bucket, int $maxAttempts, int $windowSeconds): int
 {
     $directory = dirname(__DIR__) . '/storage/rate_limits';
-    if (!is_dir($directory) && !@mkdir($directory, 0750, true) && !is_dir($directory)) {
+    if (!ensure_directory($directory)) {
         return 0; // Fail open if storage is unavailable; auth still has password/CSRF controls.
     }
 
@@ -240,6 +322,9 @@ function valid_http_url_or_path(mixed $value, int $maxLength = 2048): ?string
     if (str_starts_with($value, '/') || str_starts_with($value, './')) {
         return $value;
     }
+    if (!str_contains($value, ':') && !str_starts_with($value, '//')) {
+        return '/' . ltrim($value, '/');
+    }
     if (str_starts_with($value, 'data:image/')) {
         return $value;
     }
@@ -248,6 +333,57 @@ function valid_http_url_or_path(mixed $value, int $maxLength = 2048): ?string
     }
     $scheme = strtolower((string) parse_url($value, PHP_URL_SCHEME));
     return in_array($scheme, ['http', 'https'], true) ? $value : null;
+}
+
+function app_base_url(array $config): string
+{
+    $baseUrl = trim((string) ($config['app_url'] ?? ''));
+    if ($baseUrl === '' && function_exists('default_app_url')) {
+        $baseUrl = default_app_url();
+    }
+
+    return rtrim($baseUrl, '/');
+}
+
+function absolute_url_for_path(array $config, mixed $value): ?string
+{
+    $normalized = valid_http_url_or_path($value);
+    if ($normalized === null || $normalized === '') {
+        return null;
+    }
+    if (str_starts_with($normalized, '/')) {
+        $baseUrl = app_base_url($config);
+        return $baseUrl !== '' ? $baseUrl . $normalized : null;
+    }
+
+    return $normalized;
+}
+
+function blog_featured_image_url(array $config, array $post): string
+{
+    return absolute_url_for_path($config, $post['featured_image'] ?? '') ?? '';
+}
+
+function page_public_path(string $slug): string
+{
+    return '/page/' . rawurlencode($slug);
+}
+
+function page_canonical_url(array $config, array $page, string $slug, ?string $requestUri = null): string
+{
+    if (!empty($page['canonical_url'])) {
+        return absolute_url_for_path($config, (string) $page['canonical_url']) ?? '';
+    }
+    if ($slug === '') {
+        return '';
+    }
+
+    $baseUrl = app_base_url($config);
+    if ($baseUrl === '') {
+        return '';
+    }
+
+    return $baseUrl . page_public_path($slug);
 }
 
 /**

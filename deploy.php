@@ -59,6 +59,11 @@ function required_tables(): array
     ];
 }
 
+function existing_required_table_count(PDO $pdo): int
+{
+    return count(required_tables()) - count(missing_required_tables($pdo));
+}
+
 function activity_log_ip_column_is_compatible(PDO $pdo): bool
 {
     $query = $pdo->prepare('SELECT DATA_TYPE, COLUMN_TYPE FROM information_schema.columns WHERE table_schema = DATABASE() AND table_name = ? AND column_name = ? LIMIT 1');
@@ -212,8 +217,7 @@ try {
     echo "  ✓ Connected to MySQL database [{$db['name']}].\n";
 
     $schemaPath = __DIR__ . '/database/mysql-schema.sql';
-    $missingTables = missing_required_tables($pdo);
-    if (count($missingTables) === count(required_tables())) {
+    if (existing_required_table_count($pdo) === 0) {
         if (!is_file($schemaPath)) {
             throw new RuntimeException('database/mysql-schema.sql not found.');
         }

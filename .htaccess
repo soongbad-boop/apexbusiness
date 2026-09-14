@@ -18,7 +18,7 @@ DirectoryIndex index.html index.php
   RewriteRule ^deploy\.php$ - [F,L,NC]
 
   # Authenticated CMS routes.
-  RewriteRule ^dashboard(?:\.html)?$ dashboard.php [L,NC]
+  RewriteRule ^dashboard(?:\.html)?/?$ dashboard.php [L,NC]
   RewriteRule ^login/?$ login.php [L,NC]
 
   # Canonicalize legacy file URLs.

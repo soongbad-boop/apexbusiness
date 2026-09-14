@@ -11,7 +11,7 @@ if ($pagePath !== '/page/privacy-policy') {
     exit(1);
 }
 
-$defaultCanonical = page_canonical_url($config, ['title' => 'Example'], 'privacy-policy');
+$defaultCanonical = page_canonical_url($config, ['title' => 'Example'], 'privacy-policy', '/page/privacy-policy?preview=1');
 if ($defaultCanonical !== 'https://example.com/demo/page/privacy-policy') {
     fwrite(STDERR, "Default page canonical URL assertion failed.\n");
     exit(1);

@@ -34,15 +34,14 @@ function schema_table_exists(PDO $pdo, string $table): bool
     return (int) $query->fetchColumn() > 0;
 }
 
-function schema_table_count(PDO $pdo): int
-{
-    $query = $pdo->query('SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = DATABASE()');
-    return (int) $query->fetchColumn();
-}
-
 function missing_required_tables(PDO $pdo): array
 {
-    $required = [
+    return array_values(array_filter(required_tables(), static fn (string $table): bool => !schema_table_exists($pdo, $table)));
+}
+
+function required_tables(): array
+{
+    return [
         'roles',
         'permissions',
         'role_permissions',
@@ -58,8 +57,6 @@ function missing_required_tables(PDO $pdo): array
         'inquiries',
         'activity_logs',
     ];
-
-    return array_values(array_filter($required, static fn (string $table): bool => !schema_table_exists($pdo, $table)));
 }
 
 function activity_log_ip_column_is_compatible(PDO $pdo): bool
@@ -215,8 +212,8 @@ try {
     echo "  ✓ Connected to MySQL database [{$db['name']}].\n";
 
     $schemaPath = __DIR__ . '/database/mysql-schema.sql';
-    $tableCount = schema_table_count($pdo);
-    if ($tableCount === 0) {
+    $missingTables = missing_required_tables($pdo);
+    if (count($missingTables) === count(required_tables())) {
         if (!is_file($schemaPath)) {
             throw new RuntimeException('database/mysql-schema.sql not found.');
         }

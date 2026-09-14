@@ -369,14 +369,26 @@ function page_public_path(string $slug): string
     return '/page/' . rawurlencode($slug);
 }
 
-function page_canonical_url(array $config, array $page, string $slug): string
+function page_canonical_url(array $config, array $page, string $slug, ?string $requestUri = null): string
 {
     if (!empty($page['canonical_url'])) {
         return absolute_url_for_path($config, (string) $page['canonical_url']) ?? '';
     }
+    if ($slug === '') {
+        return '';
+    }
 
     $baseUrl = app_base_url($config);
-    return ($baseUrl !== '' && $slug !== '') ? $baseUrl . page_public_path($slug) : '';
+    if ($baseUrl === '') {
+        return '';
+    }
+
+    $requestPath = is_string($requestUri) ? (string) parse_url($requestUri, PHP_URL_PATH) : '';
+    if ($requestPath === '') {
+        $requestPath = page_public_path($slug);
+    }
+
+    return $baseUrl . $requestPath;
 }
 
 /**

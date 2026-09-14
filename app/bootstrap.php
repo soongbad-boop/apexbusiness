@@ -101,6 +101,19 @@ function trusts_forwarded_proto(): bool
         || filter_var($remoteAddr, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false;
 }
 
+function request_ip_address(): ?string
+{
+    $remoteAddr = trim((string) ($_SERVER['REMOTE_ADDR'] ?? ''));
+    if (trusts_forwarded_proto()) {
+        $forwardedFor = trim((string) explode(',', (string) ($_SERVER['HTTP_X_FORWARDED_FOR'] ?? ''))[0]);
+        if ($forwardedFor !== '' && filter_var($forwardedFor, FILTER_VALIDATE_IP) !== false) {
+            return $forwardedFor;
+        }
+    }
+
+    return filter_var($remoteAddr, FILTER_VALIDATE_IP) !== false ? $remoteAddr : null;
+}
+
 function request_json(int $maxBytes = 25_000_000): array
 {
     $raw = file_get_contents('php://input') ?: '';
@@ -212,7 +225,7 @@ function log_activity(PDO $pdo, ?int $userId, string $action, ?string $entityTyp
         $entityId,
         $status,
         json_encode($metadata, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE),
-        ip_to_binary($_SERVER['REMOTE_ADDR'] ?? null),
+        ip_to_binary(request_ip_address()),
     ]);
 }
 

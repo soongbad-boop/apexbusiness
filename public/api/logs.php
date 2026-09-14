@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $status = in_array($payload['status'] ?? '', ['success', 'failure'], true) ? $payload['status'] : 'success';
     $metadata = $payload['metadata'] ?? [];
     $userId = (int) $user['id'];
-    $ip = ip_to_binary($_SERVER['REMOTE_ADDR'] ?? null);
+    $ip = ip_to_binary(request_ip_address());
 
     $stmt = $pdo->prepare('INSERT INTO activity_logs (user_id, action, entity_type, entity_id, status, metadata, ip_address, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())');
     $stmt->execute([$userId, $action, $entityType, $entityId, $status, json_encode($metadata), $ip]);

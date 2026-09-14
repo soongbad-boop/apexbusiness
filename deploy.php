@@ -54,10 +54,50 @@ function import_schema(PDO $pdo, string $schemaPath): void
     $sql = preg_replace('/^\s*USE\b.*?;\s*/mi', '', $sql) ?? $sql;
     $sql = preg_replace('/^\s*--.*$/m', '', $sql) ?? $sql;
     $sql = preg_replace('/\bCREATE TABLE\s+/i', 'CREATE TABLE IF NOT EXISTS ', $sql) ?? $sql;
-    $statements = preg_split('/;\s*(?:\R|$)/', $sql) ?: [];
+    $statements = [];
+    $statement = '';
+    $quote = null;
+    $escaped = false;
+
+    $length = strlen($sql);
+    for ($i = 0; $i < $length; $i++) {
+        $char = $sql[$i];
+        $statement .= $char;
+
+        if ($escaped) {
+            $escaped = false;
+            continue;
+        }
+
+        if ($char === '\\') {
+            $escaped = true;
+            continue;
+        }
+
+        if ($quote !== null) {
+            if ($char === $quote) {
+                $quote = null;
+            }
+            continue;
+        }
+
+        if (in_array($char, ["'", '"', '`'], true)) {
+            $quote = $char;
+            continue;
+        }
+
+        if ($char === ';') {
+            $statements[] = $statement;
+            $statement = '';
+        }
+    }
+    if (trim($statement) !== '') {
+        $statements[] = $statement;
+    }
 
     foreach ($statements as $statement) {
         $statement = trim($statement);
+        $statement = rtrim($statement, ';');
         if ($statement === '') {
             continue;
         }

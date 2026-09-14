@@ -1092,15 +1092,18 @@
       const seoDescription = seoDescInput.value.trim();
       const focusKeyword = focusKeywordInput.value.trim();
 
+      // No image field in this editor UI yet — preserve the existing image instead of erasing it on save.
+      const existingForImage = isEdit ? (data.articles[postIndex] || {}) : {};
+
       return {
         title,
         slug,
         category,
         author,
         status,
-        image: '',
-        image_alt: '',
-        image_caption: '',
+        image: existingForImage.image || '',
+        image_alt: existingForImage.image_alt || '',
+        image_caption: existingForImage.image_caption || '',
         tags,
         excerpt,
         content,

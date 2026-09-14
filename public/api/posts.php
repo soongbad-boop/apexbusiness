@@ -131,9 +131,9 @@ if (in_array($status, ['published', 'scheduled'], true) && trim(strip_tags($cont
 }
 
 $description = normalized_text($payload['excerpt'] ?? ($payload['description'] ?? ''), 2000);
-$imageUrl = null;
-$imageAlt = '';
-$imageCaption = '';
+$imageUrl = valid_http_url_or_path($payload['image'] ?? ($payload['image_url'] ?? null));
+$imageAlt = normalized_text($payload['image_alt'] ?? '', 255);
+$imageCaption = normalized_text($payload['image_caption'] ?? '', 255);
 $tags = normalized_text($payload['tags'] ?? '', 500);
 $isFeatured = !empty($payload['is_featured']) ? 1 : 0;
 $allowComments = isset($payload['allow_comments']) ? (!empty($payload['allow_comments']) ? 1 : 0) : 1;

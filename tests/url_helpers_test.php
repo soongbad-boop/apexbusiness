@@ -59,6 +59,12 @@ if ($blogMissingImage !== '') {
     exit(1);
 }
 
+$blogInvalidImage = blog_featured_image_url($config, ['featured_image' => 'javascript:alert(1)']);
+if ($blogInvalidImage !== '') {
+    fwrite(STDERR, "Invalid blog featured image assertion failed.\n");
+    exit(1);
+}
+
 $externalImage = absolute_url_for_path($config, 'https://images.example.com/example.jpg');
 if ($externalImage !== 'https://images.example.com/example.jpg') {
     fwrite(STDERR, "External media URL passthrough assertion failed.\n");

@@ -53,7 +53,6 @@ function import_schema(PDO $pdo, string $schemaPath): void
     $sql = preg_replace('/^\s*CREATE DATABASE\b.*?;\s*/mi', '', $sql) ?? $sql;
     $sql = preg_replace('/^\s*USE\b.*?;\s*/mi', '', $sql) ?? $sql;
     $sql = preg_replace('/^\s*--.*$/m', '', $sql) ?? $sql;
-    $sql = preg_replace('/\bCREATE TABLE\s+/i', 'CREATE TABLE IF NOT EXISTS ', $sql) ?? $sql;
     $statements = [];
     $statement = '';
     $quote = null;
@@ -119,6 +118,9 @@ function import_schema(PDO $pdo, string $schemaPath): void
         $statement = rtrim($statement, ';');
         if ($statement === '') {
             continue;
+        }
+        if (preg_match('/^CREATE TABLE\b/i', $statement) === 1) {
+            $statement = preg_replace('/^CREATE TABLE\b/i', 'CREATE TABLE IF NOT EXISTS', $statement, 1) ?? $statement;
         }
         $pdo->exec($statement);
     }

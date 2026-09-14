@@ -359,6 +359,11 @@ function absolute_url_for_path(array $config, mixed $value): ?string
     return $normalized;
 }
 
+function blog_featured_image_url(array $config, array $post): string
+{
+    return absolute_url_for_path($config, $post['featured_image'] ?? '') ?? '';
+}
+
 function page_canonical_url(array $config, array $page, string $slug): string
 {
     if (!empty($page['canonical_url'])) {

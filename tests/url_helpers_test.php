@@ -29,6 +29,12 @@ if ($relativeImage !== 'https://example.com/demo/storage/media/example.jpg') {
     exit(1);
 }
 
+$blogImage = blog_featured_image_url($config, ['featured_image' => 'storage/media/example.jpg']);
+if ($blogImage !== 'https://example.com/demo/storage/media/example.jpg') {
+    fwrite(STDERR, "Blog featured image normalization assertion failed.\n");
+    exit(1);
+}
+
 $externalImage = absolute_url_for_path($config, 'https://images.example.com/example.jpg');
 if ($externalImage !== 'https://images.example.com/example.jpg') {
     fwrite(STDERR, "External media URL passthrough assertion failed.\n");

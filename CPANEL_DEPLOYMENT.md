@@ -90,7 +90,7 @@ Push your repository to GitHub (ensure `.env` is ignored by `.gitignore`).
 1. In cPanel, navigate to **Git™ Version Control** (under Files).
 2. Click **Create**.
 3. Toggle **Clone a Repository**.
-4. Enter Clone URL: `git@github.com:emran285-wq/Apexbusiness.git` (preferred) or the equivalent HTTPS URL.
+4. Enter Clone URL: `git@github.com:OWNER/REPOSITORY.git` (preferred) or the equivalent HTTPS URL for the repository you are deploying.
 5. Set Repository Path to a non-public working tree such as `/home/username/repositories/Apexbusiness`
 6. Set Repository Name: `Apexbusiness`
 7. Click **Create**.

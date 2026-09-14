@@ -20,10 +20,7 @@ if (!$page) {
 $title = $page['seo_title'] ?: $page['title'];
 $pageTitle = stripos($title, 'Apex Business Consultancy') !== false ? $title : $title . ' | Apex Business Consultancy';
 $description = $page['seo_description'] ?: 'Apex Business Consultancy information and guidance.';
-$appUrl = rtrim((string)($config['app_url'] ?? ''), '/');
-$canonical = !empty($page['canonical_url'])
-    ? (string) $page['canonical_url']
-    : ($appUrl !== '' && $slug !== '' ? $appUrl . '/page/' . rawurlencode($slug) : '');
+$canonical = page_canonical_url($config, $page, $slug);
 ?><!doctype html>
 <html lang="en">
 <head>

@@ -9,7 +9,7 @@ deployment:
     - /usr/bin/git archive --format=tar HEAD | /bin/tar -x -C $DEPLOYPATH
 
     # 3. Run the safe CLI deployment check/import runner when PHP is available.
-    - command -v php >/dev/null 2>&1 && php $DEPLOYPATH/deploy.php
+    - command -v php >/dev/null 2>&1 || { echo "php CLI is required for deployment" >&2; exit 1; }; php $DEPLOYPATH/deploy.php
 
     # 4. SECURITY: remove one-time administrative scripts after deployment completes.
     - /bin/rm -f $DEPLOYPATH/database/seed.php

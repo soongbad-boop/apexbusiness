@@ -335,6 +335,40 @@ function valid_http_url_or_path(mixed $value, int $maxLength = 2048): ?string
     return in_array($scheme, ['http', 'https'], true) ? $value : null;
 }
 
+function app_base_url(array $config): string
+{
+    $baseUrl = trim((string) ($config['app_url'] ?? ''));
+    if ($baseUrl === '' && function_exists('default_app_url')) {
+        $baseUrl = default_app_url();
+    }
+
+    return rtrim($baseUrl, '/');
+}
+
+function absolute_url_for_path(array $config, mixed $value): ?string
+{
+    $normalized = valid_http_url_or_path($value);
+    if ($normalized === null || $normalized === '') {
+        return null;
+    }
+    if (str_starts_with($normalized, '/')) {
+        $baseUrl = app_base_url($config);
+        return $baseUrl !== '' ? $baseUrl . $normalized : null;
+    }
+
+    return $normalized;
+}
+
+function page_canonical_url(array $config, array $page, string $slug): string
+{
+    if (!empty($page['canonical_url'])) {
+        return (string) $page['canonical_url'];
+    }
+
+    $baseUrl = app_base_url($config);
+    return ($baseUrl !== '' && $slug !== '') ? $baseUrl . '/page/' . rawurlencode($slug) : '';
+}
+
 /**
  * Allow-list sanitizer for CMS rich text. Removes scripts, inline event handlers,
  * dangerous URL schemes, embedded objects/forms and style attributes.

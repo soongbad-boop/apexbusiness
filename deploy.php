@@ -58,10 +58,29 @@ function import_schema(PDO $pdo, string $schemaPath): void
     $statement = '';
     $quote = null;
     $escaped = false;
+    $inBlockComment = false;
 
     $length = strlen($sql);
     for ($i = 0; $i < $length; $i++) {
         $char = $sql[$i];
+
+        if ($inBlockComment) {
+            $statement .= $char;
+            if ($char === '*' && ($sql[$i + 1] ?? '') === '/') {
+                $statement .= '/';
+                $i++;
+                $inBlockComment = false;
+            }
+            continue;
+        }
+
+        if ($quote === null && $char === '/' && ($sql[$i + 1] ?? '') === '*') {
+            $statement .= '/*';
+            $i++;
+            $inBlockComment = true;
+            continue;
+        }
+
         $statement .= $char;
 
         if ($escaped) {

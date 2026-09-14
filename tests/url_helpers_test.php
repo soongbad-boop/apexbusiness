@@ -17,6 +17,12 @@ if ($defaultCanonical !== 'https://example.com/demo/page/privacy-policy') {
     exit(1);
 }
 
+$emptySlugCanonical = page_canonical_url($config, ['title' => 'Example'], '');
+if ($emptySlugCanonical !== '') {
+    fwrite(STDERR, "Empty page canonical URL assertion failed.\n");
+    exit(1);
+}
+
 $customCanonical = page_canonical_url($config, ['canonical_url' => 'https://cdn.example.com/custom-page'], 'privacy-policy');
 if ($customCanonical !== 'https://cdn.example.com/custom-page') {
     fwrite(STDERR, "Custom page canonical URL assertion failed.\n");

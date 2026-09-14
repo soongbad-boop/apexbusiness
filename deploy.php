@@ -40,6 +40,28 @@ function schema_table_count(PDO $pdo): int
     return (int) $query->fetchColumn();
 }
 
+function missing_required_tables(PDO $pdo): array
+{
+    $required = [
+        'roles',
+        'permissions',
+        'role_permissions',
+        'users',
+        'categories',
+        'media',
+        'posts',
+        'post_categories',
+        'pages',
+        'menus',
+        'menu_items',
+        'settings',
+        'inquiries',
+        'activity_logs',
+    ];
+
+    return array_values(array_filter($required, static fn (string $table): bool => !schema_table_exists($pdo, $table)));
+}
+
 function import_schema(PDO $pdo, string $schemaPath): void
 {
     $sql = file_get_contents($schemaPath);
@@ -175,8 +197,11 @@ try {
         }
         import_schema($pdo, $schemaPath);
         echo "  ✓ Imported base database schema.\n";
-    } elseif (!schema_table_exists($pdo, 'roles') || !schema_table_exists($pdo, 'posts')) {
-        throw new RuntimeException('Database is partially initialized. Restore the missing core tables or import database/mysql-schema.sql before rerunning deploy.php.');
+    } else {
+        $missingTables = missing_required_tables($pdo);
+        if ($missingTables !== []) {
+            throw new RuntimeException('Database is partially initialized. Missing required tables: ' . implode(', ', $missingTables) . '. Import database/mysql-schema.sql or restore the missing tables before rerunning deploy.php.');
+        }
     }
 
     $seedFile = __DIR__ . '/database/seed.php';

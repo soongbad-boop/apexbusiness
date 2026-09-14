@@ -53,17 +53,31 @@ if (!function_exists('detected_base_path')) {
     }
 }
 
+if (!function_exists('trusted_proxy_addresses')) {
+    function trusted_proxy_addresses(): array
+    {
+        $raw = env_value('TRUSTED_PROXY_IPS', '') ?? '';
+        if ($raw === '') {
+            return [];
+        }
+
+        $trusted = [];
+        foreach (explode(',', $raw) as $candidate) {
+            $candidate = trim($candidate);
+            if ($candidate !== '' && filter_var($candidate, FILTER_VALIDATE_IP) !== false) {
+                $trusted[] = $candidate;
+            }
+        }
+
+        return array_values(array_unique($trusted));
+    }
+}
+
 if (!function_exists('trusted_forwarded_proto')) {
     function trusted_forwarded_proto(): bool
     {
         $remoteAddr = trim((string) ($_SERVER['REMOTE_ADDR'] ?? ''));
-        if ($remoteAddr === '' || filter_var($remoteAddr, FILTER_VALIDATE_IP) === false) {
-            return false;
-        }
-
-        return $remoteAddr === '127.0.0.1'
-            || $remoteAddr === '::1'
-            || filter_var($remoteAddr, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false;
+        return $remoteAddr !== '' && in_array($remoteAddr, trusted_proxy_addresses(), true);
     }
 }
 

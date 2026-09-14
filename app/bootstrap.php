@@ -89,22 +89,46 @@ function ensure_directory(string $path, array $modes = [0750, 0755]): bool
     return false;
 }
 
-function trusts_forwarded_proto(): bool
-{
-    $remoteAddr = trim((string) ($_SERVER['REMOTE_ADDR'] ?? ''));
-    if ($remoteAddr === '' || filter_var($remoteAddr, FILTER_VALIDATE_IP) === false) {
-        return false;
-    }
+if (!function_exists('trusted_proxy_addresses')) {
+    function trusted_proxy_addresses(): array
+    {
+        $raw = (string) (getenv('TRUSTED_PROXY_IPS') ?: ($_ENV['TRUSTED_PROXY_IPS'] ?? ''));
+        if ($raw === '') {
+            return [];
+        }
 
-    return $remoteAddr === '127.0.0.1'
-        || $remoteAddr === '::1'
-        || filter_var($remoteAddr, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false;
+        $trusted = [];
+        foreach (explode(',', $raw) as $candidate) {
+            $candidate = trim($candidate);
+            if ($candidate !== '' && filter_var($candidate, FILTER_VALIDATE_IP) !== false) {
+                $trusted[] = $candidate;
+            }
+        }
+
+        return array_values(array_unique($trusted));
+    }
+}
+
+if (!function_exists('trusts_forwarded_proto')) {
+    function trusts_forwarded_proto(): bool
+    {
+        $remoteAddr = trim((string) ($_SERVER['REMOTE_ADDR'] ?? ''));
+        return $remoteAddr !== '' && in_array($remoteAddr, trusted_proxy_addresses(), true);
+    }
+}
+
+if (!function_exists('trusts_forwarded_client_ip')) {
+    function trusts_forwarded_client_ip(): bool
+    {
+        $remoteAddr = trim((string) ($_SERVER['REMOTE_ADDR'] ?? ''));
+        return $remoteAddr !== '' && in_array($remoteAddr, trusted_proxy_addresses(), true);
+    }
 }
 
 function request_ip_address(): ?string
 {
     $remoteAddr = trim((string) ($_SERVER['REMOTE_ADDR'] ?? ''));
-    if (trusts_forwarded_proto()) {
+    if (trusts_forwarded_client_ip()) {
         $forwardedFor = trim((string) explode(',', (string) ($_SERVER['HTTP_X_FORWARDED_FOR'] ?? ''))[0]);
         if ($forwardedFor !== '' && filter_var($forwardedFor, FILTER_VALIDATE_IP) !== false) {
             return $forwardedFor;

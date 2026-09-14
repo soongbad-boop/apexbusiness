@@ -74,6 +74,9 @@ $description = !empty($post['seo_description']) ? $post['seo_description'] : $po
 $author = $post['author_name'] ?? 'Apex Administrator';
 $category = $post['category_name'] ?? 'Market Entry';
 $image = valid_http_url_or_path($post['featured_image'] ?? '') ?? '';
+if ($image !== '' && str_starts_with($image, '/')) {
+    $image = rtrim((string) $config['app_url'], '/') . $image;
+}
 $articleContent = sanitize_rich_html((string) $post['content']);
 $articleContent = preg_replace('/<figure\b[^>]*>[\s\S]*?<img\b[^>]*>[\s\S]*?<\/figure>/i', '', $articleContent) ?? $articleContent;
 $articleContent = preg_replace('/<img\b[^>]*>/i', '', $articleContent) ?? $articleContent;

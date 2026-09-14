@@ -26,6 +26,7 @@ DB_PASSWORD=YourSecureDatabasePasswordHere
 SESSION_NAME=apex_production_session
 SESSION_SECURE=1
 SESSION_LIFETIME=7200
+TRUSTED_PROXY_IPS=
 
 # Media Uploads & Storage
 UPLOAD_DIRECTORY=/home/username/public_html/storage/media
@@ -45,6 +46,7 @@ MAIL_TO_ADDRESS=info@apexbusinessksa.com
 ```
 
 > **Security Rule**: Never commit `.env` to GitHub or make it accessible publicly. `.htaccess` automatically denies public access to `.env*` files.
+> Leave `TRUSTED_PROXY_IPS` blank unless your site is behind a known reverse proxy or load balancer; if used, list only the proxy IPs that are allowed to send trusted `X-Forwarded-*` headers.
 
 ---
 

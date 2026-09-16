@@ -2,7 +2,14 @@
 declare(strict_types=1);
 
 require dirname(__DIR__, 2) . '/app/bootstrap.php';
-$pdo = db($config);
+start_secure_session($config);
+
+try {
+    $pdo = db($config);
+} catch (Throwable $e) {
+    error_log('Apex logs database unavailable: ' . $e->getMessage());
+    json_response(['error' => 'The CMS database is temporarily unavailable.'], 503);
+}
 $user = require_permission($pdo, 'logs.view');
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {

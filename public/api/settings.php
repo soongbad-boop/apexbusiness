@@ -2,9 +2,15 @@
 declare(strict_types=1);
 
 require dirname(__DIR__, 2) . '/app/bootstrap.php';
-$pdo = db($config);
+start_secure_session($config);
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    try {
+        $pdo = db($config);
+    } catch (Throwable $e) {
+        error_log('Apex settings database unavailable: ' . $e->getMessage());
+        json_response(['site_settings' => ['settings' => [], 'cms' => []], 'degraded' => true]);
+    }
     $rows = $pdo->query("SELECT setting_key, setting_value, value_type FROM settings WHERE setting_key = 'site_settings' OR setting_key IN ('site_name', 'tagline', 'favicon', 'support_email', 'support_phone', 'footer_copy')")->fetchAll();
     $settings = ['settings' => [], 'cms' => []];
     foreach ($rows as $row) {
@@ -32,6 +38,12 @@ if ($_SERVER['REQUEST_METHOD'] !== 'PATCH' && $_SERVER['REQUEST_METHOD'] !== 'PO
     json_response(['error' => 'Method not allowed.'], 405);
 }
 require_csrf();
+try {
+    $pdo = db($config);
+} catch (Throwable $e) {
+    error_log('Apex settings database unavailable: ' . $e->getMessage());
+    json_response(['error' => 'The CMS database is temporarily unavailable.'], 503);
+}
 $user = require_permission($pdo, 'settings.manage');
 $payload = request_json();
 $payload = ['site_settings' => $payload['site_settings'] ?? null];

@@ -39,8 +39,13 @@ DirectoryIndex index.html index.php
   RewriteRule ^insights/([a-z0-9-]+)/?$ public/blog.php?slug=$1 [L,QSA,NC]
   RewriteRule ^page/([a-z0-9-]+)/?$ public/page.php?slug=$1 [L,QSA,NC]
 
-  # SPA shell for known public clean routes.
-  RewriteRule ^(about|services|insights|contact|conversation|visa-assistance|privacy-policy|terms-and-conditions|automation|advisory-session|advisors)/?$ index.html [L,NC]
+  # SPA shell for public clean routes. Keep backend, protected, real files,
+  # directories, and extension-based assets out of the frontend fallback.
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_URI} !^/(?:api|public/api|app|config|database|scripts|storage)(?:/|$) [NC]
+  RewriteCond %{REQUEST_FILENAME} !\.[A-Za-z0-9]{1,8}$
+  RewriteRule ^ index.html [L]
 
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d

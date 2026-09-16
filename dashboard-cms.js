@@ -350,7 +350,7 @@
   const CMS_BASE_URL = new URL('.', document.currentScript?.src || location.href);
   const cmsApiUrl = (path) => new URL(String(path).replace(/^\/+/, ''), CMS_BASE_URL).toString();
   const getCmsCsrf = async () => {
-    const response = await fetch(cmsApiUrl('public/api/auth/csrf.php'), {
+    const response = await fetch(cmsApiUrl('api/auth/csrf.php'), {
       credentials: 'same-origin',
       cache: 'no-store',
       headers: { Accept: 'application/json' }
@@ -382,7 +382,7 @@
   });
 
   const saveCmsSettings = async (data) => {
-    const response = await cmsApiFetch('public/api/settings.php', {
+    const response = await cmsApiFetch('api/settings.php', {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ site_settings: publicCmsSettings(data) })
@@ -1125,7 +1125,7 @@
       const existing = isEdit ? data.articles[postIndex] : null;
       const existingId = Number(existing?.id || 0);
       const method = isEdit && existingId > 0 ? 'PATCH' : 'POST';
-      const endpoint = method === 'PATCH' ? `public/api/posts.php?id=${encodeURIComponent(existingId)}` : 'public/api/posts.php';
+      const endpoint = method === 'PATCH' ? `api/posts.php?id=${encodeURIComponent(existingId)}` : 'api/posts.php';
 
       try {
         const response = await cmsApiFetch(endpoint, {
@@ -1706,7 +1706,7 @@
           if (confirm(`Are you sure you want to delete "${title}"?`)) {
             try {
               if (Number(post?.id || 0) > 0) {
-                const response = await cmsApiFetch(`public/api/posts.php?id=${encodeURIComponent(post.id)}`, { method: 'DELETE' });
+                const response = await cmsApiFetch(`api/posts.php?id=${encodeURIComponent(post.id)}`, { method: 'DELETE' });
                 const payload = await response.json().catch(() => ({}));
                 if (!response.ok) throw new Error(payload.error || 'The post could not be deleted from the server.');
               }
@@ -1897,7 +1897,7 @@
 
   async function hydrateCmsSettings() {
     try {
-      const response = await cmsApiFetch('public/api/settings.php');
+      const response = await cmsApiFetch('api/settings.php');
       if (!response.ok) return;
       const payload = await response.json();
       const remote = payload.site_settings;
@@ -1922,7 +1922,7 @@
 
   async function hydrateCmsPosts() {
     try {
-      const response = await cmsApiFetch('public/api/posts.php?scope=admin&limit=100');
+      const response = await cmsApiFetch('api/posts.php?scope=admin&limit=100');
       if (!response.ok) return;
       const payload = await response.json();
       if (!Array.isArray(payload.data)) return;

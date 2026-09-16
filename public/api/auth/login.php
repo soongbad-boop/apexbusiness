@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 require dirname(__DIR__, 3) . '/app/bootstrap.php';
+start_secure_session($config);
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     json_response(['error' => 'Method not allowed.'], 405);
@@ -28,7 +29,12 @@ if ($retryAfter > 0) {
     json_response(['error' => 'Too many sign-in attempts. Please try again later.'], 429);
 }
 
-$pdo = db($config);
+try {
+    $pdo = db($config);
+} catch (Throwable $e) {
+    error_log('Apex login database unavailable: ' . $e->getMessage());
+    json_response(['error' => 'The CMS is temporarily unavailable.'], 503);
+}
 $statement = $pdo->prepare('SELECT id, role_id, email, password_hash, display_name, status FROM users WHERE email = ? LIMIT 1');
 $statement->execute([$email]);
 $user = $statement->fetch();

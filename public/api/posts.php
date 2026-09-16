@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 require dirname(__DIR__, 2) . '/app/bootstrap.php';
-$pdo = db($config);
+start_secure_session($config);
 
 function post_slug(string $title, string $slug): string
 {
@@ -36,8 +36,20 @@ function post_datetime(mixed $value, bool $required = false): ?string
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $user = current_user();
-    $isEditor = $user !== null && user_has_permission($pdo, $user, 'posts.manage');
     $requestedStatus = normalized_text($_GET['status'] ?? '', 30);
+    $adminScopeRequested = (string) ($_GET['scope'] ?? '') === 'admin';
+
+    try {
+        $pdo = db($config);
+    } catch (Throwable $e) {
+        error_log('Apex posts database unavailable: ' . $e->getMessage());
+        if ($requestedStatus !== '' || $adminScopeRequested) {
+            json_response(['error' => 'The CMS database is temporarily unavailable.'], 503);
+        }
+        json_response(['data' => [], 'degraded' => true]);
+    }
+
+    $isEditor = $user !== null && user_has_permission($pdo, $user, 'posts.manage');
     $limit = min(100, max(1, (int) ($_GET['limit'] ?? 50)));
     $offset = max(0, (int) ($_GET['offset'] ?? 0));
 
@@ -65,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         }
         $where[] = 'p.status = ?';
         $params[] = $requestedStatus;
-    } elseif (!$isEditor || (string) ($_GET['scope'] ?? '') !== 'admin') {
+    } elseif (!$isEditor || !$adminScopeRequested) {
         // Public API must never expose drafts, archived posts, or future-dated content.
         $where[] = "p.status = 'published'";
         $where[] = '(p.published_at IS NULL OR p.published_at <= NOW())';
@@ -99,6 +111,12 @@ if (!in_array($_SERVER['REQUEST_METHOD'], ['POST', 'PATCH', 'DELETE'], true)) {
 }
 
 require_csrf();
+try {
+    $pdo = db($config);
+} catch (Throwable $e) {
+    error_log('Apex posts database unavailable: ' . $e->getMessage());
+    json_response(['error' => 'The CMS database is temporarily unavailable.'], 503);
+}
 $user = require_permission($pdo, 'posts.manage');
 
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {

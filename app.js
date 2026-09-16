@@ -259,7 +259,7 @@ const apiUrl = (path) => new URL(String(path).replace(/^\/+/, ''), APP_BASE_URL)
 let csrfTokenPromise = null;
 async function getCsrfToken() {
   if (!csrfTokenPromise) {
-    csrfTokenPromise = fetch(apiUrl('public/api/auth/csrf.php'), { credentials: 'same-origin', headers: { Accept: 'application/json' } })
+    csrfTokenPromise = fetch(apiUrl('api/auth/csrf.php'), { credentials: 'same-origin', headers: { Accept: 'application/json' } })
       .then(async (response) => {
         const data = await response.json().catch(() => ({}));
         if (!response.ok || !data.csrf_token) throw new Error(data.error || 'Unable to initialize secure form submission.');
@@ -272,7 +272,7 @@ async function getCsrfToken() {
 
 async function submitInquiry(payload) {
   const token = await getCsrfToken();
-  const response = await fetch(apiUrl('public/api/inquiries.php'), {
+  const response = await fetch(apiUrl('api/inquiries.php'), {
     method: 'POST',
     credentials: 'same-origin',
     headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': token, Accept: 'application/json' },
@@ -1591,7 +1591,7 @@ function applySharedContentToPage() {
 let lastSettingsSignature = '';
 async function hydrateSiteSettings() {
   try {
-    const response = await fetch(apiUrl('public/api/settings.php'), { credentials: 'same-origin', headers: { Accept: 'application/json' }, cache: 'no-store' });
+    const response = await fetch(apiUrl('api/settings.php'), { credentials: 'same-origin', headers: { Accept: 'application/json' }, cache: 'no-store' });
     if (!response.ok) return;
     const payload = await response.json();
     const remote = payload.site_settings;
@@ -1632,7 +1632,7 @@ function renderSite() {
 let lastArticlesSignature = '';
 async function hydratePublishedArticles() {
   try {
-    const response = await fetch(apiUrl('public/api/posts.php?limit=100'), { credentials: 'same-origin', headers: { Accept: 'application/json' }, cache: 'no-store' });
+    const response = await fetch(apiUrl('api/posts.php?limit=100'), { credentials: 'same-origin', headers: { Accept: 'application/json' }, cache: 'no-store' });
     if (!response.ok) return;
     const payload = await response.json();
     if (!Array.isArray(payload.data) || payload.data.length === 0) return;

@@ -388,7 +388,7 @@ try {
             'content' => '<h2>Meet with Our Senior Advisors</h2><p>Our multidisciplinary advisory team combines deep Saudi regulatory mastery, corporate structuring experience, cross-border mobility expertise, and operational discipline.</p>',
             'status' => 'published',
             'seo_title' => 'Meet Our Advisors | Senior Leadership & Consultants | Apex Business Consultancy',
-            'seo_description' => 'Meet the senior business consultants, regulatory specialists, and operations advisors at Apex Business Consultancy in King Abdullah Financial District, Riyadh.',
+            'seo_description' => 'Meet the senior business consultants, regulatory specialists, and operations advisors at Apex Business Consultancy in Al Jamiah Dist, Aziziya, Makkah, KSA.',
             'canonical_url' => 'https://apexbusinessksa.com/advisors'
         ],
         [
@@ -412,10 +412,10 @@ try {
         [
             'title' => 'Contact Apex Business Consultancy',
             'slug' => 'contact',
-            'content' => '<h2>Bring us your key priorities</h2><p>Whether you are establishing a new entity in Saudi Arabia, evaluating an investment opportunity, or resolving operational hurdles, our Riyadh team is ready to assist.</p>',
+            'content' => '<h2>Bring us your key priorities</h2><p>Whether you are establishing a new entity in Saudi Arabia, evaluating an investment opportunity, or resolving operational hurdles, our Makkah team is ready to assist.</p>',
             'status' => 'published',
-            'seo_title' => 'Contact Apex Business Consultancy | Riyadh, Saudi Arabia',
-            'seo_description' => 'Get in touch with Apex Business Consultancy in King Abdullah Financial District, Riyadh. Start a conversation regarding market entry, licensing, tax, or AI automation.',
+            'seo_title' => 'Contact Apex Business Consultancy | Makkah, Saudi Arabia',
+            'seo_description' => 'Get in touch with Apex Business Consultancy in Al Jamiah Dist, Aziziya, Makkah, KSA. Start a conversation regarding market entry, licensing, tax, or AI automation.',
             'canonical_url' => 'https://apexbusinessksa.com/contact'
         ]
     ];

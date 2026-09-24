@@ -1,6 +1,11 @@
 (() => {
   const STORE_KEY = 'apex-content-v1';
   const MOUNT_ID = 'dashboard-app';
+  const defaultOfficeAddress = 'Al Jamiah Dist, Aziziya, Makkah, KSA';
+  const officeAddress = (value) => {
+    const address = String(value || '').trim();
+    return !address || /Riyadh|KAFD|King Abdullah Financial District/i.test(address) ? defaultOfficeAddress : address;
+  };
 
   const defaultCms = {
     articles: [
@@ -168,7 +173,7 @@
       tagline: 'Strategic Clarity for Business Growth in Saudi Arabia'
     },
     header: {
-      topBannerText: 'Welcome to Apex Business Consultancy · Riyadh',
+      topBannerText: 'Welcome to Apex Business Consultancy · Makkah',
       showBanner: true,
       buttonLabel: 'Start a conversation',
       buttonUrl: '/contact',
@@ -176,7 +181,7 @@
     },
     footer: {
       description: 'Clarity for ambitious businesses entering and growing in Saudi Arabia.',
-      address: 'King Abdullah Financial District, Riyadh',
+      address: 'Al Jamiah Dist, Aziziya, Makkah, KSA',
       phone: '+966 57 008 2565',
       email: 'info@apexbusinessksa.com',
       copyright: '© 2026 Apex Business Consultancy. All rights reserved.',
@@ -203,7 +208,7 @@
       email: 'info@apexbusinessksa.com',
       phone: '+966 57 008 2565',
       whatsapp: '966570082565',
-      address: 'King Abdullah Financial District, Riyadh',
+      address: 'Al Jamiah Dist, Aziziya, Makkah, KSA',
       hours: 'Sunday – Thursday: 9:00 AM – 6:00 PM (AST)'
     },
     users: [
@@ -1304,7 +1309,7 @@
     const f = data.cms.footer || {};
     return shell('Footer Management', 'Configure global website footer information, office address, and copyright.', form('save-footer', [
       textarea('Footer Description / Tagline', 'description', f.description || data.settings?.footer || ''),
-      input('Head Office Address', 'address', f.address || 'King Abdullah Financial District, Riyadh'),
+      input('Head Office Address', 'address', officeAddress(f.address)),
       input('Support Email', 'email', f.email || data.settings?.email || ''),
       input('Support Phone', 'phone', f.phone || '+966 57 008 2565'),
       input('Copyright Line', 'copyright', f.copyright || '© 2026 Apex Business Consultancy. All rights reserved.'),
@@ -1453,7 +1458,7 @@
       input('Public Enquiries Email', 'email', c.email || data.settings?.email || 'info@apexbusinessksa.com', 'email'),
       input('Office Phone Number', 'phone', c.phone || '+966 57 008 2565'),
       input('WhatsApp Direct Number', 'whatsapp', c.whatsapp || data.settings?.whatsapp || '966570082565'),
-      input('Office Location / Address', 'address', c.address || 'King Abdullah Financial District, Riyadh'),
+      input('Office Location / Address', 'address', officeAddress(c.address)),
       input('Business Operating Hours', 'hours', c.hours || 'Sunday – Thursday: 9:00 AM – 6:00 PM (AST)')
     ], 'Save Contact Details'));
   }

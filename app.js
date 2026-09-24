@@ -1,3 +1,11 @@
+const OFFICE_ADDRESS = 'Al Jamiah Dist, Aziziya, Makkah, KSA';
+const OFFICE_MAP_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(OFFICE_ADDRESS)}`;
+
+function currentOfficeAddress(value) {
+  const address = String(value || '').trim();
+  return !address || /Riyadh|KAFD|King Abdullah Financial District/i.test(address) ? OFFICE_ADDRESS : address;
+}
+
 const initialContent = {
   settings: {
     name: 'Apex Business Consultancy',
@@ -443,15 +451,15 @@ function updatePageMetadata() {
 
   const metadata = {
     home: { title: `${brandName} | ${tagline}`, description: 'Apex Business Consultancy helps founders, investors, and operators establish, license, and scale businesses in Saudi Arabia with local market context and operating support.', path: '/' },
-    about: { title: `About ${brandName} | Local Context & Strategic Execution in Riyadh`, description: 'Learn how Apex Business Consultancy supports founders, corporate investors, and leadership teams navigating market entry and operational growth in Saudi Arabia.', path: '/about' },
+    about: { title: `About ${brandName} | Local Context & Strategic Execution in Makkah`, description: 'Learn how Apex Business Consultancy supports founders, corporate investors, and leadership teams navigating market entry and operational growth in Saudi Arabia.', path: '/about' },
     services: { title: `Services | Market Entry, PRO, Visas, Tax & AI Automation | ${brandName}`, description: 'Explore Apex Business Consultancy services: MISA investment registration, investment advisory, PRO/GRO support, visa assistance, tax return guidance, audit review, trading education, and AI workflow automation.', path: '/services' },
-    insights: { title: `Insights & Strategic Perspectives | ${brandName} Riyadh`, description: 'In-depth analysis, regulatory guides, and practical intelligence on building, investing, and scaling in Saudi Arabia and the GCC.', path: location.pathname.startsWith('/blog') ? '/blog' : '/insights' },
-    contact: { title: `Contact ${brandName} | Riyadh, Saudi Arabia`, description: 'Get in touch with Apex Business Consultancy in King Abdullah Financial District, Riyadh. Start a conversation regarding market entry, licensing, tax, or AI automation.', path: '/contact' },
-    conversation: { title: `Start a Conversation | ${brandName}`, description: 'Initiate an exploratory consultation with Apex Business Consultancy in Riyadh. Discuss your market entry, licensing, operational growth, or AI automation goals.', path: '/conversation' },
+    insights: { title: `Insights & Strategic Perspectives | ${brandName} Makkah`, description: 'In-depth analysis, regulatory guides, and practical intelligence on building, investing, and scaling in Saudi Arabia and the GCC.', path: location.pathname.startsWith('/blog') ? '/blog' : '/insights' },
+    contact: { title: `Contact ${brandName} | Makkah, Saudi Arabia`, description: `Get in touch with Apex Business Consultancy in ${OFFICE_ADDRESS}. Start a conversation regarding market entry, licensing, tax, or AI automation.`, path: '/contact' },
+    conversation: { title: `Start a Conversation | ${brandName}`, description: `Initiate an exploratory consultation with Apex Business Consultancy in ${OFFICE_ADDRESS}. Discuss your market entry, licensing, operational growth, or AI automation goals.`, path: '/conversation' },
     'visa-assistance': { title: `Visa Assistance Services | Business, Work & Travel | ${brandName}`, description: 'Dedicated visa and immigration assistance for investors, professionals, executives, and families moving to Saudi Arabia, GCC, and key international destinations.', path: '/visa-assistance' },
     automation: { title: `AI Workflow Automation | Enterprise Solutions | ${brandName}`, description: 'Transform repetitive business tasks into automated workflows. AI-driven customer communications, CRM integrations, and operational pipelines tailored for GCC businesses.', path: '/automation' },
-    'advisory-session': { title: `Schedule an Advisory Session | Executive Guidance | ${brandName}`, description: 'Book a dedicated one-on-one strategic advisory session with our senior consultants in Riyadh. Get immediate clarity on market entry, corporate structuring, and regulatory milestones.', path: '/advisory-session' },
-    advisors: { title: `Meet Our Advisors | Senior Leadership & Consultants | ${brandName}`, description: 'Meet the senior business consultants, regulatory specialists, and operations advisors at Apex Business Consultancy in King Abdullah Financial District, Riyadh.', path: '/advisors' },
+    'advisory-session': { title: `Schedule an Advisory Session | Executive Guidance | ${brandName}`, description: `Book a dedicated one-on-one strategic advisory session with our senior consultants in Makkah. Get immediate clarity on market entry, corporate structuring, and regulatory milestones.`, path: '/advisory-session' },
+    advisors: { title: `Meet Our Advisors | Senior Leadership & Consultants | ${brandName}`, description: `Meet the senior business consultants, regulatory specialists, and operations advisors at Apex Business Consultancy in ${OFFICE_ADDRESS}.`, path: '/advisors' },
     'privacy-policy': { title: `Privacy Policy | ${brandName}`, description: 'Read the Apex Business Consultancy privacy policy outlining our data governance and client confidentiality commitments in Saudi Arabia.', path: '/privacy-policy' },
     'terms-and-conditions': { title: `Terms & Conditions | ${brandName}`, description: 'Read the terms and conditions governing the use of Apex Business Consultancy web services and publications.', path: '/terms-and-conditions' },
     '404': { title: `Page Not Found | ${brandName}`, description: 'The requested Apex Business Consultancy page could not be found.', path: location.pathname || '/' }
@@ -626,7 +634,7 @@ function aboutPage() {
         <article class="collage-note">
           <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
           <strong>Apex</strong>
-          <small>Riyadh, Saudi Arabia</small>
+          <small>Makkah, Saudi Arabia</small>
         </article>
       </div>
       <div class="about-story-copy">
@@ -649,12 +657,12 @@ function aboutPage() {
 function conversationPage() {
   return `<article class="content-page conversation-page">
     <section class="contact-hero">
-      <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1800&q=85" alt="King Abdullah Financial District Riyadh" />
+      <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1800&q=85" alt="Modern business district in Saudi Arabia" />
       <div class="contact-hero-overlay"></div>
       <div class="contact-hero-copy">
         <p class="eyebrow">INITIAL CONSULTATION</p>
         <h1>Start a meaningful<br /><em>conversation.</em></h1>
-        <p>Whether you are expanding into Saudi Arabia, evaluating an investment opportunity, or resolving operational hurdles, our Riyadh team provides grounded, practical guidance.</p>
+        <p>Whether you are expanding into Saudi Arabia, evaluating an investment opportunity, or resolving operational hurdles, our Makkah team provides grounded, practical guidance.</p>
       </div>
     </section>
 
@@ -675,10 +683,10 @@ function conversationPage() {
       </article>
       <article>
         <span class="contact-symbol contact-symbol-location" aria-hidden="true"><i></i></span>
-        <p class="eyebrow">MEET IN RIYADH</p>
-        <h2>KAFD Headquarters</h2>
-        <p>In-person consultations available by appointment in King Abdullah Financial District.</p>
-        <a href="https://www.google.com/maps/search/?api=1&query=King+Abdullah+Financial+District+Riyadh" target="_blank" rel="noreferrer">View Location <b aria-hidden="true">&rarr;</b></a>
+        <p class="eyebrow">MEET IN MAKKAH</p>
+        <h2>Makkah Office</h2>
+        <p>In-person consultations available by appointment at ${OFFICE_ADDRESS}.</p>
+        <a href="${OFFICE_MAP_URL}" target="_blank" rel="noreferrer">View Location <b aria-hidden="true">&rarr;</b></a>
       </article>
     </section>
 
@@ -698,9 +706,9 @@ function conversationPage() {
           <div class="map-grid" aria-hidden="true"><i></i><i></i><i></i><i></i><b></b></div>
           <div>
             <small>APEX ADVISORY</small>
-            <strong>Riyadh Hub</strong>
-            <span>King Abdullah Financial District, Riyadh</span>
-            <a href="https://www.google.com/maps/search/?api=1&query=King+Abdullah+Financial+District+Riyadh" target="_blank" rel="noreferrer">Directions <b aria-hidden="true">&rarr;</b></a>
+            <strong>Makkah Office</strong>
+            <span>${OFFICE_ADDRESS}</span>
+            <a href="${OFFICE_MAP_URL}" target="_blank" rel="noreferrer">Directions <b aria-hidden="true">&rarr;</b></a>
           </div>
         </div>
       </div>
@@ -977,7 +985,7 @@ function advisorySessionPage() {
         <div class="contact-availability">
           <p class="eyebrow">SESSION LOGISTICS</p>
           <h2>Format &amp; Preparation</h2>
-          <p>Sessions are conducted virtually via Microsoft Teams / Zoom or in-person at our Riyadh office in the King Abdullah Financial District.</p>
+          <p>Sessions are conducted virtually via Microsoft Teams / Zoom or in-person at our Makkah office at ${OFFICE_ADDRESS}.</p>
           <ul>
             <li><span aria-hidden="true"></span><div><strong>Duration</strong><small>60 minutes of focused, confidential executive discussion.</small></div></li>
             <li><span aria-hidden="true"></span><div><strong>Attendees</strong><small>Founders, Managing Directors, CFOs, or Legal Counsel.</small></div></li>
@@ -999,7 +1007,7 @@ function advisorySessionPage() {
           <label>Meeting Format Preference
             <select name="format" style="width:100%; padding:13px; border:1px solid #c9e3e6; border-radius:10px; background:#fbfefe; color:#07152f; font:600 13px Manrope;">
               <option value="Virtual (Microsoft Teams / Zoom)">Virtual Video Call (Microsoft Teams / Zoom)</option>
-              <option value="In-Person (KAFD Riyadh Headquarters)">In-Person at KAFD Riyadh Headquarters</option>
+              <option value="In-Person (Al Jamiah, Makkah)">In-Person at ${OFFICE_ADDRESS}</option>
             </select>
           </label>
           <label>Preferred Timeframe<input name="timeframe" placeholder="e.g. This week, next Tuesday afternoon" /></label>
@@ -1246,9 +1254,9 @@ function freshInsightsPage() {
 
 function contactPage() {
   return `<article class="content-page contact-page">
-    <section class="contact-hero"><img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1800&q=85" alt="King Abdullah Financial District Riyadh" /><div class="contact-hero-overlay"></div><div class="contact-hero-copy"><p class="eyebrow">CONTACT APEX</p><h1>Bring us your<br /><em>key priorities.</em></h1><p>Whether you are establishing a new entity in Saudi Arabia, evaluating an investment opportunity, or resolving operational hurdles, our Riyadh team is ready to assist.</p></div></section>
-    <section class="contact-methods" aria-label="Ways to contact Apex"><article><span class="contact-symbol contact-symbol-chat" aria-hidden="true"><i></i><i></i></span><p class="eyebrow">DIRECT MESSAGING</p><h2>+966 57 008 2565</h2><p>Connect directly with our advisory coordinators for immediate guidance.</p><a href="https://wa.me/966570082565" target="_blank" rel="noreferrer">Message Apex <b aria-hidden="true">&rarr;</b></a></article><article class="contact-method-featured"><span class="contact-symbol contact-symbol-mail" aria-hidden="true"><i></i></span><p class="eyebrow">OFFICIAL ENQUIRY</p><h2>info@apexbusinessksa.com</h2><p>Submit your detailed expansion brief or corporate advisory requirements.</p><a href="mailto:info@apexbusinessksa.com">Send an Email <b aria-hidden="true">&rarr;</b></a></article><article><span class="contact-symbol contact-symbol-location" aria-hidden="true"><i></i></span><p class="eyebrow">HEADQUARTERS</p><h2>Riyadh, Saudi Arabia</h2><p>King Abdullah Financial District (KAFD), central to the Kingdom's business core.</p><a href="https://www.google.com/maps/search/?api=1&query=King+Abdullah+Financial+District+Riyadh" target="_blank" rel="noreferrer">View Location <b aria-hidden="true">&rarr;</b></a></article></section>
-    <section class="contact-details"><div class="contact-side"><div class="contact-availability"><p class="eyebrow">OUR CONSULTATION PROCESS</p><h2>A structured advisory conversation.</h2><p>Share your business model, target timeline, and specific expansion requirements. We respond with a clear, actionable roadmap.</p><ul><li><span aria-hidden="true"></span><div><strong>Initial Scope Assessment</strong><small>Review of licensing, legal structure, tax, or operational needs.</small></div></li><li><span aria-hidden="true"></span><div><strong>Strategic Priority Alignment</strong><small>Identifying key statutory dependencies and immediate milestones.</small></div></li><li><span aria-hidden="true"></span><div><strong>Structured Execution Plan</strong><small>Receive a practical roadmap and dedicated advisory support.</small></div></li></ul></div><div class="contact-map"><div class="map-grid" aria-hidden="true"><i></i><i></i><i></i><i></i><b></b></div><div><small>APEX BUSINESS CONSULTANCY</small><strong>Riyadh Office</strong><span>King Abdullah Financial District</span><a href="https://www.google.com/maps/search/?api=1&query=King+Abdullah+Financial+District+Riyadh" target="_blank" rel="noreferrer">Get Directions <b aria-hidden="true">&rarr;</b></a></div></div></div>
+    <section class="contact-hero"><img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1800&q=85" alt="Modern business district in Saudi Arabia" /><div class="contact-hero-overlay"></div><div class="contact-hero-copy"><p class="eyebrow">CONTACT APEX</p><h1>Bring us your<br /><em>key priorities.</em></h1><p>Whether you are establishing a new entity in Saudi Arabia, evaluating an investment opportunity, or resolving operational hurdles, our Makkah team is ready to assist.</p></div></section>
+    <section class="contact-methods" aria-label="Ways to contact Apex"><article><span class="contact-symbol contact-symbol-chat" aria-hidden="true"><i></i><i></i></span><p class="eyebrow">DIRECT MESSAGING</p><h2>+966 57 008 2565</h2><p>Connect directly with our advisory coordinators for immediate guidance.</p><a href="https://wa.me/966570082565" target="_blank" rel="noreferrer">Message Apex <b aria-hidden="true">&rarr;</b></a></article><article class="contact-method-featured"><span class="contact-symbol contact-symbol-mail" aria-hidden="true"><i></i></span><p class="eyebrow">OFFICIAL ENQUIRY</p><h2>info@apexbusinessksa.com</h2><p>Submit your detailed expansion brief or corporate advisory requirements.</p><a href="mailto:info@apexbusinessksa.com">Send an Email <b aria-hidden="true">&rarr;</b></a></article><article><span class="contact-symbol contact-symbol-location" aria-hidden="true"><i></i></span><p class="eyebrow">HEADQUARTERS</p><h2>Makkah, Saudi Arabia</h2><p>${OFFICE_ADDRESS}</p><a href="${OFFICE_MAP_URL}" target="_blank" rel="noreferrer">View Location <b aria-hidden="true">&rarr;</b></a></article></section>
+    <section class="contact-details"><div class="contact-side"><div class="contact-availability"><p class="eyebrow">OUR CONSULTATION PROCESS</p><h2>A structured advisory conversation.</h2><p>Share your business model, target timeline, and specific expansion requirements. We respond with a clear, actionable roadmap.</p><ul><li><span aria-hidden="true"></span><div><strong>Initial Scope Assessment</strong><small>Review of licensing, legal structure, tax, or operational needs.</small></div></li><li><span aria-hidden="true"></span><div><strong>Strategic Priority Alignment</strong><small>Identifying key statutory dependencies and immediate milestones.</small></div></li><li><span aria-hidden="true"></span><div><strong>Structured Execution Plan</strong><small>Receive a practical roadmap and dedicated advisory support.</small></div></li></ul></div><div class="contact-map"><div class="map-grid" aria-hidden="true"><i></i><i></i><i></i><i></i><b></b></div><div><small>APEX BUSINESS CONSULTANCY</small><strong>Makkah Office</strong><span>${OFFICE_ADDRESS}</span><a href="${OFFICE_MAP_URL}" target="_blank" rel="noreferrer">Get Directions <b aria-hidden="true">&rarr;</b></a></div></div></div>
       <section class="contact-form-panel" aria-labelledby="contact-form-title"><p class="eyebrow">SUBMIT AN ENQUIRY</p><h2 id="contact-form-title">Start a Consultation</h2><p>Complete the form below and an Apex advisory specialist will review your request within one business day.</p><form class="simple-contact"><label>Full Name<input name="name" autocomplete="name" required placeholder="e.g. Tariq Al-Mansoor" /></label><label>Corporate Email<input name="email" type="email" autocomplete="email" required placeholder="name@company.com" /></label><label>Company Name <span>(optional)</span><input name="company" autocomplete="organization" placeholder="Your organization" /></label><label>How Can We Assist?<textarea name="message" required placeholder="Describe your market entry, licensing, tax, or operational requirements..."></textarea></label><button class="button" type="submit">Submit Enquiry <span aria-hidden="true">&rarr;</span></button><p class="form-message" role="status" aria-live="polite"></p></form></section>
     </section>
   </article>`;
@@ -1466,7 +1474,7 @@ function applyCmsPresentation() {
   const email = contactCms.email || footerCms.email || content.settings.email || '';
   const phone = contactCms.phone || footerCms.phone || '';
   const whatsapp = whatsappHref(contactCms.whatsapp || social.whatsapp || content.settings.whatsapp, '');
-  const address = contactCms.address || footerCms.address || '';
+  const address = currentOfficeAddress(contactCms.address || footerCms.address);
 
   if (email) {
     document.querySelectorAll('a[href^="mailto:"]').forEach((anchor) => {

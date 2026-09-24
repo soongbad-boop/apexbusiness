@@ -1,7 +1,13 @@
 <?php
 declare(strict_types=1);
 
+use PHPMailer\PHPMailer\PHPMailer;
+
 require dirname(__DIR__, 2) . '/app/bootstrap.php';
+$mailerAutoload = dirname(__DIR__, 2) . '/vendor/autoload.php';
+if (is_file($mailerAutoload)) {
+    require_once $mailerAutoload;
+}
 start_secure_session($config);
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -65,131 +71,69 @@ $subject = match ($type) {
     default => 'Website enquiry',
 };
 
-function send_inquiry_email(array $config, string $subject, array $details): bool
+function log_inquiry_mail_failure(string $message, array $secrets = []): void
 {
-    $recipient = filter_var($config['mail']['to_address'] ?? '', FILTER_VALIDATE_EMAIL);
-    $from = filter_var($config['mail']['from_address'] ?? '', FILTER_VALIDATE_EMAIL);
-    if (!$recipient || !$from) {
-        return false;
-    }
-
-    $lines = ['A new enquiry was submitted through the Apex website.', ''];
-    foreach ($details as $label => $value) {
-        $value = trim((string) $value);
-        if ($value !== '') {
-            $lines[] = $label . ': ' . $value;
+    foreach ($secrets as $secret) {
+        if (is_string($secret) && $secret !== '') {
+            $message = str_replace($secret, '[redacted]', $message);
         }
     }
-
-    $headers = [
-        'From: ' . normalized_text($config['mail']['from_name'] ?? 'Apex Business Consultancy', 100) . ' <' . $from . '>',
-        'Reply-To: ' . $details['Email'],
-        'Content-Type: text/plain; charset=UTF-8',
-        'MIME-Version: 1.0',
-        'X-Mailer: Apex Website',
-    ];
-
-    $body = implode("\r\n", $lines);
-    if (($config['mail']['driver'] ?? '') === 'smtp') {
-        return smtp_send_mail($config['mail'], $recipient, '[Apex Website] ' . $subject, $body, $headers);
-    }
-
-    return mail($recipient, '[Apex Website] ' . $subject, $body, implode("\r\n", $headers));
+    $message = mb_substr($message, 0, 1000);
+    $GLOBALS['apex_mail_failure'] = $message;
+    error_log('Apex SMTP delivery failed: ' . $message);
 }
 
-function smtp_send_mail(array $mail, string $recipient, string $subject, string $body, array $headers): bool
+function send_inquiry_email(array $config, string $subject, array $details): bool
 {
+    $mail = $config['mail'] ?? [];
     $host = trim((string) ($mail['host'] ?? ''));
-    $port = (int) ($mail['port'] ?? 0);
     $username = trim((string) ($mail['username'] ?? ''));
     $password = (string) ($mail['password'] ?? '');
     $from = filter_var($mail['from_address'] ?? '', FILTER_VALIDATE_EMAIL);
-    if ($host === '' || $port <= 0 || !$from || $username === '' || $password === '') {
-        error_log('Apex SMTP delivery is not configured completely.');
+    $recipient = filter_var($mail['to_address'] ?? '', FILTER_VALIDATE_EMAIL);
+    $encryption = strtolower(trim((string) ($mail['encryption'] ?? '')));
+
+    if (!class_exists(PHPMailer::class)) {
+        log_inquiry_mail_failure('PHPMailer is missing; run composer install.');
+        return false;
+    }
+    if (($mail['driver'] ?? '') !== 'smtp' || $host === '' || $username === '' || $password === '' || !$from || !$recipient || !in_array($encryption, ['ssl', 'tls'], true)) {
+        log_inquiry_mail_failure('SMTP configuration is incomplete or invalid.');
         return false;
     }
 
-    $encryption = strtolower(trim((string) ($mail['encryption'] ?? 'tls')));
-    $remote = ($encryption === 'ssl' ? 'ssl://' : '') . $host . ':' . $port;
-    $socket = @stream_socket_client($remote, $errno, $errstr, 20, STREAM_CLIENT_CONNECT);
-    if (!$socket) {
-        error_log('Apex SMTP connection failed: ' . $errno . ' ' . $errstr);
-        return false;
-    }
-
-    stream_set_timeout($socket, 20);
+    $mailer = new PHPMailer(true);
     try {
-        smtp_expect($socket, [220]);
-        smtp_command($socket, 'EHLO ' . smtp_local_host(), [250]);
-        if ($encryption === 'tls') {
-            smtp_command($socket, 'STARTTLS', [220]);
-            if (!stream_socket_enable_crypto($socket, true, STREAM_CRYPTO_METHOD_TLS_CLIENT)) {
-                error_log('Apex SMTP STARTTLS negotiation failed.');
-                return false;
+        $mailer->isSMTP();
+        $mailer->Host = $host;
+        $mailer->SMTPAuth = true;
+        $mailer->Username = $username;
+        $mailer->Password = $password;
+        $mailer->SMTPSecure = $encryption === 'ssl' ? PHPMailer::ENCRYPTION_SMTPS : PHPMailer::ENCRYPTION_STARTTLS;
+        $mailer->Port = (int) ($mail['port'] ?? ($encryption === 'ssl' ? 465 : 587));
+        $mailer->Timeout = max(5, min(60, (int) ($mail['timeout'] ?? 20)));
+        $mailer->CharSet = PHPMailer::CHARSET_UTF8;
+        $mailer->setFrom($from, normalized_text($mail['from_name'] ?? 'Apex Business Consultancy', 100));
+        $mailer->addAddress($recipient);
+        if (filter_var($details['Email'] ?? '', FILTER_VALIDATE_EMAIL)) {
+            $mailer->addReplyTo($details['Email'], normalized_text($details['Name'] ?? '', 160));
+        }
+        $mailer->Subject = '[Apex Website] ' . $subject;
+        $lines = ['A new enquiry was submitted through the Apex website.', ''];
+        foreach ($details as $label => $value) {
+            $value = trim((string) $value);
+            if ($value !== '') {
+                $lines[] = $label . ': ' . $value;
             }
-            smtp_command($socket, 'EHLO ' . smtp_local_host(), [250]);
         }
-        smtp_command($socket, 'AUTH LOGIN', [334]);
-        smtp_command($socket, base64_encode($username), [334]);
-        smtp_command($socket, base64_encode($password), [235]);
-        smtp_command($socket, 'MAIL FROM:<' . $from . '>', [250]);
-        smtp_command($socket, 'RCPT TO:<' . $recipient . '>', [250, 251]);
-        smtp_command($socket, 'DATA', [354]);
-        $message = implode("\r\n", [
-            'Subject: ' . smtp_header_value($subject),
-            'To: <' . $recipient . '>',
-            ...$headers,
-            '',
-            $body,
-            '.',
-        ]);
-        smtp_command($socket, smtp_dot_stuff($message), [250]);
-        smtp_command($socket, 'QUIT', [221]);
-        return true;
+        $mailer->Body = implode("\r\n", $lines);
+        $mailer->isHTML(false);
+        return $mailer->send();
     } catch (Throwable $e) {
-        error_log('Apex SMTP delivery failed: ' . $e->getMessage());
+        $error = $mailer->ErrorInfo ?: $e->getMessage();
+        log_inquiry_mail_failure($error, [$password, $username]);
         return false;
-    } finally {
-        fclose($socket);
     }
-}
-
-function smtp_command($socket, string $command, array $expectedCodes): string
-{
-    fwrite($socket, $command . "\r\n");
-    return smtp_expect($socket, $expectedCodes);
-}
-
-function smtp_expect($socket, array $expectedCodes): string
-{
-    $response = '';
-    while (($line = fgets($socket, 515)) !== false) {
-        $response .= $line;
-        if (preg_match('/^\d{3}\s/', $line)) {
-            break;
-        }
-    }
-    $code = (int) substr($response, 0, 3);
-    if (!in_array($code, $expectedCodes, true)) {
-        throw new RuntimeException('Unexpected SMTP response code ' . $code);
-    }
-    return $response;
-}
-
-function smtp_local_host(): string
-{
-    $host = preg_replace('/[^A-Za-z0-9.-]/', '', (string) ($_SERVER['HTTP_HOST'] ?? 'localhost'));
-    return $host !== '' ? $host : 'localhost';
-}
-
-function smtp_header_value(string $value): string
-{
-    return str_replace(["\r", "\n"], ' ', $value);
-}
-
-function smtp_dot_stuff(string $message): string
-{
-    return preg_replace('/^\./m', '..', $message) ?? $message;
 }
 
 try {
@@ -223,7 +167,12 @@ try {
     $emailSent = send_inquiry_email($config, $subject, $emailDetails);
     if (!$emailSent) {
         error_log('Apex enquiry email delivery failed for inquiry #' . $inquiryId);
-        json_response(['error' => 'Your enquiry was saved, but the notification email could not be sent. Please contact us by email or WhatsApp.', 'id' => $inquiryId], 502);
+        $error = 'Your enquiry was saved, but the notification email could not be sent. Please contact us by email or WhatsApp.';
+        if (!empty($config['app_debug'])) {
+            $diagnostic = (string) ($GLOBALS['apex_mail_failure'] ?? 'No SMTP diagnostic was captured.');
+            $error .= ' SMTP diagnostic: ' . $diagnostic;
+        }
+        json_response(['error' => $error, 'id' => $inquiryId], 502);
     }
     json_response(['ok' => true, 'id' => $inquiryId, 'email_sent' => $emailSent], 201);
 } catch (PDOException $e) {

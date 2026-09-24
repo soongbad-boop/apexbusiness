@@ -8,8 +8,11 @@ deployment:
     #    This preserves untracked production files such as .env and uploaded media.
     - /usr/bin/git archive --format=tar HEAD | /bin/tar -x -C $DEPLOYPATH
 
-    # 3. Run the safe CLI deployment check/import runner when PHP is available.
+    # 3. Install locked production dependencies needed by the inquiry mailer.
+    - command -v composer >/dev/null 2>&1 || { echo "Composer is required for PHPMailer" >&2; exit 1; }; composer install --no-dev --prefer-dist --optimize-autoloader --working-dir=$DEPLOYPATH
+
+    # 4. Run the safe CLI deployment check/import runner when PHP is available.
     - command -v php >/dev/null 2>&1 || { echo "php CLI is required for deployment" >&2; exit 1; }; php $DEPLOYPATH/deploy.php
 
-    # 4. SECURITY: remove the one-time manual admin bootstrap helper after deployment completes.
+    # 5. SECURITY: remove the one-time manual admin bootstrap helper after deployment completes.
     - /bin/rm -f $DEPLOYPATH/database/create-admin.php

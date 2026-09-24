@@ -10,6 +10,9 @@ $outputPath = Join-Path $rootDir $zipName
 
 Write-Host "Creating production deploy zip: $zipName..." -ForegroundColor Cyan
 
+& composer install --no-dev --prefer-dist --optimize-autoloader --working-dir=$rootDir
+if ($LASTEXITCODE -ne 0) { throw "Composer dependency installation failed." }
+
 # Files/folders to exclude from zip
 $exclude = @(
     ".git",
@@ -37,8 +40,11 @@ $criticalFiles = @(
     "login.php",
     "public\api\auth\csrf.php",
     "public\api\auth\login.php",
+    "public\api\inquiries.php",
     "public\api\settings.php",
-    "public\api\posts.php"
+    "public\api\posts.php",
+    "composer.lock",
+    "vendor\autoload.php"
 )
 
 # Temporary staging folder

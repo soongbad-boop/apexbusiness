@@ -1,0 +1,13 @@
+{
+    "name": "apex/business-consultancy-website",
+    "description": "Apex Business Consultancy website",
+    "type": "project",
+    "license": "proprietary",
+    "require": {
+        "php": ">=8.0",
+        "phpmailer/phpmailer": "^6.9"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

@@ -5,6 +5,9 @@
 !.env.example
 !.env.production.example
 
+# Composer dependencies are installed during deployment/package creation
+/vendor/
+
 # Production deployment zips & build artifacts
 *.zip
 *.tar.gz
